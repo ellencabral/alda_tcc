@@ -7,10 +7,11 @@
     <div class="form-group">
         <label for="name" class="form-label">Nome</label>
         <input type="text"
+               autofocus
                name="name"
                id="name"
                class="form-control"
-               @isset($name)value="{{ $name }}"@endisset>
+               value="{{ isset($name) ? $name : old('name') }}">
     </div>
     <div class="form-group">
         <label for="email" class="form-label">E-mail</label>
@@ -18,7 +19,7 @@
                name="email"
                id="email"
                class="form-control"
-               @isset($email)value="{{ $email }}"@endisset>
+               value="{{ isset($email) ? $email : old('email') }}">
     </div>
     @if(!$update)
         <div class="form-group">
@@ -27,7 +28,7 @@
                    name="password"
                    id="password"
                    class="form-control"
-                   @isset($password)value="{{ $password }}"@endisset>
+                   value="{{ old('password') }}">
         </div>
     @endif
 

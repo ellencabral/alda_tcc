@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UsersFormRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,7 +23,7 @@ class UserController
     {
         return view('users.create');
     }
-    public function store(Request $request)
+    public function store(UsersFormRequest $request)
     {
         $data = $request->except(['_token']);
         $data['password'] = Hash::make($data['password']);
@@ -38,7 +39,7 @@ class UserController
         return view('users.edit')
             ->with('user', $user);
     }
-    public function update(User $user, Request $request)
+    public function update(User $user, UsersFormRequest $request)
     {
         $user->fill($request->all());
         $user->save();

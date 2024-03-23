@@ -1,4 +1,4 @@
-<x-layout title="Usuários">
+<x-layout title="Início">
     <a href="{{ route('users.create')  }}" class="btn btn-dark mb-2">Registrar</a>
 
     @isset($message)

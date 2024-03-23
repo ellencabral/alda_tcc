@@ -7,6 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 class UsersFormRequest extends FormRequest
 {
     /**
+     * Indicates if the validator should stop on the first rule failure.
+     *
+     * @var bool
+     */
+    protected $stopOnFirstFailure = true;
+    /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
@@ -22,12 +28,17 @@ class UsersFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:3']
+            'name' => ['required', 'min:3'],
+            'email' => ['required', 'email']
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
-        return [ ];
+        return [
+            'name.required' => "O campo nome é obrigatório",
+            'name.min' => "O nome precisa ter no mínimo :min caracteres",
+            'email.required' => "O campo e-mail é obrigatório",
+        ];
     }
 }
