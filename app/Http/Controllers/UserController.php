@@ -14,7 +14,8 @@ class UserController
 
         return view('users.index')->with('users', $users);
     }
-    public function create(){
+    public function create()
+    {
         return view('users.create');
     }
     public function store(Request $request)
@@ -24,6 +25,23 @@ class UserController
 
         $user = User::create($data);
         //Auth::login($user);
+
+        return to_route('users.index');
+    }
+    public function edit(User $user)
+    {
+        return view('users.edit')->with('user', $user);
+    }
+    public function update(User $user, Request $request)
+    {
+        $user->fill($request->all());
+        $user->save();
+
+        return to_route('users.index');
+    }
+    public function destroy(User $user)
+    {
+        $user->delete();
 
         return to_route('users.index');
     }
