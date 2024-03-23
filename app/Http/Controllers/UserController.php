@@ -12,7 +12,7 @@ class UserController
     {
         $users = User::query()->orderBy('name')->get();
 
-        return view('users.indegit x')->with('users', $users);
+        return view('users.index')->with('users', $users);
     }
     public function create(){
         return view('users.create');
