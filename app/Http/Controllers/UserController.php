@@ -12,7 +12,11 @@ class UserController
     {
         $users = User::query()->orderBy('name')->get();
 
-        return view('users.index')->with('users', $users);
+        $message = session('message.success');
+
+        return view('users.index')
+            ->with('users', $users)
+            ->with('message', $message);
     }
     public function create()
     {
@@ -26,23 +30,27 @@ class UserController
         $user = User::create($data);
         //Auth::login($user);
 
-        return to_route('users.index');
+        return to_route('users.index')
+            ->with('message.success', "Usuário '{$user->name}' criado com sucesso");
     }
     public function edit(User $user)
     {
-        return view('users.edit')->with('user', $user);
+        return view('users.edit')
+            ->with('user', $user);
     }
     public function update(User $user, Request $request)
     {
         $user->fill($request->all());
         $user->save();
 
-        return to_route('users.index');
+        return to_route('users.index')
+            ->with('message.success', "Usuário '{$user->name}' atualizado com sucesso");
     }
     public function destroy(User $user)
     {
         $user->delete();
 
-        return to_route('users.index');
+        return to_route('users.index')
+            ->with('message.success', "Usuário '{$user->name}' removido com sucesso");
     }
 }

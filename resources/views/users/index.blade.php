@@ -1,6 +1,12 @@
 <x-layout title="Usuários">
     <a href="{{ route('users.create')  }}" class="btn btn-dark mb-2">Registrar</a>
 
+    @isset($message)
+        <div class="alert alert-success">
+            {{ $message }}
+        </div>
+    @endisset
+
     <ul class="list-group">
         @foreach($users as $user)
             <li class="list-group-item d-flex justify-content-between align-items-center">
