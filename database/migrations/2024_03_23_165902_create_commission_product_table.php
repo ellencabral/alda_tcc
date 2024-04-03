@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('commission_id')->references('id')
                 ->on('commissions')->onDelete('cascade');
             $table->foreign('product_id')->references('id')
-                ->on('commissions')->onDelete('cascade');
+                ->on('products')->onDelete('cascade');
         });
     }
 
