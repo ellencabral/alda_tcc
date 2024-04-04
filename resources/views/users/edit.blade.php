@@ -2,7 +2,7 @@
     <x-users.form :action="route('users.update', $user->id)"
                   :name="$user->name"
                   :email="$user->email"
-                  :password="$user->password"
+                  :phone="$user->phone"
                   :update="true"
                   :button="'Salvar'"/>
 </x-layout>

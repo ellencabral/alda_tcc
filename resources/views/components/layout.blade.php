@@ -2,6 +2,8 @@
 <head>
     <title>{{ $title }} - Controle de Usuários</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Scripts -->
+    @vite(['resources/js/app.js'])
 </head>
 <body>
 
