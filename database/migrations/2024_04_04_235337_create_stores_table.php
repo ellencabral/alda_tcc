@@ -18,7 +18,15 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->binary('image')->nullable();
             $table->timestamp('created_at');
-            $table->boolean('is_active')->default(1);
+            $table->boolean('is_active')->default(true);
+
+            $table->string('street', 150)->nullable();
+            $table->string('number', 20)->nullable();
+            $table->string('complement', 150)->nullable();
+            $table->string('locality', 50)->nullable();
+            $table->string('city', 50)->nullable();
+            $table->char('region_code', 2)->nullable();
+            $table->string('postal_code', 9)->nullable();
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });

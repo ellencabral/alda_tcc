@@ -14,14 +14,17 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name', 50);
-            $table->string('email', 100)->unique();
+            $table->string('email', 150)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone', 16)->unique()->nullable();
             $table->string('password', 255);
+            $table->string('tax_id', 14)->unique()->nullable();
+            $table->string('payment_key', 255)->nullable();
             $table->binary('image')->nullable();
-            $table->enum('type', ['user','admin'])->default('user');
-            $table->boolean('is_active')->default(1);
+            $table->boolean('is_active')->default(true);
             $table->rememberToken();
+
+            $table->foreignId('user_types_id')->constrained();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

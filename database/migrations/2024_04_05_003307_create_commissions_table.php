@@ -16,18 +16,12 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('total', 5, 2);
             $table->enum('payment', ['PIX','Cartão de crédito']);
-            $table->enum('status', [
-                'Pedido Efetuado',
-                'Aguardando Pagamento',
-                'Em preparação',
-                'Pedido Enviado',
-                'Em Transporte',
-                'Pedido Entregue'
-            ]);
             $table->timestamps();
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('store_id')->constrained()->onDelete('cascade');
+            $table->foreignId('shipping_address_id')->constrained();
+            $table->foreignId('status_id')->constrained();
         });
     }
 

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('commission_products', function (Blueprint $table) {
             $table->id();
-            $table->decimal('price', 5, 2);
-            $table->integer('quantity');
+            $table->decimal('sale_price', 5, 2);
+            $table->unsignedInteger('quantity');
             $table->decimal('total', 5, 2);
 
-            $table->foreignId('commission_id')->constrained()->onDelete('cascade');
             $table->foreignId('product_id')->constrained()->onDelete('cascade');
+            $table->foreignId('commission_id')->constrained()->onDelete('cascade');
         });
     }
 
