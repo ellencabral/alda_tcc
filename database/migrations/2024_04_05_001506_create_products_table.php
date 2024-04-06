@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedInteger('deadline')->nullable();
             $table->boolean('is_active')->default(true);
 
-            $table->foreignId('store_id')->constrained()->onDelete('cascade');
+            $table->foreignId('shop_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
         });
     }
