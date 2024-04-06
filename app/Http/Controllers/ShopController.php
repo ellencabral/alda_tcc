@@ -52,12 +52,8 @@ class ShopController extends Controller
     /**
      * Update the user's shop information.
      */
-    public function update(Request $request): RedirectResponse
+    public function update(Shop $shop, Request $request): RedirectResponse
     {
-        $user = User::with('shop')->find(auth()->id());
-
-        $shop = $user->shop;
-
         $shop->fill($request->validate([
             'name' => ['required', 'string', 'max:150'],
             'url' => ['required', 'string', 'max:50', 'unique:'.Shop::class],
@@ -65,7 +61,7 @@ class ShopController extends Controller
 
         $shop->save();
 
-        return redirect(route('shop.edit'))
+        return redirect(route('shop.edit', $shop->id))
             ->with('status', 'profile-updated');
     }
 }

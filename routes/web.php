@@ -20,8 +20,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/shop', [ShopController::class, 'create'])->name('shop.create');
     Route::post('/shop', [ShopController::class, 'store'])->name('shop.store');
-    Route::get('/shop', [ShopController::class, 'edit'])->name('shop.edit');
-    Route::patch('/shop', [ShopController::class, 'update'])->name('shop.update');
+
+    Route::get('/shop/{shop}', [ShopController::class, 'edit'])->name('shop.edit');
+    Route::patch('/shop/{shop}', [ShopController::class, 'update'])->name('shop.update');
 });
 
 require __DIR__.'/auth.php';

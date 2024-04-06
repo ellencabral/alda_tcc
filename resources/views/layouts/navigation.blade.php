@@ -39,7 +39,7 @@
                         </x-dropdown-link>
 
                         @if(Auth::user()->user_type_id == 3)
-                            <x-dropdown-link :href="route('shop.edit')">
+                            <x-dropdown-link :href="route('shop.edit', Auth::user()->shop->id)">
                                 Editar Loja
                             </x-dropdown-link>
                         @else

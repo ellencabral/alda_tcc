@@ -16,7 +16,7 @@
                             </h2>
                         </header>
 
-                        <form method="POST" action="{{ route('shop.update') }}" class="mt-6 space-y-6">
+                        <form method="POST" action="{{ route('shop.update', $shop->id) }}" class="mt-6 space-y-6">
                             @csrf
                             @method('patch')
 
