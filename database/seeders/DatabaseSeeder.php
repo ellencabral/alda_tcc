@@ -15,24 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        UserType::factory(2)
-            ->sequence(
-                ['type' => 'user'],
-                ['type' => 'admin'],
-            )
-            ->create();
+        $this->call(CategoriesSeeder::class);
+
+        $this->call(StatusesSeeder::class);
+
+        $this->call(UserTypesSeeder::class);
 
         User::factory(4)->create();
-
-        Status::factory(6)
-            ->sequence(
-                ['description' => 'Pedido Efetuado'],
-                ['description' => 'Aguardando Pagamento'],
-                ['description' => 'Em Preparação'],
-                ['description' => 'Pedido Enviado'],
-                ['description' => 'Em Transporte'],
-                ['description' => 'Pedido Entregue'],
-            )
-            ->create();
     }
 }
