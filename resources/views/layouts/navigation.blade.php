@@ -38,7 +38,11 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        @if(!Auth::user()->user_type_id == 3)
+                        @if(Auth::user()->user_type_id == 3)
+                            <x-dropdown-link :href="route('shop.edit')">
+                                Editar Loja
+                            </x-dropdown-link>
+                        @else
                             <x-dropdown-link :href="route('shop.create')">
                                 Criar Loja
                             </x-dropdown-link>
