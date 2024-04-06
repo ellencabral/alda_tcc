@@ -38,6 +38,12 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        @if(!Auth::user()->user_type_id == 3)
+                            <x-dropdown-link :href="route('shop.create')">
+                                Criar Loja
+                            </x-dropdown-link>
+                        @endif
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

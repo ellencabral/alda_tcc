@@ -10,7 +10,8 @@ class UserTypesSeeder extends Seeder
 {
     static $user_types = [
         'user',
-        'admin'
+        'admin',
+        'artisan',
     ];
     /**
      * Run the database seeds.

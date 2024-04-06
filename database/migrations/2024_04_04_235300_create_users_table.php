@@ -24,7 +24,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->rememberToken();
 
-            $table->foreignId('user_types_id')->default(1)->constrained();
+            $table->foreignId('user_type_id')->default(1)->constrained();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('name', 150);
             $table->text('description')->nullable();
             $table->binary('image')->nullable();
-            $table->timestamp('created_at');
+            $table->timestamp('created_at')->useCurrent();
             $table->boolean('is_active')->default(true);
 
             $table->string('street', 150)->nullable();
