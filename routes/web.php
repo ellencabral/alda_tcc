@@ -29,12 +29,14 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
     Route::post('/shop', [ShopController::class, 'store'])->name('shop.store');
     Route::get('/shop', [ShopController::class, 'edit'])->name('shop.edit');
     Route::patch('/shop', [ShopController::class, 'update'])->name('shop.update');
+    Route::delete('/shop', [ShopController::class, 'destroy'])->name('shop.destroy');
 
     // GERENCIAR PRODUTOS
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
     Route::get('/product/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+
 });
 
 require __DIR__.'/auth.php';

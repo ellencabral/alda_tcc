@@ -6,6 +6,7 @@ use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -63,5 +64,24 @@ class ShopController extends Controller
 
         return redirect(route('shop.edit', $shop->id))
             ->with('status', 'profile-updated');
+    }
+
+    /**
+     * Delete the user's shop.
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        $request->validateWithBag('shopDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $shop = $request->user()->shop;
+
+        $shop->delete();
+
+        $request->user()->user_type_id = 1;
+        $request->user()->save();
+
+        return Redirect::to('/dashboard');
     }
 }
