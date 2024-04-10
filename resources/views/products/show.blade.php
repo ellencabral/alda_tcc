@@ -10,10 +10,13 @@
                 <ul class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         <li>
-                            Nome: {{ $product->description }}
+                            <img src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->description }}"/>
                         </li>
                         <li>
-                            Descrição: {{ $product->description }}
+                            Título: {{ $product->description }}
+                        </li>
+                        <li class="whitespace-pre-line">
+                            Descrição: {{ $product->observation }}
                         </li>
                         <li>
                             Preço: {{ $product->sale_price }}

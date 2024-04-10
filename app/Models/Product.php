@@ -12,7 +12,9 @@ class Product extends Model
     public $timestamps = false;
     protected $fillable = [
         'description',
-        'img',
+        'image',
+        'sale_price',
+        'observation',
         'shop_id',
         'category_id',
     ];

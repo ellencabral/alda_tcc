@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('description', 255);
             $table->text('observation')->nullable();
-            $table->binary('image')->nullable()->default('product-image.png');
-            $table->decimal('cost_price', 5, 2);
-            $table->decimal('sale_price', 5, 2);
+            $table->binary('image');
+            $table->decimal('cost_price', 10, 2)->nullable();
+            $table->decimal('sale_price', 10, 2);
             $table->unsignedInteger('stock')->nullable();
             $table->unsignedInteger('deadline')->nullable();
             $table->boolean('is_active')->default(true);
