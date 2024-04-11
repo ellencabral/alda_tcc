@@ -21,19 +21,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(UserTypesSeeder::class);
 
+        $this->call(PermissionSeeder::class);
+        $this->call(RoleSeeder::class);
+
         //User::factory(4)->create();
 
-        User::factory()->create([
-                'name' => 'Ellen Cabral',
-                'email' => 'ellen@example',
-                'email_verified_at' => now(),
-                'password' => 123,
-        ]);
-        User::factory()->create([
-            'name' => 'Bruno Cabral',
-            'email' => 'bruno@example',
-            'email_verified_at' => now(),
-            'password' => 123,
-        ]);
+        $this->call(UsersSeeder::class);
     }
 }

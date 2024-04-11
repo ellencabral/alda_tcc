@@ -35,8 +35,10 @@ class ShopController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        $request->user()->user_type_id = 3;
-        $request->user()->save();
+        //$request->user()->user_type_id = 3;
+        //$request->user()->save();
+        ;
+        $request->user()->syncRoles('artisan');
 
         return redirect(route('dashboard'));
     }
@@ -79,8 +81,10 @@ class ShopController extends Controller
 
         $shop->delete();
 
-        $request->user()->user_type_id = 1;
-        $request->user()->save();
+        //$request->user()->user_type_id = 1;
+        //$request->user()->save();
+
+        $request->user()->syncRoles('user');
 
         return Redirect::to('/dashboard');
     }

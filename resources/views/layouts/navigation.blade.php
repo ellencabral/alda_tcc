@@ -15,6 +15,11 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @role('admin')
+                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    @endrole
                 </div>
             </div>
 
@@ -38,18 +43,20 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
-                        @if(Auth::user()->user_type_id == 3)
+                        @role('artisan')
                             <x-dropdown-link :href="route('shop.edit')">
                                 Minha Loja
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('products.index')">
                                 Produtos
                             </x-dropdown-link>
-                        @else
+                        @endrole
+
+                        @role('user')
                             <x-dropdown-link :href="route('shop.create')">
                                 Criar Loja
                             </x-dropdown-link>
-                        @endif
+                        @endrole
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">

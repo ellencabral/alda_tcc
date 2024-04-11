@@ -15,13 +15,13 @@ class UserController
 
         $message = session('message.success');
 
-        return view('users.index')
+        return view('admin.users.index')
             ->with('users', $users)
             ->with('message', $message);
     }
     public function create()
     {
-        return view('users.create');
+        return view('admin.users.create');
     }
     public function store(UsersFormRequest $request)
     {
@@ -31,12 +31,12 @@ class UserController
         $user = User::create($data);
         //Auth::login($user);
 
-        return to_route('users.index')
+        return to_route('admin.users.index')
             ->with('message.success', "Usuário '{$user->name}' criado com sucesso");
     }
     public function edit(User $user)
     {
-        return view('users.edit')
+        return view('admin.users.edit')
             ->with('user', $user);
     }
     public function update(User $user, UsersFormRequest $request)
@@ -44,14 +44,18 @@ class UserController
         $user->fill($request->all());
         $user->save();
 
-        return to_route('users.index')
+        return to_route('admin.users.index')
             ->with('message.success', "Usuário '{$user->name}' atualizado com sucesso");
     }
-    public function destroy(User $user)
+    public function destroy(User $user, Request $request)
     {
+        $request->validateWithBag('userDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
         $user->delete();
 
-        return to_route('users.index')
+        return to_route('admin.users.index')
             ->with('message.success', "Usuário '{$user->name}' removido com sucesso");
     }
 }
