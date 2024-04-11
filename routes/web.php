@@ -36,15 +36,19 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::middleware(['auth', 'role:user'])->group(function () {
+    // CRIAR LOJA
+    Route::get('/shop', [ShopController::class, 'create'])->name('shop.create');
+    Route::post('/shop', [ShopController::class, 'store'])->name('shop.store');
+});
+
 Route::middleware('auth')->group(function () {
     // EDITAR PERFIL DO USUARIO
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // CRIAR LOJA
-    Route::get('/shop', [ShopController::class, 'create'])->name('shop.create');
-    Route::post('/shop', [ShopController::class, 'store'])->name('shop.store');
+
 });
 
 Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () {
