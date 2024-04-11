@@ -33,9 +33,12 @@ Route::prefix('dashboard')->middleware(['auth', 'verified'])->group(function () 
 
     // GERENCIAR PRODUTOS
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
+    Route::get('/products/{product}/details', [ProductController::class, 'show'])->name('products.show');
     Route::get('/product/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
+    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::patch('/products/{product}/edit', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
 
 });
 

@@ -17,17 +17,23 @@
                                 {{ $product->description }}
                             </li>
                             <li>
-                                <a href="{{ route('products.show', $product->id) }}">Ver Detalhes</a>
+                                <x-nav-link href="{{ route('products.show', $product->id) }}">
+                                    Ver Detalhes
+                                </x-nav-link>
                             </li>
+                            <li>
+                                <x-nav-link href="{{ route('products.edit', $product->id) }}">
+                                    Editar
+                                </x-nav-link>
+                            </li>
+
                         </div>
                     </ul>
                 @endforeach
             @else
-                <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            Nenhum produto cadastrado ainda
-                        </div>
+                <div class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    <div class="p-6 text-gray-900 dark:text-gray-100">
+                        Nenhum produto cadastrado ainda
                     </div>
                 </div>
             @endif

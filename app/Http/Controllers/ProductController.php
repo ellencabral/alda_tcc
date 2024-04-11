@@ -7,6 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -47,6 +48,7 @@ class ProductController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
+            'image' => ['required'],
             'description' => ['required', 'string', 'max:150'],
             'sale_price' => ['required'],
             'category_id' => ['required'],
@@ -62,8 +64,6 @@ class ProductController extends Controller
                     . strtotime("now")) . "." . $extension;
 
             $requestImage->move(public_path('img/products'), $imageName);
-        } else {
-            dd($request->hasFile('image'));
         }
 
         $product = Product::create([
@@ -75,6 +75,65 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect(route('products.show', $product->id));
+        return redirect(route('products.index'));
+    }
+
+    /**
+     * Display the products edit page.
+     */
+    public function edit(Product $product): View
+    {
+        $categories = Category::orderBy('description', 'asc')->get();
+
+        return view('products.edit', [
+            'product' => $product,
+            'categories' => $categories,
+        ]);
+    }
+
+    public function update(Product $product, Request $request): RedirectResponse
+    {
+        $product->fill($request->validate([
+            'description' => ['required', 'string', 'max:150'],
+            'sale_price' => ['required'],
+            'category_id' => ['required'],
+        ]));
+
+        if($request->observation == null) {
+            $product->observation = null;
+        }
+
+        if($request->hasFile('image') && $request->file('image')->isValid()) {
+
+            $requestImage = $request->image;
+
+            $extension = $requestImage->extension();
+
+            $imageName = md5($requestImage->getClientOriginalName()
+                    . strtotime("now")) . "." . $extension;
+
+            $requestImage->move(public_path('img/products'), $imageName);
+
+            $product->image = $imageName;
+        }
+
+        $product->save();
+
+        return redirect(route('products.edit', $product->id))
+            ->with('status', 'profile-updated');
+    }
+
+    /**
+     * Delete the shop's product.
+     */
+    public function destroy(Product $product, Request $request): RedirectResponse
+    {
+        $request->validateWithBag('productDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+        File::delete(public_path('img/products').'/'.$product->image);
+        $product->delete();
+
+        return redirect(route('products.index'));
     }
 }

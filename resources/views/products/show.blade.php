@@ -21,15 +21,17 @@
                         <li>
                             Preço: {{ $product->sale_price }}
                         </li>
-                        <li>
-                            @isset($product->stock)
+                        @isset($product->stock)
+                            <li>
                                 Em estoque: {{ $product->stock }} unidades
-                            @endisset
+                            </li>
+                        @endisset
 
-                            @isset($product->deadline)
+                        @isset($product->deadline)
+                            <li>
                                 Prazo de produção: {{ $product->deadline }} dias úteis
-                            @endisset
-                        </li>
+                            </li>
+                        @endisset
                     </div>
                 </ul>
             </div>
