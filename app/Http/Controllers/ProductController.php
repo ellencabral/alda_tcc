@@ -75,7 +75,7 @@ class ProductController extends Controller
             'category_id' => $request->category_id,
         ]);
 
-        return redirect(route('products.index'));
+        return redirect(route('artisan.products.index'));
     }
 
     /**
@@ -119,7 +119,7 @@ class ProductController extends Controller
 
         $product->save();
 
-        return redirect(route('products.edit', $product->id))
+        return redirect(route('artisan.products.edit', $product->id))
             ->with('status', 'profile-updated');
     }
 
@@ -134,6 +134,6 @@ class ProductController extends Controller
         File::delete(public_path('img/products').'/'.$product->image);
         $product->delete();
 
-        return redirect(route('products.index'));
+        return redirect(route('artisan.products.index'));
     }
 }

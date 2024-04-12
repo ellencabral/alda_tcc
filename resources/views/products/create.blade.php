@@ -1,11 +1,5 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Adicionar Produto
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
+<x-artisan-layout>
+    <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
@@ -16,7 +10,7 @@
                             </h2>
                         </header>
 
-                        <form method="POST" action="{{ route('products.store') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('artisan.products.store') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                             @csrf
                             <div>
                                 <x-input-label for="image" :value="'Imagem'" />
@@ -59,7 +53,7 @@
                                               class="block mt-1 w-full"
                                               name="observation"
                                               :value="old('observation')"
-                                              required autofocus
+                                              autofocus
                                               autocomplete="observation"
                                               placeholder="Campo opcional">
                                 </x-textarea-input>
@@ -90,4 +84,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-artisan-layout>

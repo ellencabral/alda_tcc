@@ -27,15 +27,15 @@
                 </button>
             </div>
             <nav :class="{'block': open, 'hidden': !open}" class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-                <x-admin-nav-link :href="route('admin.index')">
+                <x-dashboard-nav-link :href="route('admin.index')">
                     Início
-                </x-admin-nav-link>
-                <x-admin-nav-link :href="route('admin.permissions.index')">
-                    Permissões
-                </x-admin-nav-link>
-                <x-admin-nav-link :href="route('admin.users.index')">
+                </x-dashboard-nav-link>
+                <x-dashboard-nav-link :href="route('admin.users.index')">
                     Usuários
-                </x-admin-nav-link>
+                </x-dashboard-nav-link>
+                <x-dashboard-nav-link :href="route('admin.permissions.index')">
+                    Permissões
+                </x-dashboard-nav-link>
 
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open" class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
@@ -44,20 +44,20 @@
                     </button>
                     <div x-show="open" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
                         <div class="px-2 py-2 bg-white rounded-md shadow dark:bg-gray-700">
-                            <x-admin-nav-link :href="route('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-admin-nav-link>
-                            <x-admin-nav-link :href="route('profile.edit')">
+                            <x-dashboard-nav-link :href="route('home')">
+                                {{ __('Home') }}
+                            </x-dashboard-nav-link>
+                            <x-dashboard-nav-link :href="route('profile.edit')">
                                 {{ __('Profile') }}
-                            </x-admin-nav-link>
+                            </x-dashboard-nav-link>
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <x-admin-nav-link
+                                <x-dashboard-nav-link
                                    :href="route('logout')"
                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
-                                </x-admin-nav-link>
+                                </x-dashboard-nav-link>
                             </form>
                         </div>
                     </div>

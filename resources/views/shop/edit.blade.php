@@ -1,13 +1,8 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Minha Loja
-        </h2>
-    </x-slot>
-
-    <div class="py-12">
+<x-artisan-layout>
+    <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+
                 <div class="max-w-xl">
                     <section>
                         <header>
@@ -16,7 +11,7 @@
                             </h2>
                         </header>
 
-                        <form method="POST" action="{{ route('shop.update', $shop->id) }}" class="mt-6 space-y-6">
+                        <form method="POST" action="{{ route('artisan.shop.update', $shop->id) }}" class="mt-6 space-y-6">
                             @csrf
                             @method('patch')
 
@@ -71,7 +66,7 @@
                             >{{ __('Delete') }}</x-danger-button>
 
                         <x-modal name="confirm-shop-deletion" :show="$errors->shopDeletion->isNotEmpty()" focusable>
-                            <form method="post" action="{{ route('shop.destroy') }}" class="p-6">
+                            <form method="post" action="{{ route('artisan.shop.destroy') }}" class="p-6">
                                 @csrf
                                 @method('delete')
 
@@ -113,4 +108,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-artisan-layout>

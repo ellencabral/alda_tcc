@@ -1,11 +1,11 @@
-<x-app-layout>
+<x-artisan-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             Editar Produto '{{ $product->description }}'
 
         </h2>
     </x-slot>
-    <div class="py-12">
+    <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <div class="max-w-xl">
@@ -18,7 +18,7 @@
 
                         <img src="/img/products/{{ $product->image }}" class="mt-4" style="width: 200px" alt="Imagem de {{ $product->description }}"/>
 
-                        <form method="POST" action="{{ route('products.update', $product->id) }}" class="mt-6 space-y-6" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('artisan.products.update', $product->id) }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                             @csrf
                             @method('patch')
 
@@ -50,6 +50,8 @@
                                 <x-text-input id="sale_price"
                                               class="block mt-1 w-full"
                                               type="number"
+                                              min="1"
+                                              step="any"
                                               name="sale_price"
                                               :value="old('sale_price', $product->sale_price)"
                                               required autofocus
@@ -110,7 +112,7 @@
                         >{{ __('Delete') }}</x-danger-button>
 
                         <x-modal name="confirm-product-deletion" :show="$errors->productDeletion->isNotEmpty()" focusable>
-                            <form method="post" action="{{ route('products.destroy', $product->id) }}" class="p-6">
+                            <form method="post" action="{{ route('artisan.products.destroy', $product->id) }}" class="p-6">
                                 @csrf
                                 @method('delete')
 
@@ -153,4 +155,4 @@
         </div>
     </div>
 
-</x-app-layout>
+</x-artisan-layout>

@@ -12,6 +12,10 @@ use Illuminate\View\View;
 
 class ShopController extends Controller
 {
+    public function index(): View
+    {
+        return view('shop.index');
+    }
     /**
      * Display the create shop form.
      */
@@ -40,7 +44,7 @@ class ShopController extends Controller
         ;
         $request->user()->syncRoles('artisan');
 
-        return redirect(route('dashboard'));
+        return redirect(route('home'));
     }
 
     /**
@@ -57,9 +61,10 @@ class ShopController extends Controller
      */
     public function update(Shop $shop, Request $request): RedirectResponse
     {
+
         $shop->fill($request->validate([
             'name' => ['required', 'string', 'max:150'],
-            'url' => ['required', 'string', 'max:50', 'unique:'.Shop::class],
+            'url' => ['required', 'string', 'max:50', Rule::unique(Shop::class)->ignore($request->user()->id)],
         ]));
 
         $shop->save();
@@ -86,6 +91,6 @@ class ShopController extends Controller
 
         $request->user()->syncRoles('user');
 
-        return Redirect::to('/dashboard');
+        return Redirect::to('/home');
     }
 }
