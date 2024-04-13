@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Product extends Model
@@ -22,8 +23,16 @@ class Product extends Model
     /**
      * Get the shop associated with the product.
      */
-    public function shop(): HasOne
+    public function shop(): BelongsTo
     {
-        return $this->hasOne(Shop::class);
+        return $this->BelongsTo(Shop::class);
+    }
+
+    /**
+     * Get the category associated with the product.
+     */
+    public function category(): HasOne
+    {
+        return $this->HasOne(Category::class);
     }
 }

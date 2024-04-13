@@ -49,6 +49,9 @@
                         </x-dropdown-link>
 
                         @role('artisan')
+                            <x-dropdown-link :href="route('shop.show', Auth::user()->shop->url)">
+                                Minha Loja
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('artisan.shop.index')">
                                 {{ __('Dashboard') }}
                             </x-dropdown-link>

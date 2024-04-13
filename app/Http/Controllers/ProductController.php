@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Shop;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -17,7 +18,7 @@ class ProductController extends Controller
     public function index(Request $request): View
     {
         return view('products.index', [
-            'shop_name' => $request->user()->shop->name,
+            'shop' => $request->user()->shop,
             'products' => $request->user()->shop->products,
         ]);
     }
@@ -25,12 +26,32 @@ class ProductController extends Controller
     /**
      * Display the products details.
      */
-    public function show(Product $product): View
+    public function show($url): View
     {
+        $shop = Shop::where('url', $url)->firstOrFail();
+        $product = $shop->products()->firstOrFail();
+
         return view('products.show', [
             'product' => $product,
+            'shop' => $shop,
         ]);
     }
+
+    public function search(Request $request): View
+    {
+        $search = $request->input('search');
+        $results = Product::where('description', 'like', '%' . $search . '%')->get();
+
+        return view('search', [
+            'results' => $results,
+            'search' => $search,
+        ]);
+    }
+
+//    public function searchByShop(Request $request): View
+//    {
+//
+//    }
 
     /**
      * Display the page to create a product.

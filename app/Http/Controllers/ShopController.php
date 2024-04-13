@@ -16,6 +16,17 @@ class ShopController extends Controller
     {
         return view('shop.index');
     }
+    public function show($url): View
+    {
+        $shop = Shop::where('url', $url)->first();
+        $products = $shop->products()->get();
+
+        return view('shop.show', [
+            'shop' => $shop,
+            'products' => $products,
+        ]);
+    }
+
     /**
      * Display the create shop form.
      */

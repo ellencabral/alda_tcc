@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,6 +41,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+    Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shop.show');
+    Route::get('/shop/{url}/{description}', [ProductController::class, 'show'])->name('products.show');
+
+    Route::get('/shopping_cart', [ShoppingCartController::class, 'index'])->name('shopping_cart.index');
+    Route::post('/shopping_cart', [ShoppingCartController::class, 'addShoppingCart'])->name('shopping_cart.add');
 });
 
 // ARTESAO
@@ -56,11 +65,10 @@ Route::middleware(['auth', 'role:artisan'])
 
     // GERENCIAR PRODUTOS
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/{product}/details', [ProductController::class, 'show'])->name('products.show');
     Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
     Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::patch('/products/{product}/editd', [ProductController::class, 'update'])->name('products.update');
+    Route::patch('/products/{product}/edit', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
 
 });
