@@ -28,17 +28,22 @@
                             Prazo de produção: {{ $product->deadline }} dias úteis
                         </li>
                     @endisset
+                    <li>
+                        Categoria: {{ $product->category->description }}
+                    </li>
                     @if(Auth::user()->hasRole('artisan') && $product->shop_id === Auth::user()->shop->id)
                         <li>
-                            <x-nav-link href="{{ route('artisan.products.edit', $product->id) }}">
-                                Editar
-                            </x-nav-link>
+                            <x-primary-button>
+                                <a href="{{ route('artisan.products.edit', $product->id) }}">
+                                    Editar
+                                </a>
+                            </x-primary-button>
                         </li>
                     @else
                         <li>
-                            <x-nav-link href="#">
+                            <x-primary-button href="#">
                                 Comprar
-                            </x-nav-link>
+                            </x-primary-button>
                         </li>
                     @endif
                 </div>

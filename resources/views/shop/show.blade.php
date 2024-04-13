@@ -17,34 +17,25 @@
             <ul class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @if(!$products->isEmpty())
-                        <ul class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <ul class="flex flex-wrap justify-between bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                             @foreach($products as $product)
-                                <div class="p-6 text-gray-900 dark:text-gray-100">
+                                <div style="width:auto;" class="p-6 text-gray-900 dark:text-gray-100">
                                     <li>
-                                        <img style="width:400px;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->description }}"/>
+                                        <img style="width:auto;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->description }}"/>
                                     </li>
                                     <li>
                                         {{ $product->description }}
                                     </li>
-                                    <li>
-                                        <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'description' =>  $product->description]) }}">
-                                            Ver Detalhes
-                                        </x-nav-link>
-                                    </li>
-
-                                    @if(Auth::user()->hasRole('artisan') && $product->shop_id === Auth::user()->shop->id)
+                                    <div class="flex justify-between">
                                         <li>
-                                            <x-nav-link href="{{ route('artisan.products.edit', $product->id) }}">
-                                                Editar
+                                            {{ $product->sale_price }}
+                                        </li>
+                                        <li>
+                                            <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'description' =>  $product->description]) }}">
+                                                Ver Detalhes
                                             </x-nav-link>
                                         </li>
-                                    @else
-                                        <li>
-                                            <x-nav-link href="#">
-                                                Comprar
-                                            </x-nav-link>
-                                        </li>
-                                    @endif
+                                    </div>
                                 </div>
                             @endforeach
                         </ul>

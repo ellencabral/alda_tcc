@@ -26,11 +26,9 @@
                                     <img class="mr-4" style="width:50px;" src="/img/products/{{ $result->image }}" alt="Imagem de {{ $result->description }}"/>
                                 </li>
                                 <li>
-                                    <h1>
-
+                                    <h1 class="mb-4 font-semibold text-xl">
                                         {{ $result->description }}
                                     </h1>
-
                                 </li>
                             </div>
 
@@ -42,7 +40,7 @@
                                 </li>
                                 <li>
                                     @if(Auth::user()->hasRole('artisan') && $result->shop_id === Auth::user()->shop->id)
-                                        <x-nav-link href="#">
+                                        <x-nav-link href="{{ route('artisan.products.edit', $result->id) }}">
                                             Editar
                                         </x-nav-link>
                                     @else

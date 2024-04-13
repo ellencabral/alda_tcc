@@ -31,8 +31,8 @@ class Product extends Model
     /**
      * Get the category associated with the product.
      */
-    public function category(): HasOne
+    public function category(): BelongsTo
     {
-        return $this->HasOne(Category::class);
+        return $this->BelongsTo(Category::class);
     }
 }

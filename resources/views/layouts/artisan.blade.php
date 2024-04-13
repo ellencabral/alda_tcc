@@ -52,6 +52,9 @@
                         <x-dashboard-nav-link :href="route('profile.edit')">
                             {{ __('Profile') }}
                         </x-dashboard-nav-link>
+                        <x-dashboard-nav-link :href="route('shop.show', Auth::user()->shop->url)">
+                            Minha Loja
+                        </x-dashboard-nav-link>
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
