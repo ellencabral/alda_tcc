@@ -1,9 +1,10 @@
 <x-artisan-layout>
+    <x-slot name="header">
+        {{ Breadcrumbs::render('products', $shop->name) }}
+    </x-slot>
     <div class="py-12 w-full">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h2 class="mb-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Produtos da '{{ $shop->name }}'
-            </h2>
+
             <x-primary-button>
                 <a href="{{ route('artisan.products.create') }}">Adicionar Produto</a>
             </x-primary-button>

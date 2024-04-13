@@ -1,8 +1,13 @@
 <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ Breadcrumbs::render('shop.show', $shop) }}
+        </h2>
+    </x-slot>
     <div class="py-12">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h2 class="mb-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Perfil da Loja '{{ $shop->name }}'
+                {{ $shop->name }}
             </h2>
             <div class="p-6 text-gray-900 dark:text-gray-100">
             <p>
@@ -28,7 +33,7 @@
                                     </li>
                                     <div class="flex justify-between">
                                         <li>
-                                            {{ $product->sale_price }}
+                                            R$ {{ number_format($product->sale_price, 2, ',', '.') }}
                                         </li>
                                         <li>
                                             <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'description' =>  $product->description]) }}">

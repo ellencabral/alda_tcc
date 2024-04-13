@@ -3,9 +3,9 @@
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h2 class="mb-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 @isset($search)
-                    Exibindo Resultados para '{{ $search }}'
+                    Exibindo Resultados da Pesquisa: '{{ $search }}'
                 @else
-                    Exibindo todos os resultados
+                    Exibindo Todos os Resultados
                 @endisset
             </h2>
 
@@ -16,7 +16,11 @@
 
             @if(!$results->isEmpty())
                 <p class="mt-4 text-gray-900 dark:text-gray-100">
-                    {{ $results->count() }} resultados encontrados
+                    @if($results->count() == 1)
+                        {{ $results->count() }} resultado encontrado
+                    @else
+                        {{ $results->count() }} resultados encontrados
+                    @endif
                 </p>
                 @foreach($results as $result)
                     <ul class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">

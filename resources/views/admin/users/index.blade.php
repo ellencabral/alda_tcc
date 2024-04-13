@@ -1,9 +1,8 @@
 <x-admin-layout>
-    @isset($message)
-        <div class="alert alert-success">
-            {{ $message }}
-        </div>
-    @endisset
+    <x-slot name="header">
+        {{ Breadcrumbs::render('users') }}
+    </x-slot>
+
     <div class="py-12 w-full">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <x-primary-button>

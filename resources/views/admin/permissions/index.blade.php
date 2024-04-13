@@ -1,15 +1,18 @@
 <x-admin-layout>
+    <x-slot name="header">
+        {{ Breadcrumbs::render('permissions') }}
+    </x-slot>
+
     <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
-                <div class="flex justify-between p-6 text-gray-900 dark:text-gray-100">
-                    Permissões
+                <div class="flex justify-end p-6 text-gray-900 dark:text-gray-100">
                     <x-primary-button>
                         <a href="{{ route('admin.permissions.create') }}">{{ __('Create') }} Permissão</a>
                     </x-primary-button>
                 </div>
-                <table class="p-6 min-w-full divide-y divide-gray-200 dark:divide-gray-700 text-gray-200">
+                <table class="p-6 w-full divide-y divide-gray-200 dark:divide-gray-700 text-gray-200">
                     <thead>
                         <tr>
                             <th scope="col" class="relative px-6 py-3">

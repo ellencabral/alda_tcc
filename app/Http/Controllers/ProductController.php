@@ -26,10 +26,12 @@ class ProductController extends Controller
     /**
      * Display the products details.
      */
-    public function show($url): View
+    public function show($url, $description): View
     {
         $shop = Shop::where('url', $url)->firstOrFail();
-        $product = $shop->products()->firstOrFail();
+        $products = $shop->products()->get();
+
+        $product = $products->where('description', $description)->firstOrFail();
 
         return view('products.show', [
             'product' => $product,

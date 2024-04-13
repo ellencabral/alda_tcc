@@ -1,9 +1,7 @@
 <x-app-layout>
-{{--    @if($user->user_type_id == 3)--}}
-{{--    @endif--}}
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Criar Loja
+            {{ Breadcrumbs::render('shop.create') }}
         </h2>
     </x-slot>
 
