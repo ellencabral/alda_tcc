@@ -44,12 +44,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-    Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shop.show');
-    Route::get('/shop/{url}/{description}', [ProductController::class, 'show'])->name('products.show');
-
     Route::get('/shopping_cart', [ShoppingCartController::class, 'index'])->name('shopping_cart.index');
     Route::post('/shopping_cart', [ShoppingCartController::class, 'addShoppingCart'])->name('shopping_cart.add');
 });
+
+Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/shop/{url}/{description}', [ProductController::class, 'show'])->name('products.show');
 
 // ARTESAO
 Route::middleware(['auth', 'role:artisan'])

@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-guest-layout>
     <x-slot name="header">
         {{ Breadcrumbs::render('products.show', $product->shop, $product->description) }}
     </x-slot>
@@ -34,6 +34,7 @@
                     <li>
                         Categoria: {{ $product->category->description }}
                     </li>
+                    @auth
                     @if(Auth::user()->hasRole('artisan') && $product->shop_id === Auth::user()->shop->id)
                         <li>
                             <x-primary-button>
@@ -42,15 +43,22 @@
                                 </a>
                             </x-primary-button>
                         </li>
+                        @else
+                            <li>
+                                <x-primary-button href="#">
+                                    Comprar
+                                </x-primary-button>
+                            </li>
+                        @endif
                     @else
                         <li>
                             <x-primary-button href="#">
                                 Comprar
                             </x-primary-button>
                         </li>
-                    @endif
+                    @endauth
                 </div>
             </ul>
         </div>
     </div>
-</x-app-layout>
+</x-guest-layout>
