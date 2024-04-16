@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\ShoppingBagController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
@@ -43,10 +44,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/search', [ProductController::class, 'search'])->name('search');
-
-    Route::get('/shopping_cart', [ShoppingCartController::class, 'index'])->name('shopping_cart.index');
-    Route::post('/shopping_cart', [ShoppingCartController::class, 'addShoppingCart'])->name('shopping_cart.add');
 });
+
+
+Route::get('/shopping-bag', [ShoppingBagController::class, 'index'])->name('shopping-bag');
+Route::post('/shopping-bag/add', [ShoppingBagController::class, 'add'])->name('shopping-bag.add');
+Route::delete('/shopping-bag/remove/{id}', [ShoppingBagController::class, 'delete'])->name('shopping-bag.remove');
+Route::patch('/shopping-bag/edit/{id}', [ShoppingBagController::class, 'update'])->name('shopping-bag.edit');
+Route::get('/shopping-bag/destroy', [ShoppingBagController::class, 'destroy'])->name('shopping-bag.destroy');
+
 
 Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shop.show');
 Route::get('/shop/{url}/{description}', [ProductController::class, 'show'])->name('products.show');

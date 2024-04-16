@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-app-layout>
     <x-slot name="header">
         {{ Breadcrumbs::render('products.show', $product->shop, $product->description) }}
     </x-slot>
@@ -34,31 +34,31 @@
                     <li>
                         Categoria: {{ $product->category->description }}
                     </li>
+
                     @auth
-                    @if(Auth::user()->hasRole('artisan') && $product->shop_id === Auth::user()->shop->id)
-                        <li>
-                            <x-primary-button>
-                                <a href="{{ route('artisan.products.edit', $product->id) }}">
-                                    Editar
-                                </a>
-                            </x-primary-button>
-                        </li>
-                        @else
+                        @if(Auth::user()->hasRole('artisan') && $product->shop_id == Auth::user()->shop->id)
                             <li>
                                 <x-primary-button href="#">
-                                    Comprar
+                                    Editar
                                 </x-primary-button>
+                            </li>
+                        @else
+                            <li>
+                                <x-form-shopping-bag :action="route('shopping-bag.add')"
+                                                     :product="$product"
+                                                     :quantity="true" />
                             </li>
                         @endif
                     @else
                         <li>
-                            <x-primary-button href="#">
-                                Comprar
-                            </x-primary-button>
+                            <x-form-shopping-bag :action="route('shopping-bag.add')"
+                                                 :product="$product"
+                                                 :quantity="true" />
                         </li>
                     @endauth
+
                 </div>
             </ul>
         </div>
     </div>
-</x-guest-layout>
+</x-app-layout>

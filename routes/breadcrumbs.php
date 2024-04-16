@@ -23,6 +23,11 @@ Breadcrumbs::for('shop.create', function ($trail) {
     $trail->push('Criar Loja', route('shop.create'));
 });
 
+Breadcrumbs::for('shopping-bag', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Sacola de Compras', route('shopping-bag'));
+});
+
 Breadcrumbs::for('shop.show', function ($trail, Shop $shop) {
     $trail->push("Página da Loja '" . $shop->name . "'", route('shop.show', $shop->url));
 });

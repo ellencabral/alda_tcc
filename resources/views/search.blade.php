@@ -48,9 +48,8 @@
                                             Editar
                                         </x-nav-link>
                                     @else
-                                        <x-nav-link href="#">
-                                            Comprar
-                                        </x-nav-link>
+                                        <x-form-shopping-bag :action="route('shopping-bag.add')"
+                                                             :product="$result" />
                                     @endif
                                 </li>
                             </div>
