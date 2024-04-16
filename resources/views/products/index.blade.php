@@ -14,10 +14,10 @@
                     <ul class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="p-6 text-gray-900 dark:text-gray-100">
                             <li>
-                                {{ $product->description }}
+                                {{ $product->name }}
                             </li>
                             <li>
-                                <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'description' =>  $product->description]) }}">
+                                <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'name' =>  $product->name]) }}">
                                     Ver Detalhes
                                 </x-nav-link>
                             </li>

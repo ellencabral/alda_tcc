@@ -27,16 +27,16 @@
                                 <x-input-error :messages="$errors->get('image')" class="mt-2" />
                             </div>
                             <div>
-                                <x-input-label for="description" :value="'Descrição'" />
-                                <x-text-input id="description"
+                                <x-input-label for="name" :value="'Nome'" />
+                                <x-text-input id="name"
                                               class="block mt-1 w-full"
                                               type="text"
-                                              name="description"
-                                              :value="old('description')"
+                                              name="name"
+                                              :value="old('name')"
                                               required autofocus
-                                              autocomplete="description"
+                                              autocomplete="name"
                                               placeholder="Digite o nome do produto"/>
-                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                             <div>
                                 <x-input-label for="sale_price" :value="'Preço de Venda'" />
@@ -51,16 +51,16 @@
                                 <x-input-error :messages="$errors->get('sale_price')" class="mt-2" />
                             </div>
                             <div>
-                                <x-input-label for="observation" :value="'Observação'" />
-                                <x-textarea-input id="observation"
+                                <x-input-label for="description" :value="'Descrição'" />
+                                <x-textarea-input id="description"
                                               class="block mt-1 w-full"
-                                              name="observation"
-                                              :value="old('observation')"
+                                              name="description"
+                                              :value="old('description')"
                                               autofocus
-                                              autocomplete="observation"
+                                              autocomplete="description"
                                               placeholder="Campo opcional">
                                 </x-textarea-input>
-                                <x-input-error :messages="$errors->get('observation')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
                             </div>
                             <div>
                                 <x-input-label for="categories" :value="'Categoria'"/>

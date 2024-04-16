@@ -29,7 +29,7 @@
                                         <img style="width:auto;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->description }}"/>
                                     </li>
                                     <li>
-                                        {{ $product->description }}
+                                        {{ $product->name }}
                                     </li>
                                     <div class="flex justify-between">
                                         <li>

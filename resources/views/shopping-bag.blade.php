@@ -72,7 +72,7 @@
                 </div>
             @endif
             <h2 class="py-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Subtotal: {{ \Cart::subtotal(2, ',', '.') }}
+                Subtotal: {{ \Cart::total(2, ',', '.') }}
             </h2>
             <div class="flex justify-end">
                 @if($items->isNotEmpty())

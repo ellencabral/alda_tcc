@@ -34,7 +34,7 @@ Breadcrumbs::for('shop.show', function ($trail, Shop $shop) {
 
 Breadcrumbs::for('products.show', function ($trail, Shop $shop, $product) {
     $trail->parent('shop.show', $shop);
-    $trail->push($product, route('products.show', ['url' => $shop->url, 'description' => $product]));
+    $trail->push($product, route('products.show', ['url' => $shop->url, 'name' => $product]));
 });
 
 // Admin

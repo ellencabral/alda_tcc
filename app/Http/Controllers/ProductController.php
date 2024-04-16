@@ -26,12 +26,12 @@ class ProductController extends Controller
     /**
      * Display the products details.
      */
-    public function show($url, $description): View
+    public function show($url, $name): View
     {
         $shop = Shop::where('url', $url)->firstOrFail();
         $products = $shop->products()->get();
 
-        $product = $products->where('description', $description)->firstOrFail();
+        $product = $products->where('name', $name)->firstOrFail();
 
         return view('products.show', [
             'product' => $product,
@@ -42,18 +42,13 @@ class ProductController extends Controller
     public function search(Request $request): View
     {
         $search = $request->input('search');
-        $results = Product::where('description', 'like', '%' . $search . '%')->get();
+        $results = Product::where('name', 'like', '%' . $search . '%')->get();
 
         return view('search', [
             'results' => $results,
             'search' => $search,
         ]);
     }
-
-//    public function searchByShop(Request $request): View
-//    {
-//
-//    }
 
     /**
      * Display the page to create a product.
@@ -72,7 +67,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'image' => ['required'],
-            'description' => ['required', 'string', 'max:150'],
+            'name' => ['required', 'string', 'max:150'],
             'sale_price' => ['required'],
             'category_id' => ['required'],
         ]);
@@ -90,10 +85,10 @@ class ProductController extends Controller
         }
 
         $product = Product::create([
-            'description' => $request->description,
+            'name' => $request->name,
             'image' => $imageName,
             'sale_price' => $request->sale_price,
-            'observation' => $request->observation,
+            'description' => $request->description,
             'shop_id' => $request->user()->shop->id,
             'category_id' => $request->category_id,
         ]);
@@ -117,13 +112,13 @@ class ProductController extends Controller
     public function update(Product $product, Request $request): RedirectResponse
     {
         $product->fill($request->validate([
-            'description' => ['required', 'string', 'max:150'],
+            'name' => ['required', 'string', 'max:150'],
             'sale_price' => ['required'],
             'category_id' => ['required'],
         ]));
 
-        if($request->observation == null) {
-            $product->observation = null;
+        if($request->description == null) {
+            $product->description = null;
         }
 
         if($request->hasFile('image') && $request->file('image')->isValid()) {
@@ -155,6 +150,7 @@ class ProductController extends Controller
             'password' => ['required', 'current_password'],
         ]);
         File::delete(public_path('img/products').'/'.$product->image);
+
         $product->delete();
 
         return redirect(route('artisan.products.index'));

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ Breadcrumbs::render('products.show', $product->shop, $product->description) }}
+        {{ Breadcrumbs::render('products.show', $product->shop, $product->name) }}
     </x-slot>
     <div class="py-12">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -8,15 +8,15 @@
             <ul class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <li>
-                        <img style="width:600px;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->description }}"/>
+                        <img style="width:600px;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->name }}"/>
                     </li>
                     <li>
                         <h2 class="mb-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                            {{ $product->description }}
+                            {{ $product->name }}
                         </h2>
                     </li>
                     <li class="whitespace-pre-line">
-                        Descrição: {{ $product->observation }}
+                        Descrição: {{ $product->description }}
                     </li>
                     <li>
                         R$ {{ number_format($product->sale_price, 2, ',', '.') }}

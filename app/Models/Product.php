@@ -12,10 +12,10 @@ class Product extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'description',
+        'name',
         'image',
         'sale_price',
-        'observation',
+        'description',
         'shop_id',
         'category_id',
     ];

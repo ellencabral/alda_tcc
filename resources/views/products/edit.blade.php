@@ -1,6 +1,6 @@
 <x-artisan-layout>
     <x-slot name="header">
-        {{ Breadcrumbs::render('products.edit', $product->description) }}
+        {{ Breadcrumbs::render('products.edit', $product->name) }}
     </x-slot>
     <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -13,7 +13,7 @@
                             </h2>
                         </header>
 
-                        <img src="/img/products/{{ $product->image }}" class="mt-4" style="width: 200px" alt="Imagem de {{ $product->description }}"/>
+                        <img src="/img/products/{{ $product->image }}" class="mt-4" style="width: 200px" alt="Imagem de {{ $product->name }}"/>
 
                         <form method="POST" action="{{ route('artisan.products.update', $product->id) }}" class="mt-6 space-y-6" enctype="multipart/form-data">
                             @csrf
@@ -31,16 +31,16 @@
                                 <x-input-error :messages="$errors->get('image')" class="mt-2" />
                             </div>
                             <div>
-                                <x-input-label for="description" :value="'Título'" />
-                                <x-text-input id="description"
+                                <x-input-label for="name" :value="'Nome'" />
+                                <x-text-input id="name"
                                               class="block mt-1 w-full"
                                               type="text"
-                                              name="description"
-                                              :value="old('description', $product->description)"
+                                              name="name"
+                                              :value="old('name', $product->name)"
                                               required autofocus
-                                              autocomplete="description"
+                                              autocomplete="name"
                                               placeholder="Digite o nome do produto"/>
-                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             </div>
                             <div>
                                 <x-input-label for="sale_price" :value="'Preço de Venda'" />
@@ -57,14 +57,14 @@
                                 <x-input-error :messages="$errors->get('sale_price')" class="mt-2" />
                             </div>
                             <div>
-                                <x-input-label for="observation" :value="'Observação'" />
-                                <x-textarea-input id="observation" class="block mt-1 w-full"
-                                                  name="observation"
-                                                  autofocus autocomplete="observation"
+                                <x-input-label for="description" :value="'Descrição'" />
+                                <x-textarea-input id="description" class="block mt-1 w-full"
+                                                  name="description"
+                                                  autofocus autocomplete="description"
                                                   placeholder="Campo opcional">
-                                    {{ $product->observation }}
+                                    {{ $product->description }}
                                 </x-textarea-input>
-                                <x-input-error :messages="$errors->get('observation')" class="mt-2" />
+                                <x-input-error :messages="$errors->get('description')" class="mt-2" />
                             </div>
                             <div>
                                 <x-input-label for="categories" :value="'Categoria'"/>
@@ -118,7 +118,7 @@
                                 </h2>
 
                                 <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                    O produto {{ $product->description }} será excluído permanentemente. Insira sua senha para deletar permanentemente o produto.
+                                    O produto {{ $product->name }} será excluído permanentemente. Insira sua senha para deletar permanentemente o produto.
                                 </p>
 
                                 <div class="mt-6">

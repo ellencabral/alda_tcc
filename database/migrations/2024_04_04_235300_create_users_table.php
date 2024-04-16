@@ -13,10 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('email', 150)->unique();
+            $table->string('name', 120);
+            $table->string('email', 60)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone', 16)->unique()->nullable();
+            $table->string('phone_area', 2)->nullable();
+            $table->string('phone_number', 9)->unique()->nullable();
             $table->string('password', 255);
             $table->string('tax_id', 14)->unique()->nullable();
             $table->string('payment_key', 255)->nullable();
@@ -24,7 +25,6 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->rememberToken();
 
-            $table->foreignId('user_type_id')->default(1)->constrained();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
