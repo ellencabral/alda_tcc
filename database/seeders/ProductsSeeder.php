@@ -51,7 +51,7 @@ Cores e detalhes podem ser personalizados pelo comprador',
             'name' => 'Boneca Emília amigurumi',
             'sale_price' => 170,
             'deadline' => 30,
-            'shop_id' => 1,
+            'shop_id' => 2,
             'category_id' => 1,
         ]);
     }

@@ -27,18 +27,18 @@
                         <div class="flex justify-between items-center p-6 text-gray-900 dark:text-gray-100">
                             <div class="flex items-center">
                                 <li>
-                                    <img class="mr-4" style="width:50px;" src="/img/products/{{ $result->image }}" alt="Imagem de {{ $result->description }}"/>
+                                    <img class="mr-4" style="width:50px;" src="/img/products/{{ $result->image }}" alt="Imagem de {{ $result->name }}"/>
                                 </li>
                                 <li>
                                     <h1 class="mb-4 font-semibold text-xl">
-                                        {{ $result->description }}
+                                        {{ $result->name }}
                                     </h1>
                                 </li>
                             </div>
 
                             <div class="flex items-center">
                                 <li>
-                                    <x-nav-link href="{{ route('products.show', ['url' => $result->shop->url, 'description' =>  $result->description]) }}">
+                                    <x-nav-link href="{{ route('products.show', ['url' => $result->shop->url, 'name' =>  $result->name]) }}">
                                         Ver Detalhes
                                     </x-nav-link>
                                 </li>
@@ -47,9 +47,6 @@
                                         <x-nav-link href="{{ route('artisan.products.edit', $result->id) }}">
                                             Editar
                                         </x-nav-link>
-                                    @else
-                                        <x-form-shopping-bag :action="route('shopping-bag.add')"
-                                                             :product="$result" />
                                     @endif
                                 </li>
                             </div>

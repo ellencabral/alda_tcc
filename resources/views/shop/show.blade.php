@@ -26,7 +26,7 @@
                             @foreach($products as $product)
                                 <div style="width:auto;" class="p-6 text-gray-900 dark:text-gray-100">
                                     <li>
-                                        <img style="width:auto;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->description }}"/>
+                                        <img style="width:auto;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->name }}"/>
                                     </li>
                                     <li>
                                         {{ $product->name }}
@@ -36,7 +36,7 @@
                                             R$ {{ number_format($product->sale_price, 2, ',', '.') }}
                                         </li>
                                         <li>
-                                            <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'description' =>  $product->description]) }}">
+                                            <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'name' =>  $product->name]) }}">
                                                 Ver Detalhes
                                             </x-nav-link>
                                         </li>

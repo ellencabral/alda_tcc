@@ -1,12 +1,16 @@
 <form method="post" action="{{ $action }}" enctype="multipart/form-data">
     @csrf
     <input type="hidden"
-           name="id"
-           value="{{ $product->id }}"/>
+           name="shop_id"
+           value="{{ $product->shop_id }}" />
 
     <input type="hidden"
-           name="description"
-           value="{{ $product->description }}" />
+           name="id"
+           value="{{ $product->id }}" />
+
+    <input type="hidden"
+           name="name"
+           value="{{ $product->name }}" />
 
     <input type="hidden"
            name="sale_price"

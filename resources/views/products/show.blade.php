@@ -53,6 +53,7 @@
                         <li>
                             <x-form-shopping-bag :action="route('shopping-bag.add')"
                                                  :product="$product"
+                                                 :shop_id="$product->shop_id"
                                                  :quantity="true" />
                         </li>
                     @endauth

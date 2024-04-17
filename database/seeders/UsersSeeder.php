@@ -32,8 +32,16 @@ class UsersSeeder extends Seeder
            'password' => 123,
         ]);
 
+        $artisan1 = User::create([
+            'name' => 'Maria Joana',
+            'email' => 'maria@example',
+            'email_verified_at' => now(),
+            'password' => 123,
+        ]);
+
         $user->assignRole('user');
         $admin->assignRole('admin');
         $artisan->assignRole('artisan');
+        $artisan1->assignRole('artisan');
     }
 }

@@ -38,7 +38,9 @@
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <img style="width:50px;" src="/img/products/{{ $item->options->image }}" alt="Imagem de {{ $item->name }}"/>
-                                    <span class="pl-4">{{ $item->name }}</span>
+                                    <span class="pl-4">
+                                        {{ $item->name }}
+                                    </span>
                                 </th>
                                 <td class="px-6 py-4">R$ {{ number_format($item->price, 2, ',', '.') }}</td>
                                 <td class="px-6 py-4">
@@ -66,26 +68,28 @@
                         </tbody>
                     </table>
                 </div>
-            @else
-                <div class="p-6 text-gray-900 dark:text-gray-100 mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    Sua sacola está vazia
-                </div>
-            @endif
-            <h2 class="py-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                Subtotal: {{ \Cart::total(2, ',', '.') }}
-            </h2>
-            <div class="flex justify-end">
-                @if($items->isNotEmpty())
+
+                <h2 class="py-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    Subtotal: {{ \Cart::total(2, ',', '.') }}
+                </h2>
+                <div class="flex justify-end">
                     <x-secondary-button class="mr-2">
                         <a href="{{ route('shopping-bag.destroy') }}">
                             Limpar sacola
                         </a>
                     </x-secondary-button>
-                @endif
-                <x-primary-button>
-                    Finalizar compra
-                </x-primary-button>
-            </div>
+                    <x-primary-button>
+                        <a href="{{ route('shipping-address.form') }}">
+                            Continuar encomenda
+                        </a>
+                    </x-primary-button>
+                </div>
+            @else
+                <div class="p-6 text-gray-900 dark:text-gray-100 mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                    Sua sacola está vazia
+                </div>
+            @endif
+
         </div>
     </div>
 

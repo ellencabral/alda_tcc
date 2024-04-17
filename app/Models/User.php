@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -38,14 +39,6 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     /**
-     * Get the shop associated with the user.
-     */
-    public function shop(): HasOne
-    {
-        return $this->hasOne(Shop::class);
-    }
-
-    /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
@@ -58,4 +51,19 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
+    /**
+     * Get the shop associated with the user.
+     */
+    public function shop(): HasOne
+    {
+        return $this->hasOne(Shop::class);
+    }
+
+    /**
+     * Get the shipping-address associated with the user.
+     */
+    public function shipping_addresses(): HasMany
+    {
+        return $this->hasMany(ShippingAddress::class);
+    }
 }

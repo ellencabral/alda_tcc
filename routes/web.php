@@ -3,6 +3,9 @@
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\CommissionController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\ShoppingBagController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -44,8 +47,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/search', [ProductController::class, 'search'])->name('search');
+
+    Route::get('/shipping-address', [ShippingAddressController::class, 'index'])->name('shipping-address.form');
+    Route::patch('/shipping-address', [ShippingAddressController::class, 'update'])->name('shipping-address.update');
+
+    Route::get('/commission', [CommissionController::class, 'summary'])->name('commission.summary');
+    Route::post('/commission', [CommissionController::class, 'store'])->name('commission.store');
 });
 
+//Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
+//Route::get('/app', [PaymentController::class, 'app'])->name('app');
 
 Route::get('/shopping-bag', [ShoppingBagController::class, 'index'])->name('shopping-bag');
 Route::post('/shopping-bag/add', [ShoppingBagController::class, 'add'])->name('shopping-bag.add');
@@ -55,7 +66,7 @@ Route::get('/shopping-bag/destroy', [ShoppingBagController::class, 'destroy'])->
 
 
 Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shop.show');
-Route::get('/shop/{url}/{description}', [ProductController::class, 'show'])->name('products.show');
+Route::get('/shop/{url}/{name}', [ProductController::class, 'show'])->name('products.show');
 
 // ARTESAO
 Route::middleware(['auth', 'role:artisan'])
