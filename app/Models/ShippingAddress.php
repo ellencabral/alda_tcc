@@ -19,7 +19,8 @@ class ShippingAddress extends Model
         'city',
         'region_code',
         'postal_code',
-        'user_id'
+        'is_default',
+        'user_id',
     ];
 
     public function user(): BelongsTo

@@ -4,7 +4,13 @@
     </x-slot>
     <div class="py-12">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
-
+            @if (session('status') === 'product-not-added')
+                <p x-data="{ show: true }"
+                   x-show="show"
+                   class="text-sm text-gray-600 dark:text-gray-400" >
+                    Esvazie sua sacola de compras ou finalize a encomenda antes de comprar um produto desta loja
+                </p>
+            @endif
             <ul class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <li>
@@ -53,7 +59,6 @@
                         <li>
                             <x-form-shopping-bag :action="route('shopping-bag.add')"
                                                  :product="$product"
-                                                 :shop_id="$product->shop_id"
                                                  :quantity="true" />
                         </li>
                     @endauth

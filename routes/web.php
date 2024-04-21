@@ -46,12 +46,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // EDITAR ENDEREÇO
+    Route::get('/profile/shipping-address/{id}/edit', [ShippingAddressController::class, 'edit'])->name('profile.shipping-address.edit');
+    Route::patch('/profile/shipping-address/{id}', [ShippingAddressController::class, 'update'])->name('shipping-address.update');
+    Route::post('/profile/shipping-address', [ShippingAddressController::class, 'store'])->name('shipping-address.store');
+    Route::delete('/profile/shipping-address/{id}', [ShippingAddressController::class, 'destroy'])->name('shipping-address.destroy');
+
     Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-    Route::get('/shipping-address', [ShippingAddressController::class, 'index'])->name('shipping-address.form');
-    Route::patch('/shipping-address', [ShippingAddressController::class, 'update'])->name('shipping-address.update');
-
-    Route::get('/commission', [CommissionController::class, 'summary'])->name('commission.summary');
+    Route::get('/commission/shipping', [CommissionController::class, 'shipping'])->name('commission.shipping');
+    Route::get('/commission/checkout', [CommissionController::class, 'summary'])->name('commission.checkout');
     Route::post('/commission', [CommissionController::class, 'store'])->name('commission.store');
 });
 

@@ -2,6 +2,7 @@
 
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
+use App\Models\ShippingAddress;
 use App\Models\Shop;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
@@ -16,6 +17,11 @@ Breadcrumbs::for('home', function ($trail) {
 Breadcrumbs::for('profile', function ($trail) {
     $trail->parent('home');
     $trail->push('Perfil', route('profile.edit'));
+});
+
+Breadcrumbs::for('shipping-address.edit', function ($trail, $address) {
+    $trail->parent('profile');
+    $trail->push('Atualizar Endereço', route('profile.shipping-address.edit', $address));
 });
 
 Breadcrumbs::for('shop.create', function ($trail) {

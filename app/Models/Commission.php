@@ -4,8 +4,35 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Commission extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'description',
+        'total',
+        'payment',
+        'user_id',
+        'shop_id',
+        'shipping_address_id',
+        'status_id',
+    ];
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
+    }
+
+    public function commissionProducts(): HasMany
+    {
+        return $this->hasMany(CommissionProduct::class);
+    }
 }

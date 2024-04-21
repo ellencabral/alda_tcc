@@ -32,4 +32,9 @@ class Shop extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function commissions(): HasMany
+    {
+        return $this->hasMany(Commission::class);
+    }
 }

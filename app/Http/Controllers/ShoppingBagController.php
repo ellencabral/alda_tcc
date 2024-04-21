@@ -8,7 +8,6 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Gloudemans\Shoppingcart\CartItem;
 
 class ShoppingBagController extends Controller
 {
@@ -16,20 +15,32 @@ class ShoppingBagController extends Controller
     {
         $items = Cart::content();
 
-        return view('shopping-bag', compact('items'));
+        if($items->isNotEmpty()) {
+            foreach($items as $item) {
+                $product = Product::find($item->id);
+                $url = view('shopping-bag', compact('items'), ['shop' => $product->shop]);
+                break;
+            }
+        }
+        else {
+            $url = view('shopping-bag', compact('items'));
+        }
+
+        return $url;
     }
 
     public function add(Request $request): RedirectResponse
     {
         $items = Cart::content();
 
+        $product = Product::where('id', $request->id)->first();
+
         if($items->isNotEmpty()) { // A SACOLA POSSUI ITENS
             foreach ($items as $item) {
-                $product = Product::where('id', $item->id)->first();
+                $cartItem = Product::where('id', $item->id)->first();
 
-                if ($product->shop_id != $request->shop_id) {
-
-                    $product = Product::where('id', $request->id)->first();
+                if ($cartItem->shop_id != $product->shop_id) {
+                    // COMPARA O ITEM DO CARRINHO COM O PRODUTO SENDO ADICIONADO
 
                     $url = route('products.show', [
                         'url' => $product->shop->url,
@@ -50,6 +61,8 @@ class ShoppingBagController extends Controller
         }
 
         if($valid) {
+            $shop = Shop::where('id', $product->shop_id)->first();
+
             Cart::add([
                 'id' => $request->id,
                 'name' => $request->name,
@@ -60,9 +73,15 @@ class ShoppingBagController extends Controller
                     'image' => $request->image,
                 ],
             ]);
+            $status = 'product-added';
+        }
+        else {
+            $status = 'product-not-added';
         }
 
-        return redirect($url);
+        return redirect($url)
+            ->with('status', $status)
+            ->with('shop', $shop);
     }
 
     public function update(Request $request, $rowId): RedirectResponse

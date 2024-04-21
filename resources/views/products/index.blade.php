@@ -12,20 +12,29 @@
             @if(!$products->isEmpty())
                 @foreach($products as $product)
                     <ul class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                        <div class="p-6 text-gray-900 dark:text-gray-100">
-                            <li>
-                                {{ $product->name }}
-                            </li>
-                            <li>
-                                <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'name' =>  $product->name]) }}">
-                                    Ver Detalhes
-                                </x-nav-link>
-                            </li>
-                            <li>
-                                <x-nav-link href="{{ route('artisan.products.edit', $product->id) }}">
-                                    Editar
-                                </x-nav-link>
-                            </li>
+                        <div class="flex justify-between p-6 text-gray-900 dark:text-gray-100">
+                            <div class="flex items-center">
+                                <li>
+                                    <img style="width:60px;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->name }}"/>
+                                </li>
+                                <li class="ml-4">
+                                    {{ $product->name }}
+                                </li>
+                            </div>
+                            <div class="flex items-center">
+                                <li>
+                                    <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'name' =>  $product->name]) }}">
+                                        Ver Detalhes
+                                    </x-nav-link>
+                                </li>
+                                <li class="ml-4">
+                                    <x-secondary-button>
+                                        <a href="{{ route('artisan.products.edit', $product->id) }}">
+                                            Editar
+                                        </a>
+                                    </x-secondary-button>
+                                </li>
+                            </div>
 
                         </div>
                     </ul>

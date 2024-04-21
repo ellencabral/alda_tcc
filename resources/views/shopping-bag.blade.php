@@ -7,15 +7,27 @@
 
     <div class="py-12 w-full">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if (session('status') === 'product-added')
+                <p x-data="{ show: true }"
+                   x-show="show"
+                   class="text-sm text-gray-600 dark:text-gray-400" >
+                    Produto adicionado na sua sacola de compras
+                </p>
+            @endif
             @if($items->isNotEmpty())
+
+                <h2 class="p-4 font-semibold text-gray-800 dark:text-gray-200 leading-tight">
+                    Fazendo encomenda para {{ $shop->name }}
+
+                </h2>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                    <h2 class="p-4 font-semibold text-gray-800 dark:text-gray-200 leading-tight">
+                    <p class="p-4 text-gray-200">
                         @if($items->count() == 1)
                             Sua sacola tem {{ $items->count() }} produto
                         @else
                             Sua sacola tem {{ $items->count() }} produtos
                         @endif
-                    </h2>
+                    </p>
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
@@ -34,6 +46,7 @@
                         </tr>
                         </thead>
                         <tbody>
+
                         @foreach($items as $item)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <th scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -70,7 +83,7 @@
                 </div>
 
                 <h2 class="py-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Subtotal: {{ \Cart::total(2, ',', '.') }}
+                    Subtotal: {{ \Cart::subtotal(2, ',', '.') }}
                 </h2>
                 <div class="flex justify-end">
                     <x-secondary-button class="mr-2">
@@ -79,7 +92,7 @@
                         </a>
                     </x-secondary-button>
                     <x-primary-button>
-                        <a href="{{ route('shipping-address.form') }}">
+                        <a href="{{ route('commission.checkout') }}">
                             Continuar encomenda
                         </a>
                     </x-primary-button>
