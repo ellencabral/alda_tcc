@@ -18,7 +18,6 @@
 
                 <h2 class="p-4 font-semibold text-gray-800 dark:text-gray-200 leading-tight">
                     Fazendo encomenda para {{ $shop->name }}
-
                 </h2>
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <p class="p-4 text-gray-200">

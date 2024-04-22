@@ -55,7 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/search', [ProductController::class, 'search'])->name('search');
 
     Route::get('/commission/shipping', [CommissionController::class, 'shipping'])->name('commission.shipping');
-    Route::get('/commission/checkout', [CommissionController::class, 'summary'])->name('commission.checkout');
+    Route::get('/commission/checkout', [CommissionController::class, 'checkout'])->name('commission.checkout');
     Route::post('/commission', [CommissionController::class, 'store'])->name('commission.store');
 });
 

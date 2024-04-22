@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Commission;
 use App\Models\CommissionProduct;
 use App\Models\Product;
+use App\Models\ShippingAddress;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -34,6 +35,10 @@ class CommissionController extends Controller
     {
         $items = \Cart::content();
 
+        $addresses = ShippingAddress::where('user_id', $request->user()->id)->get();
+
+        $cart_total = \Cart::total() - \Cart::tax();
+
         foreach($items as $item) {
             $product = Product::find($item->id);
             break;
@@ -42,7 +47,9 @@ class CommissionController extends Controller
         return view('commission.checkout', [
             'user' => $request->user(),
             'items' => $items,
+            'addresses' => $addresses,
             'shop' => $product->shop,
+            'cart_total' => number_format($cart_total, 2, ',', '.'),
         ]);
     }
 

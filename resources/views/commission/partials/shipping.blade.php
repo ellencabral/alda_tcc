@@ -1,18 +1,30 @@
-<section id="shipping-address">
+<section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            Atualizar endereços
+            Opção de Entrega
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Atualize seus endereços de entrega.
+            Escolha um endereço para receber a sua encomenda.
         </p>
     </header>
-    @if($addresses)
-        <div class="grid grid-cols-2 gap-6">
 
+    @if($addresses->isNotEmpty()) {{-- se o usuário possui um endereço --}}
+
+        <div class="grid grid-cols-2 gap-6">
             @foreach($addresses as $address)
                 <ul class="mt-4 border border-gray-500 p-4 rounded text-gray-200">
+                    <li>
+                        <div class="flex items-center">
+                            <input type="radio"
+                                   id="is_default"
+                                   name="is_default"
+                                   value="{{ $address->id }}" {{ $address->is_default ? 'checked' : '' }}>
+                            <x-input-label for="is_default"
+                                           class="ml-2"
+                                           :value="'Enviar para este endereço'"/>
+                        </div>
+                    </li>
                     <li>
                         Rua: {{ $address->street }}
                     </li>
@@ -34,28 +46,26 @@
                     <li>
                         CEP: {{ $address->postal_code }}
                     </li>
+
                     @if($address->is_default)
-                        <li>
+                        <li class="mt-1 text-sm text-gray-600 dark:text-gray-400">
                             Esse é seu endereço de entrega padrão
                         </li>
                     @endif
-                    <li>
-                        <x-nav-link href="{{ route('profile.shipping-address.edit', $address->id) }}">
-                            Editar endereço
-                        </x-nav-link>
-                    </li>
                 </ul>
             @endforeach
         </div>
-    @endif
 
-    <div class="mt-4" x-data="{ open: false }">
-        <x-secondary-button x-on:click="open = ! open">
-            Armazenar um novo endereço
+        <x-secondary-button class="mt-4">
+            <a href="/profile#shipping-address" target=”_blank”>
+                Adicionar outro endereço
+            </a>
         </x-secondary-button>
-        <div x-show="open" class="max-w-xl">
-            <x-form-shipping-address :action="route('shipping-address.store')"
-                                     :user="$user" />
-        </div>
-    </div>
+    @else {{-- se o usuário não possui endereço --}}
+        <x-secondary-button class="mt-4">
+            <a href="/profile#shipping-address" target=”_blank”>
+                Adicionar um endereço
+            </a>
+        </x-secondary-button>
+    @endif
 </section>

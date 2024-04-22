@@ -76,6 +76,7 @@ class ShoppingBagController extends Controller
             $status = 'product-added';
         }
         else {
+            $shop = '';
             $status = 'product-not-added';
         }
 
