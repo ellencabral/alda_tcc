@@ -91,7 +91,7 @@
                         </a>
                     </x-secondary-button>
                     <x-primary-button>
-                        <a href="{{ route('commission.checkout') }}">
+                        <a href="{{ route('commissions.checkout') }}">
                             Continuar encomenda
                         </a>
                     </x-primary-button>

@@ -10,6 +10,7 @@
         "diglactic/laravel-breadcrumbs": "^9.0",
         "laravel/framework": "^11.0",
         "laravel/tinker": "^2.9",
+        "livewire/livewire": "^3.4",
         "spatie/laravel-permission": "^6.4"
     },
     "require-dev": {

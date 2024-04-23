@@ -20,8 +20,8 @@
                             </p>
                         </header>
 
-                        <x-form-shipping-address :action="route('shipping-address.update', $address->id)"
-                                                 :address="$address" />
+                        <x-form-address :action="route('shipping-address.update', $address->id)"
+                                                 :address="$address" :update="true" :checkbox="true" />
                     </section>
                 </div>
             </div>

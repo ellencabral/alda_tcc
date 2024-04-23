@@ -98,6 +98,11 @@ Breadcrumbs::for('shop.edit', function($trail, $shop) {
     $trail->parent('artisan');
     $trail->push("Configurações da Loja '" . $shop . "'", route('artisan.shop.edit', $shop));
 });
+
+Breadcrumbs::for('shop.address.edit', function($trail, $shop) {
+    $trail->parent('shop.edit', $shop);
+    $trail->push("Editar Endereço", route('artisan.shop.address.edit'));
+});
 //
 //// Home > Blog
 //Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {

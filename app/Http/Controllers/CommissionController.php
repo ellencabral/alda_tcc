@@ -19,7 +19,7 @@ class CommissionController extends Controller
         if($items->isNotEmpty()) {
             foreach($items as $item) {
                 $product = Product::find($item->id);
-                $url = view('commission.shipping', [
+                $url = view('commissions.shipping', [
                     'user' => $request->user(),
                     'shop' => $product->shop,
                 ]);
@@ -44,7 +44,7 @@ class CommissionController extends Controller
             break;
         }
 
-        return view('commission.checkout', [
+        return view('commissions.checkout', [
             'user' => $request->user(),
             'items' => $items,
             'addresses' => $addresses,
@@ -65,6 +65,6 @@ class CommissionController extends Controller
 
         $shipping->store();
 
-        return redirect(route('commission.store'));
+        return redirect(route('commissions.store'));
     }
 }

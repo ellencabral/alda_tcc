@@ -63,15 +63,19 @@ class ShopController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('shop.edit')
-            ->with('shop', $request->user()->shop);
+        $shop = $request->user()->shop;
+
+        return view('shop.edit', [
+           'shop' => $shop,
+        ]);
     }
 
     /**
      * Update the user's shop information.
      */
-    public function update(Shop $shop, Request $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
+        $shop = $request->user()->shop;
 
         $shop->fill($request->validate([
             'name' => ['required', 'string', 'max:150'],
@@ -82,6 +86,59 @@ class ShopController extends Controller
 
         return redirect(route('shop.edit', $shop->id))
             ->with('status', 'profile-updated');
+    }
+
+    public function editAddress(Request $request): View
+    {
+        $shop = $request->user()->shop;
+
+        return view('shop.address.edit', [
+            'shop' => $shop,
+        ]);
+    }
+
+    public function updateAddress(Request $request): RedirectResponse
+    {
+        $shop = $request->user()->shop;
+
+        $shop->fill($request->validate([
+            'street' => ['required', 'string', 'max:160'],
+            'number' => ['required', 'string', 'max:20'],
+            'complement' => ['max:40'],
+            'locality' => ['required', 'string', 'max:60'],
+            'city' => ['required', 'string', 'max:90'],
+            'region_code' => ['required', 'string', 'max:2'],
+            'postal_code' => ['required'],
+        ]));
+
+        $shop->postal_code = str_replace(' ', '', $request->postal_code);
+
+        $shop->save();
+
+        return redirect(route('artisan.shop.edit'));
+    }
+
+    public function removeAddress(Request $request): RedirectResponse
+    {
+        $request->validateWithBag('shopAddressDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $shop = $request->user()->shop;
+
+        $shop->fill([
+            'street' => null,
+            'number' => null,
+            'complement' => null,
+            'locality' => null,
+            'city' => null,
+            'region_code' => null,
+            'postal_code' => null,
+        ]);
+
+        $shop->save();
+
+        return redirect(route('artisan.shop.edit'));
     }
 
     /**

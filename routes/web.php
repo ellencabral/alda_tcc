@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -17,6 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+//Route::get('/', \App\Livewire\InputsAddress::class)->name('search-postal-code');
 
 Route::get('/home', function () {
     return view('home');
@@ -54,9 +57,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-    Route::get('/commission/shipping', [CommissionController::class, 'shipping'])->name('commission.shipping');
-    Route::get('/commission/checkout', [CommissionController::class, 'checkout'])->name('commission.checkout');
-    Route::post('/commission', [CommissionController::class, 'store'])->name('commission.store');
+    // ENCOMENDAS
+    Route::get('/commissions/checkout', [CommissionController::class, 'checkout'])->name('commissions.checkout');
+    Route::get('/commissions/shipping', [CommissionController::class, 'shipping'])->name('commissions.shipping');
+    Route::post('/commissions', [CommissionController::class, 'store'])->name('commissions.store');
 });
 
 //Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
@@ -84,14 +88,12 @@ Route::middleware(['auth', 'role:artisan'])
     Route::patch('/shop', [ShopController::class, 'update'])->name('shop.update');
     Route::delete('/shop', [ShopController::class, 'destroy'])->name('shop.destroy');
 
-    // GERENCIAR PRODUTOS
-    Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('products.store');
-    Route::get('/products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::patch('/products/{product}/edit', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('/products/{product}/delete', [ProductController::class, 'destroy'])->name('products.destroy');
+    Route::patch('/shop/address', [ShopController::class, 'updateAddress'])->name('shop.address.update');
+    Route::get('/shop/address/edit', [ShopController::class, 'editAddress'])->name('shop.address.edit');
+    Route::patch('/shop/address/remove', [ShopController::class, 'removeAddress'])->name('shop.address.remove');
 
+    // GERENCIAR PRODUTOS
+    Route::resource('/products', ProductController::class);
 });
 
 require __DIR__.'/auth.php';

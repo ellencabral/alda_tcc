@@ -10,7 +10,6 @@
     </header>
     @if($addresses)
         <div class="grid grid-cols-2 gap-6">
-
             @foreach($addresses as $address)
                 <ul class="mt-4 border border-gray-500 p-4 rounded text-gray-200">
                     <li>
@@ -19,9 +18,11 @@
                     <li>
                         Número: {{ $address->number }}
                     </li>
-                    <li>
-                        Complemento: {{ $address->complement }}
-                    </li>
+                    @if($address->complement)
+                        <li>
+                            Complemento: {{ $address->complement }}
+                        </li>
+                    @endif
                     <li>
                         Bairro: {{ $address->locality }}
                     </li>
@@ -36,10 +37,12 @@
                     </li>
                     @if($address->is_default)
                         <li>
-                            Esse é seu endereço de entrega padrão
+                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                                Este o é seu endereço de entrega padrão.
+                            </p>
                         </li>
                     @endif
-                    <li>
+                    <li class="flex justify-end">
                         <x-nav-link href="{{ route('profile.shipping-address.edit', $address->id) }}">
                             Editar endereço
                         </x-nav-link>
@@ -53,9 +56,9 @@
         <x-secondary-button x-on:click="open = ! open">
             Armazenar um novo endereço
         </x-secondary-button>
-        <div x-show="open" class="max-w-xl">
-            <x-form-shipping-address :action="route('shipping-address.store')"
-                                     :user="$user" />
+        <div x-show="open" class="mt-4 max-w-xl">
+            <x-form-address :action="route('shipping-address.store')"
+                                     :address="false" />
         </div>
     </div>
 </section>

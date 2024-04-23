@@ -6,22 +6,22 @@
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <form method="post" action="{{ route('commission.store') }}">
+            <form method="post" action="{{ route('commissions.store') }}">
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div>
-                        @include('commission.partials.cart')
+                        @include('commissions.partials.cart')
                     </div>
                 </div>
 
                 <div class="mt-6 p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div class="max-w-xl">
-                        @include('commission.partials.payment')
+                        @include('commissions.partials.payment')
                     </div>
                 </div>
 
                 <div class="mt-6 p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div>
-                        @include('commission.partials.shipping')
+                        @include('commissions.partials.shipping')
                     </div>
                 </div>
 
@@ -40,6 +40,4 @@
 
         </div>
     </div>
-    <!-- Script -->
-    @vite('resources/js/states.js')
 </x-app-layout>
