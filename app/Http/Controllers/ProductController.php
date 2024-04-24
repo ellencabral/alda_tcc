@@ -17,9 +17,11 @@ class ProductController extends Controller
      */
     public function index(Request $request): View
     {
+        $products = Product::where('shop_id', $request->user()->shop->id)->paginate(10);
+
         return view('products.index', [
             'shop' => $request->user()->shop,
-            'products' => $request->user()->shop->products,
+            'products' => $products,
         ]);
     }
 
@@ -42,7 +44,7 @@ class ProductController extends Controller
     public function search(Request $request): View
     {
         $search = $request->input('search');
-        $results = Product::where('name', 'like', '%' . $search . '%')->get();
+        $results = Product::where('name', 'like', '%' . $search . '%')->paginate(10);
 
         return view('search', [
             'results' => $results,
