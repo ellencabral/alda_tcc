@@ -9,19 +9,12 @@
                 @endisset
             </h2>
 
-            <form class="mt-4" action="#" method="GET">
-                <x-text-input class="w-full" type="text" name="search" :value="old('search')" placeholder="Search Products" />
-                <x-secondary-button class="mt-4" type="submit">Search</x-secondary-button>
-            </form>
+            <x-form-search-products />
 
             @if(!$results->isEmpty())
-                <p class="mt-4 text-gray-900 dark:text-gray-100">
-                    @if($results->count() == 1)
-                        {{ $results->count() }} resultado encontrado
-                    @else
-                        {{ $results->count() }} resultados encontrados
-                    @endif
-                </p>
+                <div class="mt-4">
+                    {{ $results->links() }}
+                </div>
                 @foreach($results as $result)
                     <ul class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="flex justify-between items-center p-6 text-gray-900 dark:text-gray-100">

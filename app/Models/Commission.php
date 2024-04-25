@@ -31,8 +31,13 @@ class Commission extends Model
         return $this->belongsTo(Shop::class);
     }
 
-    public function commissionProducts(): HasMany
+    public function status(): BelongsTo
     {
-        return $this->hasMany(CommissionProduct::class);
+        return $this->belongsTo(Status::class);
+    }
+
+    public function shipping_address(): BelongsTo
+    {
+        return $this->belongsTo(ShippingAddress::class);
     }
 }

@@ -10,17 +10,16 @@
     </header>
 
     @if($addresses->isNotEmpty()) {{-- se o usuário possui um endereço --}}
-
         <div class="grid grid-cols-2 gap-6">
             @foreach($addresses as $address)
                 <ul class="mt-4 border border-gray-500 p-4 rounded text-gray-200">
                     <li>
                         <div class="flex items-center">
                             <input type="radio"
-                                   id="is_default"
-                                   name="is_default"
+                                   id="{{ $address->id }}"
+                                   name="address_id"
                                    value="{{ $address->id }}" {{ $address->is_default ? 'checked' : '' }}>
-                            <x-input-label for="is_default"
+                            <x-input-label for="{{ $address->id }}"
                                            class="ml-2"
                                            :value="'Enviar para este endereço'"/>
                         </div>
@@ -55,12 +54,6 @@
                 </ul>
             @endforeach
         </div>
-
-        <x-secondary-button class="mt-4">
-            <a href="/profile#shipping-address" target=”_blank”>
-                Adicionar outro endereço
-            </a>
-        </x-secondary-button>
     @else {{-- se o usuário não possui endereço --}}
         <x-secondary-button class="mt-4">
             <a href="/profile#shipping-address" target=”_blank”>

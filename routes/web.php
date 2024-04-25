@@ -60,7 +60,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // ENCOMENDAS
     Route::get('/commissions/checkout', [CommissionController::class, 'checkout'])->name('commissions.checkout');
     Route::get('/commissions/shipping', [CommissionController::class, 'shipping'])->name('commissions.shipping');
+
     Route::post('/commissions', [CommissionController::class, 'store'])->name('commissions.store');
+    Route::get('/commissions', [CommissionController::class, 'index'])->name('commissions.index');
+    Route::get('/commissions/{commission}', [CommissionController::class, 'show'])->name('commissions.show');
+    Route::patch('/commissions/{commission}', [CommissionController::class, 'update'])->name('commissions.update');
+
 });
 
 //Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
@@ -91,6 +96,8 @@ Route::middleware(['auth', 'role:artisan'])
     Route::patch('/shop/address', [ShopController::class, 'updateAddress'])->name('shop.address.update');
     Route::get('/shop/address/edit', [ShopController::class, 'editAddress'])->name('shop.address.edit');
     Route::patch('/shop/address/remove', [ShopController::class, 'removeAddress'])->name('shop.address.remove');
+
+    Route::get('/commissions', [CommissionController::class, 'shopCommissions'])->name('shop.commissions.index');
 
     // GERENCIAR PRODUTOS
     Route::resource('/products', ProductController::class);

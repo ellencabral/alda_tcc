@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->text('description')->nullable();
             $table->decimal('total', 5, 2);
-            $table->enum('payment', ['PIX','Cartão de crédito']);
+            $table->string('payment');
             $table->timestamps();
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

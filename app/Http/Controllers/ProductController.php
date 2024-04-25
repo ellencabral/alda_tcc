@@ -46,7 +46,7 @@ class ProductController extends Controller
         $search = $request->input('search');
         $results = Product::where('name', 'like', '%' . $search . '%')->paginate(10);
 
-        return view('search', [
+        return view('products.search', [
             'results' => $results,
             'search' => $search,
         ]);

@@ -26,6 +26,10 @@
             Produtos
         </x-dashboard-nav-link>
 
+        <x-dashboard-nav-link :href="route('artisan.shop.commissions.index')">
+            Encomendas
+        </x-dashboard-nav-link>
+
         <x-dashboard-nav-link :href="route('artisan.shop.edit')">
             Configurações
         </x-dashboard-nav-link>

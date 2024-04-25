@@ -42,8 +42,11 @@
         @endforeach
         </tbody>
     </table>
+    <input type="hidden" name="shop_id" value="{{ $shop->id }}" />
+
+    <input type="hidden" name="total" value="{{ $cart_total }}" />
 
     <h2 class="flex justify-end mt-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        Total: {{ $cart_total }}
+        Total: {{ number_format($cart_total, 2, ',', '.') }}
     </h2>
 </section>

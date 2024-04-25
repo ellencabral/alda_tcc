@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commission;
+use App\Models\Product;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -19,7 +21,7 @@ class ShopController extends Controller
     public function show($url): View
     {
         $shop = Shop::where('url', $url)->first();
-        $products = $shop->products()->get();
+        $products = Product::where('shop_id', $shop->id)->paginate(10);
 
         return view('shop.show', [
             'shop' => $shop,

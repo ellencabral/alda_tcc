@@ -66,7 +66,7 @@
                                     Minha Loja
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('artisan.shop.index')">
-                                    {{ __('Dashboard') }}
+                                    Painel do Artesão
                                 </x-dropdown-link>
                             @endrole
 
@@ -83,6 +83,10 @@
                                         {{ \Cart::content()->count() }}
                                     </span>
                                 @endif
+                            </x-dropdown-link>
+
+                            <x-dropdown-link :href="route('commissions.index')">
+                                Minhas Encomendas
                             </x-dropdown-link>
 
                             <!-- Authentication -->

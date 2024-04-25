@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class CommissionProduct extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
         'sale_price',
         'quantity',
@@ -17,13 +19,14 @@ class CommissionProduct extends Model
         'commission_id',
     ];
 
+    public function commission(): BelongsTo
+    {
+        return $this->belongsTo(Commission::class);
+    }
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function commission(): BelongsTo
-    {
-        return $this->belongsTo(Commission::class);
-    }
 }

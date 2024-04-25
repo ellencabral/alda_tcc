@@ -9,35 +9,39 @@
         </p>
     </header>
 
-    <div x-data="{ payment: 'credit_card' }" >
-        <div class="flex items-center">
-            <x-text-input type="radio"
-                          id="credit_card"
-                          name="payment"
-                          value="credit_card"
-                          x-model="payment"
-                          checked />
-            <x-input-label for="credit_card"
-                           class="ml-2"
-                           :value="'Cartão de crédito'"/>
-        </div>
-        <div class="flex items-center">
+    <div x-data="{ payment: 'pix' }" >
+        <div class="mt-2 flex items-center">
             <x-text-input type="radio"
                           id="pix"
                           name="payment"
                           value="pix"
-                          x-model="payment" />
+                          x-model="payment"
+                          checked />
             <x-input-label for="pix"
                            class="ml-2"
-                           :value="'PIX'"/>
+                           :value="'PIX'" />
+        </div>
+        <div class="mt-2 flex items-center">
+            <x-text-input type="radio"
+                          id="credit_card"
+                          name="payment"
+                          value="credit"
+                          x-model="payment" />
+            <x-input-label for="credit_card"
+                           class="ml-2"
+                           :value="'Cartão de crédito'"/>
         </div>
 
         <div x-show="payment == 'credit_card'">
-            Campos de cartão de crédito
+            <h2 class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Campos de cartão de crédito
+            </h2>
         </div>
 
         <div x-show="payment == 'pix'">
-            Informação de PIX
+            <h2 class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                Informação de PIX
+            </h2>
         </div>
     </div>
 </section>

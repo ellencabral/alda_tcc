@@ -7,6 +7,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <form method="post" action="{{ route('commissions.store') }}">
+                @csrf
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                     <div>
                         @include('commissions.partials.cart')
@@ -25,19 +26,14 @@
                     </div>
                 </div>
 
+                <input type="hidden" name="status_id" value="1"/>
+
                 <div class="flex justify-end">
-                    @if($addresses->isEmpty())
-                        <x-primary-button class="mt-6" :disabled="true">
-                            Finalizar Encomenda
-                        </x-primary-button>
-                    @else
-                        <x-primary-button class="mt-6" :disabled="false">
-                            Finalizar Encomenda
-                        </x-primary-button>
-                    @endif
+                    <x-primary-button class="mt-6" :disabled="$addresses->isEmpty() ? true : false">
+                        Finalizar Encomenda
+                    </x-primary-button>
                 </div>
             </form>
-
         </div>
     </div>
 </x-app-layout>

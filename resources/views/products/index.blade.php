@@ -9,7 +9,11 @@
                 <a href="{{ route('artisan.products.create') }}">Adicionar Produto</a>
             </x-primary-button>
 
-            @if(!$products->isEmpty())
+            @if($products->isNotEmpty())
+                <div class="mt-4">
+                    {{ $products->links() }}
+                </div>
+
                 @foreach($products as $product)
                     <ul class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div class="flex justify-between p-6 text-gray-900 dark:text-gray-100">
