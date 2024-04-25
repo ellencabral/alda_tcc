@@ -34,6 +34,21 @@ Breadcrumbs::for('shopping-bag', function ($trail) {
     $trail->push('Sacola de Compras', route('shopping-bag'));
 });
 
+Breadcrumbs::for('commissions.checkout', function ($trail) {
+    $trail->parent('shopping-bag');
+    $trail->push('Finalizar Encomenda', route('commissions.checkout'));
+});
+
+Breadcrumbs::for('commissions.index', function ($trail) {
+    $trail->parent('home');
+    $trail->push('Minhas Encomendas', route('commissions.index'));
+});
+
+Breadcrumbs::for('commissions.show', function ($trail, $commission) {
+    $trail->parent('commissions.index');
+    $trail->push('Detalhes da Encomenda', route('commissions.show', $commission));
+});
+
 Breadcrumbs::for('shop.show', function ($trail, Shop $shop) {
     $trail->push("Página da Loja '" . $shop->name . "'", route('shop.show', $shop->url));
 });

@@ -1,20 +1,19 @@
 {{-- Aqui vai ter um botão para cancelar encomenda (deletar) --}}
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Detalhes da Encomenda
-        </h2>
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Encomenda para a loja <a href="/shop/{{ $commission->shop->url }}">
-                {{ $commission->shop->name }}
-            </a>
-        </p>
+        {{ Breadcrumbs::render('commissions.show', $commission->id) }}
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
                 <section>
+                    <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                        Encomenda para a loja
+                        <a href="/shop/{{ $commission->shop->url }}">
+                            {{ $commission->shop->name }}
+                        </a>
+                    </h2>
                     <p class="@if($commission->status->id > 1 and $commission->status->id < 6)
                                    text-yellow-300
                               @else
