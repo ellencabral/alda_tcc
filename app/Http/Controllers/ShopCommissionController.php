@@ -4,43 +4,49 @@ namespace App\Http\Controllers;
 
 use App\Models\Commission;
 use App\Models\CommissionProduct;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class CommissionController extends Controller
+class ShopCommissionController extends Controller
 {
     public function index(Request $request): View
     {
-        $commissions = Commission::where('user_id', $request->user()->id)
+        $shopCommissions = Commission::where('shop_id', $request->user()->shop->id)
             ->orderBy('created_at', 'desc')
             ->get();
 
-        return view('commissions.index', [
-            'commissions' => $commissions,
+        return view('shop.commissions.index', [
+            'shopCommissions' => $shopCommissions,
         ]);
     }
 
     public function show(Commission $commission, Request $request)
     {
-        $userCommissions = Commission::where('user_id', $request->user()->id)->get();
+        $shopCommissions = Commission::where('shop_id', $request->user()->shop->id)->get();
 
-        if($userCommissions->isNotEmpty()) {
-            foreach($userCommissions as $slug) {
+        if($shopCommissions->isNotEmpty()) {
+            foreach($shopCommissions as $slug) {
                 if($slug->id == $commission->id) {
                     $commissionProducts = CommissionProduct::where('commission_id', $commission->id)->get();
 
-                    $url = view('commissions.show', [
+                    $url = view('shop.commissions.show', [
                         'commission' => $commission,
                         'commissionProducts' => $commissionProducts,
                     ]);
                     break;
                 }
-                $url = redirect(route('commissions.index'));
+                $url = redirect(route('artisan.commissions.index'));
             }
         } else {
-            $url = redirect(route('commissions.index'));
+            $url = redirect(route('artisan.commissions.index'));
         }
 
         return $url;
+    }
+
+    public function update(Request $request): RedirectResponse
+    {
+        return redirect(route('shop.commissions.show'));
     }
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShopCommissionController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserController;
@@ -19,12 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
-
-//Route::get('/', \App\Livewire\InputsAddress::class)->name('search-postal-code');
-
-Route::get('/home', function () {
-    return view('home');
-})->middleware(['auth', 'verified'])->name('home');
 
 // ADMIN
 Route::middleware(['auth', 'role:admin'])
@@ -45,6 +40,10 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
+
     // EDITAR PERFIL DO USUARIO
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -70,7 +69,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 });
 
-//DESLOGADO
+// DESLOGADO
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
@@ -86,7 +85,8 @@ Route::middleware(['auth', 'role:artisan'])
     ->name('artisan.') //artisan.shop.edit
     ->prefix('artisan')
     ->group(function () {
-    Route::get('/', [ShopController::class, 'index'])->name('shop.index');
+
+    Route::get('/', [ShopController::class, 'dashboard'])->name('shop.dashboard');
 
     // CONFIGURAR LOJA
     Route::get('/shop', [ShopController::class, 'edit'])->name('shop.edit');
@@ -97,7 +97,9 @@ Route::middleware(['auth', 'role:artisan'])
     Route::get('/shop/address/edit', [ShopController::class, 'editAddress'])->name('shop.address.edit');
     Route::patch('/shop/address/remove', [ShopController::class, 'removeAddress'])->name('shop.address.remove');
 
-    Route::get('/commissions', [CommissionController::class, 'shopCommissions'])->name('shop.commissions.index');
+    // GERENCIAR ENCOMENDAS
+    Route::resource('/commissions', ShopCommissionController::class)
+        ->only(['index', 'show', 'update']);
 
     // GERENCIAR PRODUTOS
     Route::resource('/products', ProductController::class);

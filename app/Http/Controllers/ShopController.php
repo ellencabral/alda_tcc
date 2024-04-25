@@ -14,9 +14,9 @@ use Illuminate\View\View;
 
 class ShopController extends Controller
 {
-    public function index(): View
+    public function dashboard(): View
     {
-        return view('shop.index');
+        return view('shop.dashboard');
     }
     public function show($url): View
     {

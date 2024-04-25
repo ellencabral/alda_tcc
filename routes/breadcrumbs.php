@@ -59,6 +59,7 @@ Breadcrumbs::for('products.show', function ($trail, Shop $shop, $product) {
 });
 
 // Admin
+
 Breadcrumbs::for('admin', function (BreadcrumbTrail $trail) {
     $trail->push('Painel de Controle do Admin', route('admin.index'));
 });
@@ -90,12 +91,22 @@ Breadcrumbs::for('permissions.create', function($trail) {
 
 // Artesão
 
-Breadcrumbs::for('artisan', function($trail) {
-    $trail->push('Painel de Controle do Artesão', route('artisan.shop.index'));
+Breadcrumbs::for('shop.dashboard', function($trail) {
+    $trail->push('Painel de Controle do Artesão', route('artisan.shop.dashboard'));
+});
+
+Breadcrumbs::for('shop.commissions.index', function ($trail) {
+    $trail->parent('shop.dashboard');
+    $trail->push('Encomendas da Loja', route('artisan.commissions.index'));
+});
+
+Breadcrumbs::for('shop.commissions.show', function ($trail, $commission) {
+    $trail->parent('shop.commissions.index');
+    $trail->push('Detalhes da Encomenda', route('artisan.commissions.show', $commission));
 });
 
 Breadcrumbs::for('products', function($trail) {
-    $trail->parent('artisan');
+    $trail->parent('shop.dashboard');
     $trail->push('Produtos da Loja', route('artisan.products.index'));
 });
 
@@ -110,7 +121,7 @@ Breadcrumbs::for('products.edit', function($trail, $product) {
 });
 
 Breadcrumbs::for('shop.edit', function($trail, $shop) {
-    $trail->parent('artisan');
+    $trail->parent('shop.dashboard');
     $trail->push("Configurações da Loja '" . $shop . "'", route('artisan.shop.edit', $shop));
 });
 
@@ -118,15 +129,3 @@ Breadcrumbs::for('shop.address.edit', function($trail, $shop) {
     $trail->parent('shop.edit', $shop);
     $trail->push("Editar Endereço", route('artisan.shop.address.edit'));
 });
-//
-//// Home > Blog
-//Breadcrumbs::for('blog', function (BreadcrumbTrail $trail) {
-//    $trail->parent('home');
-//    $trail->push('Blog', route('blog'));
-//});
-//
-//// Home > Blog > [Category]
-//Breadcrumbs::for('category', function (BreadcrumbTrail $trail, $category) {
-//    $trail->parent('blog');
-//    $trail->push($category->title, route('category', $category));
-//});
