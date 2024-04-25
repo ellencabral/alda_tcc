@@ -76,7 +76,7 @@
                                 </x-dropdown-link>
                             @endrole
 
-                            <x-dropdown-link class="flex items-center" :href="route('shopping-bag')">
+                            <x-dropdown-link class="flex items-center" :href="route('cart')">
                                 Sacola de Compras
                                 @if(\Cart::content()->isNotEmpty())
                                     <span class="font-bold bg-red-700 h-4 w-4 flex items-center justify-center rounded-full text-white">

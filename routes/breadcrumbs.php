@@ -29,14 +29,14 @@ Breadcrumbs::for('shop.create', function ($trail) {
     $trail->push('Criar Loja', route('shop.create'));
 });
 
-Breadcrumbs::for('shopping-bag', function ($trail) {
+Breadcrumbs::for('cart', function ($trail) {
     $trail->parent('home');
-    $trail->push('Sacola de Compras', route('shopping-bag'));
+    $trail->push('Sacola de Compras', route('cart'));
 });
 
-Breadcrumbs::for('commissions.checkout', function ($trail) {
-    $trail->parent('shopping-bag');
-    $trail->push('Finalizar Encomenda', route('commissions.checkout'));
+Breadcrumbs::for('checkout', function ($trail) {
+    $trail->parent('cart');
+    $trail->push('Finalizar Encomenda', route('checkout.index'));
 });
 
 Breadcrumbs::for('commissions.index', function ($trail) {

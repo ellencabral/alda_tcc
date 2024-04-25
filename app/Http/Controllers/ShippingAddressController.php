@@ -12,7 +12,7 @@ class ShippingAddressController extends Controller
 {
     public function store(Request $request): RedirectResponse
     {
-        $addresses = $request->user()->shipping_addresses()->get();
+        $addresses = $request->user()->shippingAddresses()->get();
 
         if($addresses->isEmpty()) {
             $default = true;
@@ -20,7 +20,7 @@ class ShippingAddressController extends Controller
             $default = false;
         }
 
-        $postal_code = str_replace(' ', '', $request->postal_code);
+        $postalCode = str_replace(' ', '', $request->postal_code);
 
         $request->validate([
             'street' => ['required', 'string', 'max:160'],
@@ -32,14 +32,14 @@ class ShippingAddressController extends Controller
             'postal_code' => ['required'],
         ]);
 
-        $shipping_address = ShippingAddress::create([
+        ShippingAddress::create([
             'street' => $request->street,
             'number' => $request->number,
             'complement' => $request->complement,
             'locality' => $request->locality,
             'city' => $request->city,
             'region_code' => $request->region_code,
-            'postal_code' => $postal_code,
+            'postal_code' => $postalCode,
             'is_default' => $default,
             'user_id' => $request->user()->id,
         ]);
@@ -58,17 +58,23 @@ class ShippingAddressController extends Controller
 
     public function update(Request $request): RedirectResponse
     {
-        $shipping_address = ShippingAddress::find($request->id);
+        $shippingAddress = ShippingAddress::find($request->id);
+        $oldDefaultShippingAddress = ShippingAddress::where('is_default', true);
 
-        if($request->has('is_default')) { // se o checkbox estiver marcado, trocar o antigo padrão para falso e atualizar o atual para true
-            ShippingAddress::where('is_default', true)->update(['is_default' => false]);
-
-            $shipping_address->is_default = true;
+        if($request->has('is_default')) {
+            // se o checkbox estiver marcado,
+            // trocar o antigo padrão para falso e atualizar o atual para true
+            $oldDefaultShippingAddress->update(['is_default' => false]);
+            $shippingAddress->is_default = true;
         } else {
-            $shipping_address->is_default = false;
+            if($shippingAddress->is_default) {
+                $shippingAddress->is_default = true;
+            } else {
+                $shippingAddress->is_default = false;
+            }
         }
 
-        $shipping_address->fill($request->validate([
+        $shippingAddress->fill($request->validate([
             'street' => ['required', 'string', 'max:160'],
             'number' => ['required', 'string', 'max:20'],
             'complement' => ['max:40'],
@@ -78,9 +84,9 @@ class ShippingAddressController extends Controller
             'postal_code' => ['required'],
         ]));
 
-        $shipping_address->postal_code = str_replace(' ', '', $request->postal_code);
+        $shippingAddress->postal_code = str_replace(' ', '', $request->postal_code);
 
-        $shipping_address->save();
+        $shippingAddress->save();
 
         return redirect(route('profile.shipping-address.edit', $request->id));
     }
@@ -91,18 +97,17 @@ class ShippingAddressController extends Controller
             'password' => ['required', 'current_password'],
         ]);
 
-        $shipping_address = ShippingAddress::find($request->id);
+        $shippingAddress = ShippingAddress::find($request->id);
 
-        $shipping_address->delete();
+        $shippingAddress->delete();
 
-        if($shipping_address->is_default) { // se o endereço deletado for padrão, tornar padrão o outro primeiro que aparecer
-            $other_shipping_address = ShippingAddress::where('user_id', $request->user()->id)->first();
+        if($shippingAddress->is_default) { // se o endereço deletado for padrão, tornar padrão o outro primeiro que aparecer
+            $otherShippingAddress = ShippingAddress::where('user_id', $request->user()->id)->first();
 
-            if($other_shipping_address) {
-                $other_shipping_address->update(['is_default' => true]);
+            if($otherShippingAddress) {
+                $otherShippingAddress->update(['is_default' => true]);
             }
         }
-
 
         return redirect(route('profile.edit'));
     }

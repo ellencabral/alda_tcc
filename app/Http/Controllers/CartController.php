@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
-class ShoppingBagController extends Controller
+class CartController extends Controller
 {
     public function index(): View
     {
@@ -18,12 +18,12 @@ class ShoppingBagController extends Controller
         if($items->isNotEmpty()) {
             foreach($items as $item) {
                 $product = Product::find($item->id);
-                $url = view('shopping-bag', compact('items'), ['shop' => $product->shop]);
+                $url = view('cart', compact('items'), ['shop' => $product->shop]);
                 break;
             }
         }
         else {
-            $url = view('shopping-bag', compact('items'));
+            $url = view('cart', compact('items'));
         }
 
         return $url;
@@ -50,20 +50,20 @@ class ShoppingBagController extends Controller
                 }
                 else {
                     $valid = true;
-                    $url = route('shopping-bag');
+                    $url = route('cart');
                 }
                 break;
             }
         }
         else { // A SACOLA ESTA VAZIA
             $valid = true;
-            $url = route('shopping-bag');
+            $url = route('cart');
         }
 
         if($valid) {
             $shop = Shop::where('id', $product->shop_id)->first();
 
-            Cart::add([
+            \Cart::add([
                 'id' => $request->id,
                 'name' => $request->name,
                 'qty' => $request->quantity,
@@ -89,21 +89,21 @@ class ShoppingBagController extends Controller
     {
         Cart::update($rowId, $request->quantity);
 
-        return redirect(route('shopping-bag'));
+        return redirect(route('cart'));
     }
 
     public function delete($rowId): RedirectResponse
     {
         Cart::remove($rowId);
 
-        return redirect(route('shopping-bag'));
+        return redirect(route('cart'));
     }
 
     public function destroy(): RedirectResponse
     {
         Cart::destroy();
 
-        return redirect(route('shopping-bag'));
+        return redirect(route('cart'));
     }
 
 }

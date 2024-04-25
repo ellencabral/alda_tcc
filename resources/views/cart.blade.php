@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ Breadcrumbs::render('shopping-bag') }}
+            {{ Breadcrumbs::render('cart') }}
         </h2>
     </x-slot>
 
@@ -56,7 +56,7 @@
                                 </th>
                                 <td class="px-6 py-4">R$ {{ number_format($item->price, 2, ',', '.') }}</td>
                                 <td class="px-6 py-4">
-                                    <form action="{{ route('shopping-bag.edit', $item->rowId) }}" method="post">
+                                    <form action="{{ route('cart.edit', $item->rowId) }}" method="post">
                                         @csrf @method('patch')
                                         <x-text-input type="number"
                                                       name="quantity"
@@ -68,7 +68,7 @@
                                     </form>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <form action="{{ route('shopping-bag.remove', $item->rowId) }}" method="post">
+                                    <form action="{{ route('cart.remove', $item->rowId) }}" method="post">
                                         @csrf @method('delete')
                                         <x-danger-button>
                                             {{ __('Remove') }}
@@ -86,12 +86,12 @@
                 </h2>
                 <div class="flex justify-end">
                     <x-secondary-button class="mr-2">
-                        <a href="{{ route('shopping-bag.destroy') }}">
+                        <a href="{{ route('cart.destroy') }}">
                             Limpar sacola
                         </a>
                     </x-secondary-button>
                     <x-primary-button>
-                        <a href="{{ route('commissions.checkout') }}">
+                        <a href="{{ route('checkout.index') }}">
                             Continuar encomenda
                         </a>
                     </x-primary-button>

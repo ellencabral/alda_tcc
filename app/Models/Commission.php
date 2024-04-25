@@ -36,7 +36,7 @@ class Commission extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function shipping_address(): BelongsTo
+    public function shippingAddress(): BelongsTo
     {
         return $this->belongsTo(ShippingAddress::class);
     }

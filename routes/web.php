@@ -4,10 +4,11 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ShippingAddressController;
-use App\Http\Controllers\ShoppingBagController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShopController;
@@ -55,28 +56,27 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/profile/shipping-address', [ShippingAddressController::class, 'store'])->name('shipping-address.store');
     Route::delete('/profile/shipping-address/{id}', [ShippingAddressController::class, 'destroy'])->name('shipping-address.destroy');
 
+    // PESQUISAR PRODUTOS
     Route::get('/search', [ProductController::class, 'search'])->name('search');
 
-    // ENCOMENDAS
-    Route::get('/commissions/checkout', [CommissionController::class, 'checkout'])->name('commissions.checkout');
-    Route::get('/commissions/shipping', [CommissionController::class, 'shipping'])->name('commissions.shipping');
+    // CHECKOUT
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
-    Route::post('/commissions', [CommissionController::class, 'store'])->name('commissions.store');
+    // ENCOMENDAS REALIZADAS
     Route::get('/commissions', [CommissionController::class, 'index'])->name('commissions.index');
     Route::get('/commissions/{commission}', [CommissionController::class, 'show'])->name('commissions.show');
     Route::patch('/commissions/{commission}', [CommissionController::class, 'update'])->name('commissions.update');
 
 });
 
-//Route::get('/payment', [PaymentController::class, 'index'])->name('payment');
-//Route::get('/app', [PaymentController::class, 'app'])->name('app');
+//DESLOGADO
 
-Route::get('/shopping-bag', [ShoppingBagController::class, 'index'])->name('shopping-bag');
-Route::post('/shopping-bag/add', [ShoppingBagController::class, 'add'])->name('shopping-bag.add');
-Route::delete('/shopping-bag/remove/{id}', [ShoppingBagController::class, 'delete'])->name('shopping-bag.remove');
-Route::patch('/shopping-bag/edit/{id}', [ShoppingBagController::class, 'update'])->name('shopping-bag.edit');
-Route::get('/shopping-bag/destroy', [ShoppingBagController::class, 'destroy'])->name('shopping-bag.destroy');
-
+Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove/{id}', [CartController::class, 'delete'])->name('cart.remove');
+Route::patch('/cart/edit/{id}', [CartController::class, 'update'])->name('cart.edit');
+Route::get('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 
 Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shop.show');
 Route::get('/shop/{url}/{name}', [ProductController::class, 'show'])->name('products.show');

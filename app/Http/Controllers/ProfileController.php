@@ -21,7 +21,7 @@ class ProfileController extends Controller
 
         return view('profile.edit', [
             'user' => $user,
-            'addresses' => $user->shipping_addresses()->get(),
+            'addresses' => $user->shippingAddresses()->get(),
         ]);
     }
 
