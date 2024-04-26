@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commission;
 use App\Models\CommissionProduct;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -42,5 +43,16 @@ class CommissionController extends Controller
         }
 
         return $url;
+    }
+
+    public function destroy(Commission $commission, Request $request): RedirectResponse
+    {
+        $request->validateWithBag('commissionDeletion', [
+            'password' => ['required', 'current_password'],
+        ]);
+
+        $commission->delete();
+
+        return redirect(route('commissions.index'))->with('status', 'commission-destroyed');
     }
 }

@@ -63,10 +63,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
     // ENCOMENDAS REALIZADAS
-    Route::get('/commissions', [CommissionController::class, 'index'])->name('commissions.index');
-    Route::get('/commissions/{commission}', [CommissionController::class, 'show'])->name('commissions.show');
-    Route::patch('/commissions/{commission}', [CommissionController::class, 'update'])->name('commissions.update');
-
+    Route::resource('/commissions', CommissionController::class)
+        ->only(['index', 'show', 'update', 'destroy']);
 });
 
 // DESLOGADO
