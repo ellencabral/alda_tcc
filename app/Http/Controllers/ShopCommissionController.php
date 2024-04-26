@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commission;
 use App\Models\CommissionProduct;
+use App\Models\Status;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -30,9 +31,12 @@ class ShopCommissionController extends Controller
                 if($slug->id == $commission->id) {
                     $commissionProducts = CommissionProduct::where('commission_id', $commission->id)->get();
 
+                    $statuses = Status::all();
+
                     $url = view('shop.commissions.show', [
                         'commission' => $commission,
                         'commissionProducts' => $commissionProducts,
+                        'statuses' => $statuses,
                     ]);
                     break;
                 }
@@ -45,8 +49,12 @@ class ShopCommissionController extends Controller
         return $url;
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(Commission $commission, Request $request): RedirectResponse
     {
-        return redirect(route('shop.commissions.show'));
+        $commission->status_id = $request->status_id;
+
+        $commission->save();
+
+        return redirect(route('artisan.commissions.show', $commission->id));
     }
 }
