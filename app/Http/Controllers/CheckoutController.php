@@ -20,7 +20,9 @@ class CheckoutController extends Controller
             ->orderBy('is_default', 'desc')
             ->get();
 
-        $cart_total = \Cart::total() - \Cart::tax();
+        $total = (float) str_replace(',', '', \Cart::total());
+
+        $cart_total = $total - \Cart::tax();
 
         foreach($items as $item) { //encontrar a loja dona do item na sacola
             $product = Product::find($item->id);
