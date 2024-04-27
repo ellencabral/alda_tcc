@@ -80,9 +80,15 @@
                             @endrole
 
                             @role('user')
-                                <x-dropdown-link :href="route('shop.create')">
-                                    Criar Loja
-                                </x-dropdown-link>
+                                @can('activate shop')
+                                    <x-dropdown-link :href="route('shop.activate-form')">
+                                        Ativar Loja
+                                    </x-dropdown-link>
+                                @else
+                                    <x-dropdown-link :href="route('shop.create')">
+                                        Criar Loja
+                                    </x-dropdown-link>
+                                @endcan
                             @endrole
 
                             <x-dropdown-link class="flex items-center" :href="route('cart')">

@@ -16,9 +16,11 @@ return new class extends Migration
             $table->string('url', 50)->unique();
             $table->string('name', 150);
             $table->text('description')->nullable();
+            $table->string('cpf', 11)->unique()->nullable();
+            $table->string('cnpj', 14)->unique()->nullable();
             $table->binary('image')->nullable();
             $table->timestamp('created_at')->useCurrent();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
 
             $table->string('street', 150)->nullable();
             $table->string('number', 20)->nullable();

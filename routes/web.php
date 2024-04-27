@@ -35,8 +35,11 @@ Route::middleware(['auth', 'role:admin'])
 // USUARIO COMUM
 Route::middleware(['auth', 'role:user'])->group(function () {
     // CRIAR LOJA
-    Route::get('/shop', [ShopController::class, 'create'])->name('shop.create');
+    Route::get('/shop/create', [ShopController::class, 'create'])->name('shop.create');
     Route::post('/shop', [ShopController::class, 'store'])->name('shop.store');
+
+    Route::get('/shop/activate', [ShopController::class, 'activateForm'])->name('shop.activate-form');
+    Route::patch('/shop/activate', [ShopController::class, 'activate'])->name('shop.activate');
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {

@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('phone_area', 2)->nullable();
             $table->string('phone_number', 9)->unique()->nullable();
             $table->string('password', 255);
-            $table->string('tax_id', 14)->unique()->nullable();
-            $table->string('payment_key', 255)->nullable();
+            $table->string('cpf', 14)->unique()->nullable();
+            $table->string('pix_key', 255)->nullable();
             $table->binary('image')->nullable();
             $table->boolean('is_active')->default(true);
             $table->rememberToken();

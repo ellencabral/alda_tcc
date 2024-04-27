@@ -12,9 +12,11 @@ class Shop extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'name',
         'url',
+        'name',
         'description',
+        'cpf',
+        'cnpj',
         'image',
         'is_active',
         'street',

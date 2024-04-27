@@ -32,11 +32,17 @@ class ShopController extends Controller
     /**
      * Display the create shop form.
      */
-    public function create(Request $request): View
+    public function create(Request $request)
     {
-        return view('shop.create', [
-            'user' => $request->user(),
-        ]);
+        if($request->user()->can('activate shop')) {
+            $url = redirect(route('home'));
+        } else {
+            $url = view('shop.create',[
+                'user' => $request->user()
+            ]);
+        }
+
+        return $url;
     }
 
     public function store(Request $request): RedirectResponse
@@ -52,12 +58,53 @@ class ShopController extends Controller
             'user_id' => auth()->id(),
         ]);
 
-        //$request->user()->user_type_id = 3;
-        //$request->user()->save();
-        ;
-        $request->user()->syncRoles('artisan');
+        $request->user()->givePermissionTo(['activate shop']);
 
         return redirect(route('home'));
+    }
+
+    public function activateForm(Request $request)
+    {
+        if($request->user()->can('activate shop')) {
+            $url = view('shop.activate-form', [
+                'shop' => $request->user()->shop,
+            ]);
+        } else {
+            $url = redirect(route('home'));
+        }
+
+        return $url;
+    }
+
+    public function activate(Request $request): RedirectResponse
+    {
+        $shop = $request->user()->shop;
+
+        if($request->option == 'cpf') {
+            $shop->fill($request->validate([
+                'cpf' => ['required', 'string', 'min:14'],
+            ]));
+
+            $shop->cpf = preg_replace('/[^0-9]/','', $request->cpf);
+        }
+
+        if($request->option == 'cnpj') {
+            $shop->fill($request->validate([
+                'cnpj' => ['required', 'string', 'min:18'],
+            ]));
+
+            $shop->cnpj = preg_replace('/[^0-9]/','', $request->cnpj);
+
+        }
+        $shop->is_active = true;
+
+        $shop->save();
+
+        $request->user()->revokePermissionTo(['activate shop']);
+
+        $request->user()->syncRoles('artisan');
+
+        return redirect(route('artisan.shop.dashboard'));
     }
 
     /**

@@ -29,6 +29,11 @@ Breadcrumbs::for('shop.create', function ($trail) {
     $trail->push('Criar Loja', route('shop.create'));
 });
 
+Breadcrumbs::for('shop.activate', function($trail, $shop) {
+    $trail->parent('home');
+    $trail->push('Ativar Loja', route('shop.activate-form', $shop));
+});
+
 Breadcrumbs::for('cart', function ($trail) {
     $trail->parent('home');
     $trail->push('Sacola de Compras', route('cart'));

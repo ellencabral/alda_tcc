@@ -17,12 +17,14 @@ class ShopsSeeder extends Seeder
             'name' => 'Celita Artesanatos',
             'url' => 'celitaartesanato',
             'user_id' => 3,
+            'is_active' => true,
         ]);
 
         Shop::create([
             'name' => 'Artesanato Maria',
             'url' => 'artesanatomaria',
             'user_id' => 4,
+            'is_active' => true,
         ]);
     }
 }
