@@ -41,17 +41,6 @@ class ProductController extends Controller
         ]);
     }
 
-    public function search(Request $request): View
-    {
-        $search = $request->input('search');
-        $results = Product::where('name', 'like', '%' . $search . '%')->paginate(10);
-
-        return view('products.search', [
-            'results' => $results,
-            'search' => $search,
-        ]);
-    }
-
     /**
      * Display the page to create a product.
      */

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ShippingAddressController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
@@ -58,8 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/profile/shipping-address', [ShippingAddressController::class, 'store'])->name('shipping-address.store');
     Route::delete('/profile/shipping-address/{id}', [ShippingAddressController::class, 'destroy'])->name('shipping-address.destroy');
 
-    // PESQUISAR PRODUTOS
-    Route::get('/search', [ProductController::class, 'search'])->name('search');
+    // PESQUISAR PRODUTOS/LOJAS
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
 
     // CHECKOUT
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');

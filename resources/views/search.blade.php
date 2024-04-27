@@ -2,16 +2,16 @@
     <div class="py-12 w-full">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h2 class="mb-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                @isset($search)
-                    Exibindo Resultados da Pesquisa: '{{ $search }}'
+                @isset($searchText)
+                    Exibindo Resultados da Pesquisa: '{{ $searchText }}'
                 @else
                     Exibindo Todos os Resultados
                 @endisset
             </h2>
 
-            <x-form-search-products />
+            <x-form-search />
 
-            @if(!$results->isEmpty())
+            @if($results->isNotEmpty())
                 <div class="mt-4">
                     {{ $results->links() }}
                 </div>
@@ -20,9 +20,6 @@
                         <div class="flex justify-between items-center p-6 text-gray-900 dark:text-gray-100">
                             <div class="flex items-center">
                                 <li>
-                                    <img class="mr-4" style="width:50px;" src="/img/products/{{ $result->image }}" alt="Imagem de {{ $result->name }}"/>
-                                </li>
-                                <li>
                                     <h1 class="mb-4 font-semibold text-xl">
                                         {{ $result->name }}
                                     </h1>
@@ -30,18 +27,19 @@
                             </div>
 
                             <div class="flex items-center">
-                                <li>
-                                    <x-nav-link href="{{ route('products.show', ['url' => $result->shop->url, 'name' =>  $result->name]) }}">
-                                        Ver Detalhes
-                                    </x-nav-link>
-                                </li>
-                                <li>
-                                    @if(Auth::user()->hasRole('artisan') && $result->shop_id === Auth::user()->shop->id)
-                                        <x-nav-link href="{{ route('artisan.products.edit', $result->id) }}">
-                                            Editar
+                                @if($searchType == 'product')
+                                    <li>
+                                        <x-nav-link href="{{ route('products.show', ['url' => $result->shop->url, 'name' =>  $result->name]) }}">
+                                            Ver Detalhes
                                         </x-nav-link>
-                                    @endif
-                                </li>
+                                    </li>
+                                @elseif($searchType == 'shop')
+                                    <li>
+                                        <x-nav-link href="{{ route('shop.show', $result->url) }}">
+                                            Ver Detalhes
+                                        </x-nav-link>
+                                    </li>
+                                @endif
                             </div>
                         </div>
                     </ul>
