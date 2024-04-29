@@ -4,6 +4,7 @@ use App\Http\Controllers\AddressController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CommissionController;
 use App\Http\Controllers\PaymentController;
@@ -45,8 +46,12 @@ Route::middleware(['auth', 'role:user'])->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', function () {
-        return view('home');
+        $categories = \App\Models\Category::all();
+
+        return view('home', ['categories' => $categories]);
     })->name('home');
+
+    Route::get('/categories/{category}/products', [CategoryProductController::class, 'index'])->name('categories.products.index');
 
     // EDITAR PERFIL DO USUARIO
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -79,7 +84,7 @@ Route::delete('/cart/remove/{id}', [CartController::class, 'delete'])->name('car
 Route::patch('/cart/edit/{id}', [CartController::class, 'update'])->name('cart.edit');
 Route::get('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 
-Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shop.show');
+Route::get('/shop/{shop}', [ShopController::class, 'show'])->name('shop.show');
 Route::get('/shop/{url}/{name}', [ProductController::class, 'show'])->name('products.show');
 
 // ARTESAO

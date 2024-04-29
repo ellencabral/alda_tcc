@@ -14,13 +14,13 @@ class ProductsSeeder extends Seeder
     public function run(): void
     {
         Product::factory()
-            ->count(15)
+            ->count(40)
             ->create([
                 'shop_id' => 1,
             ]);
 
         Product::factory()
-            ->count(8)
+            ->count(32)
             ->create([
                 'shop_id' => 2,
             ]);
