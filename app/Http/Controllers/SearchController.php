@@ -16,13 +16,13 @@ class SearchController extends Controller
 
         $searchType = $request->input('search_type');
 
-        if($searchType == 'product') {
+        if($searchType == 'Produtos') {
             $model = new Product();
         }
-        if($searchType == 'shop') {
+        if($searchType == 'Lojas') {
             $model = new Shop();
         }
-        if($searchType == 'user') {
+        if($searchType == 'Usuários') {
             $model = new User();
         }
 

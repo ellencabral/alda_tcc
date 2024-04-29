@@ -3,9 +3,9 @@
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
             <h2 class="mb-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 @isset($searchText)
-                    Exibindo Resultados da Pesquisa: '{{ $searchText }}'
+                    Exibindo Resultados da Pesquisa de {{ $searchType }}: '{{ $searchText }}'
                 @else
-                    Exibindo Todos os Resultados
+                    Exibindo Todos os Resultados de {{ $searchType }}
                 @endisset
             </h2>
 
