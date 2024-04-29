@@ -1,14 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ Breadcrumbs::render('shop.show', $shop) }}
+            {{ $shop->name }}
         </h2>
     </x-slot>
     <div class="py-12">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h2 class="mb-4 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ $shop->name }}
-            </h2>
+
             <div class="py-6 text-gray-900 dark:text-gray-100">
                 <p>
                     Criada em: {{ date('d/m/Y', strtotime($shop->created_at)) }}
@@ -23,9 +21,11 @@
                     $message = 'Sou usuário(a) da Alda, e gostaria de fazer uma encomenda personalizada!';
                     $url = 'https://wa.me/' . $phone . '/?text=' . $message;
                 @endphp
-                <x-nav-link :href="$url" class="mt-4">
-                    Fazer Encomenda Personalizada
-                </x-nav-link>
+                <x-secondary-button class="mt-4">
+                    <a href="{{ $url }}">
+                        Fazer Encomenda Personalizada
+                    </a>
+                </x-secondary-button>
             </div>
             <div class="text-gray-900 dark:text-gray-100">
                 @if($products->isNotEmpty())

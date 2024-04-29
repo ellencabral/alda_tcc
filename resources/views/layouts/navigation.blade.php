@@ -67,7 +67,7 @@
 
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Profile') }}
+                                Meu Perfil
                             </x-dropdown-link>
 
                             @role('artisan')

@@ -11,22 +11,17 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 Breadcrumbs::for('home', function ($trail) {
-   $trail->push('Principal', route('home'));
+   $trail->push('Início', route('home'));
 });
 
 Breadcrumbs::for('profile', function ($trail) {
     $trail->parent('home');
-    $trail->push('Perfil', route('profile.edit'));
+    $trail->push('Meu Perfil', route('profile.edit'));
 });
 
 Breadcrumbs::for('shipping-address.edit', function ($trail, $address) {
     $trail->parent('profile');
-    $trail->push('Atualizar Endereço', route('profile.shipping-address.edit', $address));
-});
-
-Breadcrumbs::for('shop.create', function ($trail) {
-    $trail->parent('home');
-    $trail->push('Criar Loja', route('shop.create'));
+    $trail->push('Editar Endereço', route('profile.shipping-address.edit', $address));
 });
 
 Breadcrumbs::for('shop.activate', function($trail, $shop) {
