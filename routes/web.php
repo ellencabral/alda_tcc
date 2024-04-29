@@ -65,7 +65,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile/shipping-address/{id}', [ShippingAddressController::class, 'destroy'])->name('shipping-address.destroy');
 
     // PESQUISAR PRODUTOS/LOJAS
-    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    Route::get('/search', [SearchController::class, 'search'])->name('search-results');
 
     // CHECKOUT
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');

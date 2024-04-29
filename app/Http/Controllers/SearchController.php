@@ -28,7 +28,7 @@ class SearchController extends Controller
 
         $results = $model::where('name', 'like', '%' . $searchText . '%')->paginate(10);
 
-        return view('search', [
+        return view('search-results', [
             'results' => $results,
             'searchText' => $searchText,
             'searchType' => $searchType

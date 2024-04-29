@@ -1,10 +1,9 @@
 <section>
-    <form class="mt-4 flex flex-col justify-between" action="{{ route('search') }}" method="GET">
+    <form class="mt-4 flex flex-col justify-between" action="{{ route('search-results') }}" method="GET">
         <div class="flex w-full">
-            <x-select-input name="search_type" class="mr-4">
+            <x-select-input name="search_type" class="w-32 mr-4">
                 <option value="Produtos">Produtos</option>
                 <option value="Lojas">Lojas</option>
-                <option value="Usuários">Usuários</option>
             </x-select-input>
 
             <x-text-input class="w-full"
@@ -17,5 +16,6 @@
         </div>
 
         <x-input-error class="mt-2" :messages="$errors->get('search_type')" />
+
     </form>
 </section>
