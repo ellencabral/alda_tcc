@@ -17,7 +17,7 @@
                     </p>
                 @endisset
                 @php
-                    $phone = '53991857267';
+                    $phone = preg_replace('/\D/', '', $shop->user->phone);
                     $message = 'Sou usuário(a) da Alda, e gostaria de fazer uma encomenda personalizada!';
                     $url = 'https://wa.me/' . $phone . '/?text=' . $message;
                 @endphp
