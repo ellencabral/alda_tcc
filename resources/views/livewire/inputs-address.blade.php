@@ -9,7 +9,7 @@
                       required autofocus autocomplete="postal_code"
                       x-mask="99999-999" placeholder="99999-999"
                       wire:model.change="postal_code" />
-        <x-input-error class="mt-2" :messages="$errors->get('postal_code')" />
+        <x-input-error class="mt-2" wire:model.live="error" :messages="$error ?? $errors->get('postal_code')" />
     </div>
 
     <div class="flex mt-2">

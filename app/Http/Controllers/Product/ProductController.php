@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -30,8 +31,8 @@ class ProductController extends Controller
      */
     public function show(Product $product): View
     {
-        return view('products.show', [
-            'product' => $product,
+       return view('products.show', [
+            'product' => Product::where('id', $product->id)->firstOrFail(),
             'shop' => $product->shop,
         ]);
     }

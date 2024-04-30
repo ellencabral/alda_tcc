@@ -1,4 +1,4 @@
-<form method="post" action="{{ $action }}">
+<form class="max-w-xl"  method="post" action="{{ $action }}">
     @csrf
 
     @isset($update)

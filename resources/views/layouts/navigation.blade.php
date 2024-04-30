@@ -67,7 +67,7 @@
 
                         <x-slot name="content">
                             <x-dropdown-link :href="route('profile.edit')">
-                                Meu Perfil
+                                Minha Conta
                             </x-dropdown-link>
 
                             @role('artisan')

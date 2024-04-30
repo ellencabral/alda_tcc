@@ -20,6 +20,17 @@ Breadcrumbs::for('profile', function ($trail) {
     $trail->push('Meu Perfil', route('profile.edit'));
 });
 
+Breadcrumbs::for('profile.information.edit', function ($trail) {
+    $trail->parent('profile');
+    $trail->push('Dados Pessoais', route('profile.information.edit'));
+});
+
+Breadcrumbs::for('profile.password.edit', function ($trail) {
+    $trail->parent('profile');
+    $trail->push('Mudar Senha', route('profile.password.edit'));
+});
+
+
 Breadcrumbs::for('shipping-address.index', function ($trail) {
     $trail->parent('profile');
     $trail->push('Endereços de Entrega', route('profile.shipping-address.index'));
@@ -140,17 +151,28 @@ Breadcrumbs::for('products.edit', function($trail, $product) {
     $trail->push("Editar Produto '" . $product . "'", route('artisan.products.edit', $product));
 });
 
-Breadcrumbs::for('shops.edit', function($trail, $shop) {
+Breadcrumbs::for('shops.edit', function($trail) {
     $trail->parent('shops.dashboard');
-    $trail->push("Configurações da Loja", route('artisan.shops.edit', $shop));
+    $trail->push("Configurações da Loja", route('artisan.shops.edit'));
 });
 
-Breadcrumbs::for('shops.address.create', function($trail, $shop) {
-    $trail->parent('shops.edit', $shop);
-    $trail->push("Adicionar Endereço", route('artisan.shops.address.create'));
+Breadcrumbs::for('shops.information.edit', function($trail) {
+    $trail->parent('shops.edit');
+    $trail->push("Dados da Loja", route('artisan.shops.information.edit'));
 });
 
-Breadcrumbs::for('shops.address.edit', function($trail, $shop) {
-    $trail->parent('shops.edit', $shop);
+Breadcrumbs::for('shops.customization.edit', function($trail) {
+    $trail->parent('shops.edit');
+    $trail->push("Customização", route('artisan.shops.customization.edit'));
+});
+
+
+Breadcrumbs::for('shops.address.create', function($trail) {
+    $trail->parent('shops.edit');
+    $trail->push("Adicionar Endereço", route('artisan.shops.address.edit'));
+});
+
+Breadcrumbs::for('shops.address.edit', function($trail) {
+    $trail->parent('shops.edit');
     $trail->push("Editar Endereço", route('artisan.shops.address.edit'));
 });

@@ -14,6 +14,8 @@ use App\Http\Controllers\Shop\ShopActivateController;
 use App\Http\Controllers\Shop\ShopAddressController;
 use App\Http\Controllers\Shop\ShopCommissionController;
 use App\Http\Controllers\Shop\ShopController;
+use App\Http\Controllers\Shop\ShopCustomizationController;
+use App\Http\Controllers\Shop\ShopInformationController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\User\ProfileInformationController;
 use App\Http\Controllers\User\ShippingAddressController;
@@ -32,8 +34,8 @@ Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/shop/create', [ShopController::class, 'create'])->name('shops.create');
     Route::post('/shop', [ShopController::class, 'store'])->name('shops.store');
 
-    Route::get('/shop/activate', [ShopActivateController::class, 'activateForm'])->name('shop.activate-form');
-    Route::patch('/shop/activate', [ShopActivateController::class, 'activate'])->name('shop.activate');
+    Route::get('/shop/activate', [ShopActivateController::class, 'form'])->name('shops.activate-form');
+    Route::patch('/shop/activate', [ShopActivateController::class, 'activate'])->name('shops.activate');
 });
 
 // DESLOGADO
@@ -88,7 +90,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // EDITAR ENDEREÇO
+    // EDITAR ENDEREÇO DE ENTREGA
     Route::get('/profile/shipping-addresses', [ShippingAddressController::class, 'index'] )->name('profile.shipping-address.index');
     Route::get('/profile/shipping-address/create', [ShippingAddressController::class, 'create'] )->name('profile.shipping-address.create');
     Route::post('/profile/shipping-address', [ShippingAddressController::class, 'store'])->name('shipping-address.store');
@@ -115,13 +117,16 @@ Route::middleware(['auth', 'role:artisan'])
 
     // CONFIGURAR LOJA
     Route::get('/shop', [ShopController::class, 'edit'])->name('shops.edit');
-    Route::patch('/shop', [ShopController::class, 'update'])->name('shops.update');
     Route::delete('/shop', [ShopController::class, 'destroy'])->name('shops.destroy');
 
-    Route::get('/shop/address/create', [ShopAddressController::class, 'create'])->name('shops.address.create');
+    Route::get('/shop/information', [ShopInformationController::class, 'edit'])->name('shops.information.edit');
+    Route::patch('/shop/information', [ShopInformationController::class, 'update'])->name('shops.information.update');
+
+    Route::get('/shop/customization', [ShopCustomizationController::class, 'edit'])->name('shops.customization.edit');
+
+    Route::get('/shop/address', [ShopAddressController::class, 'edit'])->name('shops.address.edit');
     Route::patch('/shop/address', [ShopAddressController::class, 'update'])->name('shops.address.update');
-    Route::get('/shop/address/edit', [ShopAddressController::class, 'edit'])->name('shops.address.edit');
-    Route::patch('/shop/address/remove', [ShopAddressController::class, 'remove'])->name('shops.address.remove');
+    Route::patch('/shop/address', [ShopAddressController::class, 'remove'])->name('shops.address.remove');
 
     // GERENCIAR ENCOMENDAS
     Route::resource('/commissions', ShopCommissionController::class)

@@ -15,6 +15,8 @@ class InputsAddress extends Component
     public string $region_code = '';
     public string $postal_code = '';
 
+    public string $error = '';
+
     public $address;
 
     public function updatedPostalCode(string $value)
@@ -23,12 +25,16 @@ class InputsAddress extends Component
 
         $response = Http::get("https://viacep.com.br/ws/{$value}/json/")->json();
 
-        if($response) {
+        if(!array_key_exists('erro', $response)) {
+            $this->error = '';
+
             $this->postal_code = $value;
             $this->street = $response['logradouro'];
             $this->locality = $response['bairro'];
             $this->city = $response['localidade'];
             $this->region_code = $response['uf'];
+        } else {
+            $this->error = 'Este CEP é inválido.';
         }
     }
     /**

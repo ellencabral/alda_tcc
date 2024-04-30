@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Shop;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
 class ShopController extends Controller
@@ -24,6 +22,7 @@ class ShopController extends Controller
     {
         return view('shops.dashboard');
     }
+
     public function show($url): View
     {
         $shop = Shop::where('url', $url)->firstOrFail();
@@ -78,24 +77,6 @@ class ShopController extends Controller
         return view('shops.edit', [
            'shop' => $request->user()->shop,
         ]);
-    }
-
-    /**
-     * Update the user's shop information.
-     */
-    public function update(Request $request): RedirectResponse
-    {
-        $shop = $request->user()->shop;
-
-        $shop->fill($request->validate([
-            'name' => ['required', 'string', 'max:150'],
-            'url' => ['required', 'string', 'max:50', Rule::unique(Shop::class)->ignore($request->user()->id)],
-        ]));
-
-        $shop->save();
-
-        return redirect(route('shops.edit', $shop->id))
-            ->with('status', 'profile-updated');
     }
 
     /**

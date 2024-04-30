@@ -21,9 +21,9 @@ class CommissionController extends Controller
         ]);
     }
 
-    public function show(Commission $commission, Request $request)
+    public function show(Commission $commission, Request $request): View
     {
-        $userCommission = $request->user()->commissions()->where('id', $commission->id)->first();
+        $userCommission = $request->user()->commissions()->where('id', $commission->id)->firstOrFail();
 
         return view('commissions.show', [
             'commission' => $commission,

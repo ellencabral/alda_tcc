@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ShopActivateController extends Controller
 {
-    public function activateForm(Request $request)
+    public function form(Request $request)
     {
         if($request->user()->can('activate shop')) {
             $url = view('shops.activate-form', [

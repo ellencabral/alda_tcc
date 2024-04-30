@@ -3,27 +3,17 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Models\Shop;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ShopAddressController extends Controller
 {
-    public function create(Request $request): View
-    {
-        $shop = $request->user()->shop;
-
-        return view('shops.address.create', [
-            'shop' => $shop,
-        ]);
-    }
-
     public function edit(Request $request): View
     {
-        $shop = $request->user()->shop;
-
         return view('shops.address.edit', [
-            'shop' => $shop,
+            'shop' => $request->user()->shop,
         ]);
     }
 

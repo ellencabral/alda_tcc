@@ -16,18 +16,20 @@
                         Descrição: {{ $shop->description }}
                     </p>
                 @endisset
-                @if(Auth::user()->shop and Auth::user()->shop != $shop)
-                    @php
-                        $phone = preg_replace('/\D/', '', $shop->user->phone);
-                        $message = 'Sou usuário(a) da Alda, e gostaria de fazer uma encomenda personalizada!';
-                        $url = 'https://wa.me/' . $phone . '/?text=' . $message;
-                    @endphp
-                    <x-secondary-button class="mt-4">
-                        <a href="{{ $url }}">
-                            Fazer Encomenda Personalizada
-                        </a>
-                    </x-secondary-button>
-                @endif
+                @auth
+                    @if(Auth::user()->shop and Auth::user()->shop != $shop)
+                        @php
+                            $phone = preg_replace('/\D/', '', $shop->user->phone);
+                            $message = 'Sou usuário(a) da Alda, e gostaria de fazer uma encomenda personalizada!';
+                            $url = 'https://wa.me/' . $phone . '/?text=' . $message;
+                        @endphp
+                        <x-secondary-button class="mt-4">
+                            <a href="{{ $url }}">
+                                Fazer Encomenda Personalizada
+                            </a>
+                        </x-secondary-button>
+                    @endif
+                @endauth
             </div>
             <div class="text-gray-900 dark:text-gray-100">
                 @if($products->isNotEmpty())
