@@ -10,6 +10,21 @@ use Illuminate\View\View;
 
 class ShippingAddressController extends Controller
 {
+    public function index(Request $request): View
+    {
+        return view('profile.shipping-address.index', [
+            'addresses' => ShippingAddress::where('user_id', $request->user()->id)
+                ->orderBy('is_default', 'desc')->get(),
+        ]);
+    }
+
+    public function create(Request $request): View
+    {
+        return view('profile.shipping-address.create', [
+            'user' => $request->user(),
+        ]);
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $addresses = $request->user()->shippingAddresses()->get();
@@ -39,19 +54,19 @@ class ShippingAddressController extends Controller
             'locality' => $request->locality,
             'city' => $request->city,
             'region_code' => $request->region_code,
-            'postal_code' => $postalCode,
+            'postal_code' => $request->postal_code,
             'is_default' => $default,
             'user_id' => $request->user()->id,
         ]);
 
-        return redirect(route('profile.edit'));
+        return redirect(route('profile.shipping-address.index'));
     }
 
-    public function edit(Request $request): View
+    public function edit(Request $request)
     {
-        $address = ShippingAddress::find($request->id);
+        $address = $request->user()->shippingAddresses()->where('id', $request->id)->first();
 
-        return view('shipping-address.edit', [
+        return view('profile.shipping-address.edit', [
             'address' => $address,
         ]);
     }
@@ -88,7 +103,7 @@ class ShippingAddressController extends Controller
 
         $shippingAddress->save();
 
-        return redirect(route('profile.shipping-address.edit', $request->id));
+        return redirect(route('profile.shipping-address.index', $request->id));
     }
 
     public function destroy(Request $request): RedirectResponse

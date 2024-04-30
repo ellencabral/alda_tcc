@@ -13,15 +13,12 @@ use Illuminate\View\View;
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * Display the user's profile page.
      */
     public function edit(Request $request): View
     {
-        $user = $request->user();
-
         return view('profile.edit', [
-            'user' => $user,
-            'addresses' => $user->shippingAddresses()->get(),
+            'user' => $request->user(),
         ]);
     }
 

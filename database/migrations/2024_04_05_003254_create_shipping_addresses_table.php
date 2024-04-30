@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('locality', 60)->nullable();
             $table->string('city', 90)->nullable();
             $table->char('region_code', 2)->nullable();
-            $table->string('postal_code', 8)->nullable();
+            $table->string('postal_code', 9)->nullable();
             $table->boolean('is_default');
 
             $table->foreignId('user_id')->constrained()->onDelete('cascade');

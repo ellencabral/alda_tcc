@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Commission\CartController;
 use App\Http\Controllers\Commission\CheckoutController;
 use App\Http\Controllers\Commission\CommissionController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Shop\ShopAddressController;
 use App\Http\Controllers\Shop\ShopCommissionController;
 use App\Http\Controllers\Shop\ShopController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\User\ProfileInformationController;
 use App\Http\Controllers\User\ShippingAddressController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
@@ -79,13 +81,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // EDITAR PERFIL DO USUARIO
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    Route::get('/profile/password', [PasswordController::class, 'edit'] )->name('profile.password.edit');
+    Route::get('/profile/information', [ProfileInformationController::class, 'edit'] )->name('profile.information.edit');
+
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // EDITAR ENDEREÇO
-    Route::get('/profile/shipping-address/{id}/edit', [ShippingAddressController::class, 'edit'])->name('shipping-address.edit');
-    Route::patch('/profile/shipping-address/{id}', [ShippingAddressController::class, 'update'])->name('shipping-address.update');
+    Route::get('/profile/shipping-addresses', [ShippingAddressController::class, 'index'] )->name('profile.shipping-address.index');
+    Route::get('/profile/shipping-address/create', [ShippingAddressController::class, 'create'] )->name('profile.shipping-address.create');
     Route::post('/profile/shipping-address', [ShippingAddressController::class, 'store'])->name('shipping-address.store');
+    Route::get('/profile/shipping-address/{id}/edit', [ShippingAddressController::class, 'edit'])->name('profile.shipping-address.edit');
+    Route::patch('/profile/shipping-address/{id}', [ShippingAddressController::class, 'update'])->name('shipping-address.update');
     Route::delete('/profile/shipping-address/{id}', [ShippingAddressController::class, 'destroy'])->name('shipping-address.destroy');
 
     // CHECKOUT

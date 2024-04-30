@@ -25,16 +25,10 @@ class CommissionController extends Controller
     {
         $userCommission = $request->user()->commissions()->where('id', $commission->id)->first();
 
-        if($userCommission) {
-            $url = view('commissions.show', [
-                'commission' => $commission,
-                'commissionProducts' => $userCommission->commissionProducts()->get(),
-            ]);
-        } else {
-            $url = redirect(route('commissions.index'));
-        }
-
-        return $url;
+        return view('commissions.show', [
+            'commission' => $commission,
+            'commissionProducts' => $userCommission->commissionProducts()->get(),
+        ]);
     }
 
     public function destroy(Commission $commission, Request $request): RedirectResponse

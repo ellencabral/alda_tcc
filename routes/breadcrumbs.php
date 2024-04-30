@@ -20,8 +20,18 @@ Breadcrumbs::for('profile', function ($trail) {
     $trail->push('Meu Perfil', route('profile.edit'));
 });
 
-Breadcrumbs::for('shipping-address.edit', function ($trail, $address) {
+Breadcrumbs::for('shipping-address.index', function ($trail) {
     $trail->parent('profile');
+    $trail->push('Endereços de Entrega', route('profile.shipping-address.index'));
+});
+
+Breadcrumbs::for('shipping-address.create', function ($trail) {
+    $trail->parent('shipping-address.index');
+    $trail->push('Armazenar Novo Endereço', route('profile.shipping-address.create'));
+});
+
+Breadcrumbs::for('shipping-address.edit', function ($trail, $address) {
+    $trail->parent('shipping-address.index');
     $trail->push('Editar Endereço', route('profile.shipping-address.edit', $address));
 });
 
