@@ -1,7 +1,7 @@
 <section>
     <form class="mt-4 flex flex-col justify-between" action="{{ route('search-results') }}" method="GET">
         <div class="flex w-full">
-            <x-select-input name="search_type" class="w-32 mr-4">
+            <x-select-input name="search_type" class="max-w-32 mr-4">
                 <option value="Produtos">Produtos</option>
                 <option value="Lojas">Lojas</option>
             </x-select-input>

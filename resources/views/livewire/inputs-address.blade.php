@@ -7,7 +7,7 @@
                       type="text"
                       :value="old('postal_code', $postal_code ?? '')"
                       required autofocus autocomplete="postal_code"
-                      x-mask="99999 999" placeholder="99999-999"
+                      x-mask="99999-999" placeholder="99999-999"
                       wire:model.change="postal_code" />
         <x-input-error class="mt-2" :messages="$errors->get('postal_code')" />
     </div>

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ Breadcrumbs::render('products.show', $product->shop, $product->name) }}
+        {{ Breadcrumbs::render('products.show', $product->category, $product) }}
     </x-slot>
     <div class="py-12">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">

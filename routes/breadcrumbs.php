@@ -2,6 +2,7 @@
 
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
+use App\Models\Product;
 use App\Models\ShippingAddress;
 use App\Models\Shop;
 use Diglactic\Breadcrumbs\Breadcrumbs;
@@ -24,11 +25,6 @@ Breadcrumbs::for('shipping-address.edit', function ($trail, $address) {
     $trail->push('Editar Endereço', route('profile.shipping-address.edit', $address));
 });
 
-Breadcrumbs::for('shop.activate', function($trail, $shop) {
-    $trail->parent('home');
-    $trail->push('Ativar Loja', route('shop.activate-form', $shop));
-});
-
 Breadcrumbs::for('cart', function ($trail) {
     $trail->parent('home');
     $trail->push('Sacola de Compras', route('cart'));
@@ -49,13 +45,27 @@ Breadcrumbs::for('commissions.show', function ($trail, $commission) {
     $trail->push('Detalhes da Encomenda', route('commissions.show', $commission));
 });
 
-Breadcrumbs::for('shop.show', function ($trail, Shop $shop) {
-    $trail->push("Página da Loja '" . $shop->name . "'", route('shop.show', $shop->url));
+Breadcrumbs::for('shops.index', function ($trail) {
+    $trail->push("Lojas", route('shops.index'));
 });
 
-Breadcrumbs::for('products.show', function ($trail, Shop $shop, $product) {
-    $trail->parent('shop.show', $shop);
-    $trail->push($product, route('products.show', ['url' => $shop->url, 'name' => $product]));
+Breadcrumbs::for('shops.show', function ($trail, Shop $shop) {
+    $trail->parent('shops.index');
+    $trail->push("Página da Loja '" . $shop->name . "'", route('shops.show', $shop->url));
+});
+
+Breadcrumbs::for('categories.index', function ($trail) {
+    $trail->push('Categorias de Artesanato', route('categories.index'));
+});
+
+Breadcrumbs::for('categories.products.index', function ($trail, $category) {
+    $trail->parent('categories.index');
+    $trail->push($category->description, route('categories.products.index', $category));
+});
+
+Breadcrumbs::for('products.show', function ($trail, $category, $product) {
+    $trail->parent('categories.products.index', $category);
+    $trail->push($product->name, route('products.show', $product));
 });
 
 // Admin
@@ -91,22 +101,22 @@ Breadcrumbs::for('permissions.create', function($trail) {
 
 // Artesão
 
-Breadcrumbs::for('shop.dashboard', function($trail) {
-    $trail->push('Painel de Controle do Artesão', route('artisan.shop.dashboard'));
+Breadcrumbs::for('shops.dashboard', function($trail) {
+    $trail->push('Painel de Controle do Artesão', route('artisan.shops.dashboard'));
 });
 
-Breadcrumbs::for('shop.commissions.index', function ($trail) {
-    $trail->parent('shop.dashboard');
+Breadcrumbs::for('shops.commissions.index', function ($trail) {
+    $trail->parent('shops.dashboard');
     $trail->push('Encomendas da Loja', route('artisan.commissions.index'));
 });
 
-Breadcrumbs::for('shop.commissions.show', function ($trail, $commission) {
-    $trail->parent('shop.commissions.index');
+Breadcrumbs::for('shops.commissions.show', function ($trail, $commission) {
+    $trail->parent('shops.commissions.index');
     $trail->push('Detalhes da Encomenda', route('artisan.commissions.show', $commission));
 });
 
 Breadcrumbs::for('products', function($trail) {
-    $trail->parent('shop.dashboard');
+    $trail->parent('shops.dashboard');
     $trail->push('Produtos da Loja', route('artisan.products.index'));
 });
 
@@ -120,12 +130,17 @@ Breadcrumbs::for('products.edit', function($trail, $product) {
     $trail->push("Editar Produto '" . $product . "'", route('artisan.products.edit', $product));
 });
 
-Breadcrumbs::for('shop.edit', function($trail, $shop) {
-    $trail->parent('shop.dashboard');
-    $trail->push("Configurações da Loja '" . $shop . "'", route('artisan.shop.edit', $shop));
+Breadcrumbs::for('shops.edit', function($trail, $shop) {
+    $trail->parent('shops.dashboard');
+    $trail->push("Configurações da Loja", route('artisan.shops.edit', $shop));
 });
 
-Breadcrumbs::for('shop.address.edit', function($trail, $shop) {
-    $trail->parent('shop.edit', $shop);
-    $trail->push("Editar Endereço", route('artisan.shop.address.edit'));
+Breadcrumbs::for('shops.address.create', function($trail, $shop) {
+    $trail->parent('shops.edit', $shop);
+    $trail->push("Adicionar Endereço", route('artisan.shops.address.create'));
+});
+
+Breadcrumbs::for('shops.address.edit', function($trail, $shop) {
+    $trail->parent('shops.edit', $shop);
+    $trail->push("Editar Endereço", route('artisan.shops.address.edit'));
 });

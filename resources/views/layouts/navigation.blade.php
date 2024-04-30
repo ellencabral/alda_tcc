@@ -33,7 +33,7 @@
                         </x-nav-link>
                     @endrole
                     @role('artisan')
-                        <x-nav-link :href="route('artisan.shop.dashboard')" :active="request()->routeIs('artisan.shop.index')">
+                        <x-nav-link :href="route('artisan.shops.dashboard')" :active="request()->routeIs('artisan.shops.index')">
                             Painel do Artesão
                         </x-nav-link>
                     @endrole
@@ -71,21 +71,21 @@
                             </x-dropdown-link>
 
                             @role('artisan')
-                                <x-dropdown-link :href="route('shop.show', Auth::user()->shop->url)">
+                                <x-dropdown-link :href="route('shops.show', Auth::user()->shop->url)">
                                     Minha Loja
                                 </x-dropdown-link>
-                                <x-dropdown-link :href="route('artisan.shop.dashboard')">
+                                <x-dropdown-link :href="route('artisan.shops.dashboard')">
                                     Painel do Artesão
                                 </x-dropdown-link>
                             @endrole
 
                             @role('user')
                                 @can('activate shop')
-                                    <x-dropdown-link :href="route('shop.activate-form')">
+                                    <x-dropdown-link :href="route('shops.activate-form')">
                                         Ativar Loja
                                     </x-dropdown-link>
                                 @else
-                                    <x-dropdown-link :href="route('shop.create')">
+                                    <x-dropdown-link :href="route('shops.create')">
                                         Criar Loja
                                     </x-dropdown-link>
                                 @endcan

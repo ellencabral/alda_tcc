@@ -22,9 +22,6 @@ class SearchController extends Controller
         if($searchType == 'Lojas') {
             $model = new Shop();
         }
-        if($searchType == 'Usuários') {
-            $model = new User();
-        }
 
         $results = $model::where('name', 'like', '%' . $searchText . '%')->paginate(10);
 

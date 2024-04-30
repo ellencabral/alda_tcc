@@ -40,4 +40,9 @@ class Commission extends Model
     {
         return $this->belongsTo(ShippingAddress::class);
     }
+
+    public function commissionProducts(): HasMany
+    {
+        return $this->hasMany(CommissionProduct::class);
+    }
 }

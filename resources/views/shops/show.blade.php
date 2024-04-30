@@ -1,0 +1,71 @@
+<x-app-layout>
+    <x-slot name="header">
+        {{ Breadcrumbs::render('shops.show', $shop) }}
+    </x-slot>
+    <div class="py-12">
+        <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="mb-4 text-gray-900 dark:text-gray-100">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ $shop->name }}
+                </h2>
+                <p class="my-4 text-gray-700">
+                    Criada em: {{ date('d/m/Y', strtotime($shop->created_at)) }}
+                </p>
+                @isset($shop->description)
+                    <p class="whitespace-pre-line">
+                        Descrição: {{ $shop->description }}
+                    </p>
+                @endisset
+                @if(Auth::user()->shop and Auth::user()->shop != $shop)
+                    @php
+                        $phone = preg_replace('/\D/', '', $shop->user->phone);
+                        $message = 'Sou usuário(a) da Alda, e gostaria de fazer uma encomenda personalizada!';
+                        $url = 'https://wa.me/' . $phone . '/?text=' . $message;
+                    @endphp
+                    <x-secondary-button class="mt-4">
+                        <a href="{{ $url }}">
+                            Fazer Encomenda Personalizada
+                        </a>
+                    </x-secondary-button>
+                @endif
+            </div>
+            <div class="text-gray-900 dark:text-gray-100">
+                @if($products->isNotEmpty())
+                    <div class="grid grid-cols-2 gap-10 p-6 dark:bg-gray-800 shadow-sm sm:grid-cols-4 sm:rounded-lg">
+                        @foreach($products as $product)
+                            <div class="text-gray-900 dark:text-gray-100">
+                                <div>
+                                    <img style="width:auto;" src="/img/products/{{ $product->image }}" alt="Imagem de {{ $product->name }}"/>
+                                </div>
+                                <div>
+                                    <p>
+                                        {{ $product->name }}
+                                    </p>
+                                </div>
+                                <div class="sm:flex sm:justify-between">
+                                    <div>
+                                        R$ {{ number_format($product->sale_price, 2, ',', '.') }}
+                                    </div>
+                                    <div>
+                                        <x-nav-link href="{{ route('products.show', $product) }}">
+                                            Ver Detalhes
+                                        </x-nav-link>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="mt-4">
+                        {{ $products->links() }}
+                    </div>
+                @else
+                    <div class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                        <div class="p-6 text-gray-900 dark:text-gray-100">
+                            Nenhum produto cadastrado ainda
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</x-app-layout>

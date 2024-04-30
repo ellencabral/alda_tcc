@@ -1,6 +1,8 @@
 <x-artisan-layout>
     <x-slot name="header">
-        {{ Breadcrumbs::render('products', $shop->name) }}
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Produtos da Loja
+        </h2>
     </x-slot>
     <div class="py-12 w-full">
         <div class="p-2 max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -27,7 +29,7 @@
                             </div>
                             <div class="flex items-center">
                                 <li>
-                                    <x-nav-link href="{{ route('products.show', ['url' => $shop->url, 'name' =>  $product->name]) }}">
+                                    <x-nav-link href="{{ route('products.show', $product) }}">
                                         Ver Detalhes
                                     </x-nav-link>
                                 </li>

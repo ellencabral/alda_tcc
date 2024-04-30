@@ -13,7 +13,7 @@
     </button>
 
     <div class="hidden sm:flex sm:flex-col">
-        <x-dashboard-nav-link :href="route('artisan.shop.dashboard')">
+        <x-dashboard-nav-link :href="route('artisan.shops.dashboard')">
             {{ __('Dashboard') }}
         </x-dashboard-nav-link>
 
@@ -25,7 +25,7 @@
             Encomendas
         </x-dashboard-nav-link>
 
-        <x-dashboard-nav-link :href="route('artisan.shop.edit')">
+        <x-dashboard-nav-link :href="route('artisan.shops.edit')">
             Configurações
         </x-dashboard-nav-link>
 
@@ -42,7 +42,7 @@
                     <x-dashboard-nav-link :href="route('profile.edit')">
                         {{ __('Profile') }}
                     </x-dashboard-nav-link>
-                    <x-dashboard-nav-link :href="route('shop.show', Auth::user()->shop->url)">
+                    <x-dashboard-nav-link :href="route('shops.show', Auth::user()->shop->url)">
                         Minha Loja
                     </x-dashboard-nav-link>
                     <!-- Authentication -->
