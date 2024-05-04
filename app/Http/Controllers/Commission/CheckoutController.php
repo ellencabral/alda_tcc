@@ -39,33 +39,5 @@ class CheckoutController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
-    {
-        $commission = Commission::create([
-            'total' => $request->total,
-            'payment' => $request->payment,
-            'user_id' => $request->user()->id,
-            'shop_id' => $request->shop_id,
-            'shipping_address_id' => $request->address_id,
-            'status_id' => 2,
-        ]);
 
-        $items = \Cart::content();
-
-        foreach($items as $item) {
-            $product = Product::where('name', $item->name)->first();
-
-            CommissionProduct::create([
-                'sale_price' => $item->price,
-                'quantity' => $item->qty,
-                'total' => $item->price * $item->qty,
-                'product_id' => $product->id,
-                'commission_id' => $commission->id,
-            ]);
-        }
-
-        \Cart::destroy();
-
-        return redirect(route('commissions.index'))->with('status', 'commission-stored');
-    }
 }

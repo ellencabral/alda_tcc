@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
+use App\Mail\CommissionUpdated;
 use App\Models\Commission;
 use App\Models\CommissionProduct;
 use App\Models\Status;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class ShopCommissionController extends Controller
@@ -55,6 +57,9 @@ class ShopCommissionController extends Controller
         $commission->status_id = $request->status_id;
 
         $commission->save();
+
+        Mail::to($commission->user->email, $commission->user->name)
+            ->send(new CommissionUpdated($commission));
 
         return redirect(route('artisan.commissions.show', $commission->id));
     }

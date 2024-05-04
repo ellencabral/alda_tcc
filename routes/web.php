@@ -100,11 +100,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // CHECKOUT
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
-    Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
 
     // ENCOMENDAS REALIZADAS
     Route::resource('/commissions', CommissionController::class)
-        ->only(['index', 'show', 'update', 'destroy']);
+        ->only(['store', 'index', 'show', 'destroy']);
+});
+
+Route::get('/mail', function () {
+    $commission = App\Models\Commission::find(6);
+
+    return new App\Mail\CommissionUpdated($commission);
 });
 
 // ARTESAO
