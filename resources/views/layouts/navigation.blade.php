@@ -79,17 +79,15 @@
                                 </x-dropdown-link>
                             @endrole
 
-                            @role('user')
-                                @can('activate shop')
-                                    <x-dropdown-link :href="route('shops.activate-form')">
-                                        Ativar Loja
-                                    </x-dropdown-link>
-                                @else
-                                    <x-dropdown-link :href="route('shops.create')">
-                                        Criar Loja
-                                    </x-dropdown-link>
-                                @endcan
-                            @endrole
+                            @can('activate shop')
+                                <x-dropdown-link :href="route('shops.activate')">
+                                    Ativar Loja
+                                </x-dropdown-link>
+                            @elsecan('create shop')
+                                <x-dropdown-link :href="route('shops.create')">
+                                    Criar Loja
+                                </x-dropdown-link>
+                            @endcan
 
                             <x-dropdown-link class="flex items-center" :href="route('cart')">
                                 Sacola de Compras

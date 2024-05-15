@@ -33,7 +33,7 @@
                                                   type="text"
                                                   :value="old('postal_code', $shop->postal_code)"
                                                   required autofocus autocomplete="postal_code"
-                                                  x-mask="99999 999" placeholder="99999-999"
+                                                  x-mask="99999-999" placeholder="99999-999"
                                     />
                                     <x-input-error class="mt-2" :messages="$errors->get('postal_code')" />
                                 </div>

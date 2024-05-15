@@ -44,8 +44,12 @@ class UsersSeeder extends Seeder
         ]);
 
         $user->assignRole('user');
+        $user->givePermissionTo('create shop');
+
         $admin->assignRole('admin');
+
         $artisan->assignRole('artisan');
+
         $artisan1->assignRole('artisan');
     }
 }

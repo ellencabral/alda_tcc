@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Shop;
 use App\Http\Controllers\Controller;
 use App\Mail\CommissionUpdated;
 use App\Models\Commission;
-use App\Models\CommissionProduct;
 use App\Models\Status;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,7 +15,7 @@ class ShopCommissionController extends Controller
 {
     public function index(Request $request): View
     {
-        $shopCommissions = Commission::where('shop_id', $request->user()->shop->id)
+        $shopCommissions = $request->user()->shop->commissions()
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -27,29 +26,13 @@ class ShopCommissionController extends Controller
 
     public function show(Commission $commission, Request $request)
     {
-        $shopCommissions = Commission::where('shop_id', $request->user()->shop->id)->get();
+        $request->user()->shop->commissions()->findOrFail($commission->id);
 
-        if($shopCommissions->isNotEmpty()) {
-            foreach($shopCommissions as $slug) {
-                if($slug->id == $commission->id) {
-                    $commissionProducts = CommissionProduct::where('commission_id', $commission->id)->get();
-
-                    $statuses = Status::all();
-
-                    $url = view('shops.commissions.show', [
-                        'commission' => $commission,
-                        'commissionProducts' => $commissionProducts,
-                        'statuses' => $statuses,
-                    ]);
-                    break;
-                }
-                $url = redirect(route('artisan.commissions.index'));
-            }
-        } else {
-            $url = redirect(route('artisan.commissions.index'));
-        }
-
-        return $url;
+        return view('shops.commissions.show', [
+            'commission' => $commission,
+            'commissionProducts' => $commission->commissionProducts()->get(),
+            'statuses' => Status::all()
+        ]);
     }
 
     public function update(Commission $commission, Request $request): RedirectResponse

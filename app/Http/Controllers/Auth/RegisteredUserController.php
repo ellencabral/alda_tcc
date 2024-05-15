@@ -43,6 +43,8 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        $user->givePermissionTo('create shop');
+
         event(new Registered($user));
 
         Auth::login($user);

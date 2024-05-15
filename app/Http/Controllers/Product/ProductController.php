@@ -42,11 +42,9 @@ class ProductController extends Controller
      */
     public function create(Request $request): View
     {
-        $categories = Category::orderBy('description', 'asc')->get();
-
         return view('products.create', [
             'shop_id' => $request->user()->shop->id,
-            'categories' => $categories,
+            'categories' => Category::orderBy('description', 'asc')->get(),
         ]);
     }
 
@@ -88,11 +86,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
-        $categories = Category::orderBy('description', 'asc')->get();
-
         return view('products.edit', [
             'product' => $product,
-            'categories' => $categories,
+            'categories' => Category::orderBy('description', 'asc')->get(),
         ]);
     }
 

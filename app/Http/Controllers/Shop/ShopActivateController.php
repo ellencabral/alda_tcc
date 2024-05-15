@@ -10,15 +10,9 @@ class ShopActivateController extends Controller
 {
     public function form(Request $request)
     {
-        if($request->user()->can('activate shop')) {
-            $url = view('shops.activate-form', [
-                'shop' => $request->user()->shop,
-            ]);
-        } else {
-            $url = redirect(route('home'));
-        }
-
-        return $url;
+        return view('shops.activate', [
+            'shop' => $request->user()->shop,
+        ]);
     }
 
     public function activate(Request $request): RedirectResponse

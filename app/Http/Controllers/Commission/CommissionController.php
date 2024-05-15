@@ -29,25 +29,23 @@ class CommissionController extends Controller
         $items = \Cart::content();
 
         foreach($items as $item) {
-            $product = Product::where('name', $item->name)->first();
-
             CommissionProduct::create([
                 'sale_price' => $item->price,
                 'quantity' => $item->qty,
                 'total' => $item->price * $item->qty,
-                'product_id' => $product->id,
+                'product_id' => $item->id,
                 'commission_id' => $commission->id,
             ]);
         }
 
-        Mail::to($request->user()->email, $request->user()->name)
-            ->send(new CommissionStored($commission, 'user'));
-
-        Mail::to($commission->shop->user->email, $commission->shop->user->name)
-            ->send(new CommissionStored($commission, 'shop'));
-
-        Mail::to($commission->user->email, $commission->user->name)
-            ->send(new CommissionUpdated($commission));
+//        Mail::to($request->user()->email, $request->user()->name)
+//            ->send(new CommissionStored($commission, 'user'));
+//
+//        Mail::to($commission->shop->user->email, $commission->shop->user->name)
+//            ->send(new CommissionStored($commission, 'shop'));
+//
+//        Mail::to($commission->user->email, $commission->user->name)
+//            ->send(new CommissionUpdated($commission));
 
         \Cart::destroy();
 
@@ -57,22 +55,18 @@ class CommissionController extends Controller
 
     public function index(Request $request): View
     {
-        $commissions = $request->user()->commissions()
-            ->orderBy('created_at', 'desc')
-            ->get();
-
         return view('commissions.index', [
-            'commissions' => $commissions,
+            'commissions' => $request->user()->commissions()
+                ->orderBy('created_at', 'desc')
+                ->get(),
         ]);
     }
 
     public function show(Commission $commission, Request $request): View
     {
-        $userCommission = $request->user()->commissions()->where('id', $commission->id)->firstOrFail();
-
         return view('commissions.show', [
-            'commission' => $commission,
-            'commissionProducts' => $userCommission->commissionProducts()->get(),
+            'commission' => $request->user()->commissions()->findOrFail($commission->id),
+            'commissionProducts' => $commission->commissionProducts()->get(),
         ]);
     }
 

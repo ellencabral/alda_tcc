@@ -27,11 +27,9 @@ class ShopController extends Controller
     {
         $shop = Shop::where('url', $url)->firstOrFail();
 
-        $products = $shop->products()->paginate(10);
-
         return view('shops.show', [
             'shop' => $shop,
-            'products' => $products,
+            'products' => $shop->products()->paginate(10),
         ]);
     }
 
@@ -40,15 +38,9 @@ class ShopController extends Controller
      */
     public function create(Request $request)
     {
-        if($request->user()->can('activate shop')) {
-            $url = redirect(route('home'));
-        } else {
-            $url = view('shops.create',[
-                'user' => $request->user()
-            ]);
-        }
-
-        return $url;
+        return view('shops.create',[
+            'user' => $request->user()
+        ]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -64,6 +56,7 @@ class ShopController extends Controller
             'user_id' => auth()->id(),
         ]);
 
+        $request->user()->revokePermissionTo(['create shop']);
         $request->user()->givePermissionTo(['activate shop']);
 
         return redirect(route('home'));
@@ -91,6 +84,8 @@ class ShopController extends Controller
         $request->user()->shop->delete();
 
         $request->user()->syncRoles('user');
+
+        $request->user()->givePermissionTo('create shop');
 
         return redirect(route('home'));
     }

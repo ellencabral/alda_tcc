@@ -29,12 +29,15 @@ Route::get('/', function () {
 
 // USUARIO COMUM
 
-Route::middleware(['auth', 'role:user'])->group(function () {
+Route::middleware(['auth', 'permission:create shop'])->group(function () {
     // CRIAR LOJA
     Route::get('/shop/create', [ShopController::class, 'create'])->name('shops.create');
-    Route::post('/shop', [ShopController::class, 'store'])->name('shops.store');
+    Route::post('/shop/create', [ShopController::class, 'store'])->name('shops.store');
+});
 
-    Route::get('/shop/activate', [ShopActivateController::class, 'form'])->name('shops.activate-form');
+Route::middleware(['auth', 'permission:activate shop'])->group(function () {
+    // ATIVAR LOJA
+    Route::get('/shop/activate', [ShopActivateController::class, 'form'])->name('shops.activate');
     Route::patch('/shop/activate', [ShopActivateController::class, 'activate'])->name('shops.activate');
 });
 
@@ -130,8 +133,8 @@ Route::middleware(['auth', 'role:artisan'])
     Route::get('/shop/customization', [ShopCustomizationController::class, 'edit'])->name('shops.customization.edit');
 
     Route::get('/shop/address', [ShopAddressController::class, 'edit'])->name('shops.address.edit');
-    Route::patch('/shop/address', [ShopAddressController::class, 'update'])->name('shops.address.update');
-    Route::patch('/shop/address', [ShopAddressController::class, 'remove'])->name('shops.address.remove');
+    Route::patch('/shop/address/update', [ShopAddressController::class, 'update'])->name('shops.address.update');
+    Route::patch('/shop/address/remove', [ShopAddressController::class, 'remove'])->name('shops.address.remove');
 
     // GERENCIAR ENCOMENDAS
     Route::resource('/commissions', ShopCommissionController::class)
