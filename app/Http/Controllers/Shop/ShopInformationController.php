@@ -27,12 +27,15 @@ class ShopInformationController extends Controller
 
         $shop->fill($request->validate([
             'name' => ['required', 'string', 'max:150'],
-            'url' => ['required', 'string', 'max:50', Rule::unique(Shop::class)->ignore($request->user()->id)],
+            'url' => ['required', 'string', 'max:50', 'regex:/^\S*$/u', Rule::unique(Shop::class)->ignore($request->user()->shop->id)],
+        ],
+        [
+            'url.regex' => 'O campo url não pode possuir espaços em branco.',
         ]));
 
         $shop->save();
 
-        return redirect(route('artisan.shops.information.edit', $shop->id))
+        return redirect(route('artisan.shops.information.edit'))
             ->with('status', 'profile-updated');
     }
 }

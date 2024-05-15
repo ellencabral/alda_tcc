@@ -46,8 +46,11 @@ class ShopController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:150'],
-            'url' => ['required', 'string', 'max:50', 'unique:'.Shop::class],
+            'name' => ['required', 'string', 'min:3', 'max:150'],
+            'url' => ['required', 'string', 'min:3', 'max:50', 'unique:'.Shop::class, 'regex:/^\S*$/u'],
+        ],
+        [
+            'url.regex' => 'O campo url não pode possuir espaços em branco.',
         ]);
 
         Shop::create([
