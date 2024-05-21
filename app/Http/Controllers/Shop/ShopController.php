@@ -47,10 +47,7 @@ class ShopController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:150'],
-            'url' => ['required', 'string', 'min:3', 'max:50', 'unique:'.Shop::class, 'regex:/^\S*$/u'],
-        ],
-        [
-            'url.regex' => 'O campo url não pode possuir espaços em branco.',
+            'url' => ['required', 'string', 'min:3', 'max:50', 'unique:'.Shop::class, 'alpha_dash'],
         ]);
 
         Shop::create([
