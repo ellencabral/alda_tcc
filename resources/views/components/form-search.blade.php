@@ -1,21 +1,22 @@
-<section>
-    <form class="mt-4 flex flex-col justify-between" action="{{ route('search-results') }}" method="GET">
-        <div class="flex w-full">
-            <x-select-input name="search_type" class="max-w-32 mr-4">
-                <option value="Produtos">Produtos</option>
-                <option value="Lojas">Lojas</option>
-            </x-select-input>
+<form class="w-full" action="{{ route('search-results') }}" method="GET">
+    <div class="flex items-center justify-center py-2 px-4 border border-gray-200 rounded-lg">
+        <select class="p-0 w-48 sm:w-32 text-sm cursor-pointer border-none text-gray-600 focus:ring-transparent" name="search_type">
+            <option class="p-2" value="Produtos">Produtos</option>
+            <option value="Lojas">Lojas</option>
+        </select>
 
-            <x-text-input class="w-full"
-                          type="text"
-                          name="search_text"
-                          :value="old('search_text')"
-                          placeholder="Digite sua pesquisa..." />
+        <span class="mr-4">|</span>
 
-            <x-primary-button class="ml-4">Pesquisar</x-primary-button>
-        </div>
+        <input class="p-0 w-full border-none focus:bg-transparent focus:ring-transparent"
+              type="text"
+              name="search_text"
+              :value="old('search_text')"
+              placeholder="Digite sua pesquisa..." />
 
-        <x-input-error class="mt-2" :messages="$errors->get('search_type')" />
+        <button class="hover:text-primary-800 transition ease-in-out duration-150">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
 
-    </form>
-</section>
+    <x-input-error class="mt-2" :messages="$errors->get('search_type')" />
+</form>

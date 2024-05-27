@@ -20,7 +20,8 @@
     },
     "dependencies": {
         "@alpinejs/mask": "^3.13.8",
-        "bootstrap": "^5.3.3"
+        "bootstrap": "^5.3.3",
+        "flowbite": "^2.3.0"
     },
     "type": "module"
 }

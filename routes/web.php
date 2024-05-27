@@ -67,9 +67,13 @@ Route::middleware(['auth', 'role:admin'])
 // TODOS
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/home', function () {
-        $categories = \App\Models\Category::all();
+        $categories = \App\Models\Category::all()->take(10);
+        $products = \App\Models\Product::orderBy('id', 'desc')->take(3)->get();
 
-        return view('home', ['categories' => $categories]);
+        return view('home', [
+            'categories' => $categories,
+            'products' => $products
+        ]);
     })->name('home');
 
     Route::get('/categories', function () {
