@@ -1,15 +1,11 @@
 <x-app-layout>
-    <x-slot name="navigation">
-        @include('layouts.navigation.guest')
-    </x-slot>
-
     <x-slot name="heading">
         Verificar E-mail
     </x-slot>
 
     <div class="grid gap-4">
         <div class="mb-4 text-gray-600">
-            Antes de começar, poderia verificar seu e-mail clicando no link que enviamos? Se não recebeu o e-mail, é só solicitar outro.
+            Enviamos um e-mail de verificação. Se não o recebeu, é só solicitar outro.
         </div>
 
         <form method="POST" action="{{ route('verification.send') }}">
@@ -21,12 +17,6 @@
                 </x-primary-button>
             </div>
         </form>
-
-        @if (session('status') == 'verification-link-sent')
-            <div class="font-medium text-sm text-green-500">
-                Um novo e-mail de verificação foi enviado para o e-mail que você inseriu no cadastro.
-            </div>
-        @endif
 
         <form class="flex justify-center" method="POST" action="{{ route('logout') }}">
             @csrf

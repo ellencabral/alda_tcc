@@ -1,8 +1,4 @@
 <x-app-layout>
-    <x-slot name="navigation">
-        @include('layouts.navigation.guest')
-    </x-slot>
-
     <x-slot name="heading">
         Fazer Login
     </x-slot>

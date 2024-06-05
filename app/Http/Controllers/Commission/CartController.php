@@ -44,7 +44,7 @@ class CartController extends Controller
                     // COMPARA O ITEM DO CARRINHO COM O PRODUTO SENDO ADICIONADO
 
                     $url = route('products.show', [
-                        'url' => $product->shop->url,
+                        'product' => $product,
                         'name' => $request->name
                     ]);
                     $valid = false;
@@ -88,7 +88,13 @@ class CartController extends Controller
 
     public function update(Request $request, $rowId): RedirectResponse
     {
-        Cart::update($rowId, $request->quantity);
+        if($request->increment) {
+            $newQty = $request->quantity + 1;
+        } else {
+            $newQty = $request->quantity - 1;
+        }
+
+        Cart::update($rowId, $newQty);
 
         return redirect(route('cart'));
     }

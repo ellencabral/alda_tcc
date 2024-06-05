@@ -1,11 +1,8 @@
 <x-app-layout>
-    <x-slot name="navigation">
-        @include('layouts.navigation.guest')
-    </x-slot>
-
     <x-slot name="heading">
         Modificar Senha
     </x-slot>
+
     <form class="grid gap-8" method="POST" action="{{ route('password.store') }}">
         @csrf
 

@@ -1,33 +1,29 @@
 <nav class="flex items-center hidden sm:flex sm:justify-between sm:ml-8">
     <!-- Navigation Links -->
-    @auth
-        <x-nav-link
-            :href="route('home')"
-            :active="request()->routeIs('home')">
-            Início
-        </x-nav-link>
 
+    <x-nav-link
+        :href="route('home')"
+        :active="request()->routeIs('home')">
+        Início
+    </x-nav-link>
+
+    @role('artisan')
         <x-nav-link class="ml-8"
                     :href="route('profile.edit')"
                     :active="request()->routeIs('profile.edit')">
-            Minha Conta
+            Minha Loja
         </x-nav-link>
 
         <x-nav-link class="ml-8"
                     :href="route('commissions.index')"
                     :active="request()->routeIs('commissions.index')">
-            Minhas Encomendas
+            Produtos
         </x-nav-link>
 
         <x-nav-link class="ml-8"
                     :href="route('cart')"
                     :active="request()->routeIs('cart')">
-            Sacola de Compras
-            @if(\Cart::content()->isNotEmpty())
-                <span class="text-xs ml-2 font-extrabold shadow-md bg-secondary-300 h-6 w-6 flex items-center justify-center rounded-full">
-                    {{ \Cart::content()->count() }}
-                </span>
-            @endif
+            Encomendas
         </x-nav-link>
 
         <!-- Authentication -->
@@ -40,7 +36,7 @@
                 {{ __('Log Out') }}
             </x-nav-link>
         </form>
-    @else
+    @else <!-- Admin Links -->
         <x-nav-link
             :href="route('login')"
             :active="request()->routeIs('login')">
@@ -52,5 +48,5 @@
             :active="request()->routeIs('register')">
             Cadastrar
         </x-nav-link>
-    @endauth
+    @endrole
 </nav>

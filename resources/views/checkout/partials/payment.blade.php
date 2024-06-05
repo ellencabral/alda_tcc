@@ -1,45 +1,48 @@
-<section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+<section class="grid gap-4">
+    <header class="flex items-center gap-2">
+        <i class="fa-solid fa-money-check-dollar"></i>
+        <h3 class="text-xl font-bold">
             Forma de Pagamento
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            Escolha uma forma de pagamento para esta encomenda.
-        </p>
+        </h3>
     </header>
 
-    <div x-data="{ payment: 'pix' }" >
-        <div class="mt-2 flex items-center">
-            <x-text-input type="radio"
-                          id="pix"
-                          name="payment"
-                          value="pix"
-                          x-model="payment"
-                          checked />
-            <x-input-label for="pix"
-                           class="ml-2"
-                           :value="'PIX'" />
-        </div>
-        <div class="mt-2 flex items-center">
-            <x-text-input type="radio"
-                          id="credit_card"
-                          name="payment"
-                          value="credit"
-                          x-model="payment" />
-            <x-input-label for="credit_card"
-                           class="ml-2"
-                           :value="'Cartão de crédito'"/>
+    <p class="text-sm text-gray-600">
+        Escolha uma forma de pagamento para a sua encomenda.
+    </p>
+
+    <div class="grid gap-4" x-data="{ payment: 'pix' }" >
+        <div class="grid gap-2">
+            <div class="flex items-center">
+                <x-input-radio type="radio"
+                               id="pix"
+                               name="payment"
+                               value="pix"
+                               x-model="payment"
+                               checked />
+                <x-input-label for="pix"
+                               class="ml-2"
+                               :value="'PIX'" />
+            </div>
+            <div class="flex items-center">
+                <x-input-radio type="radio"
+                               id="credit"
+                               name="payment"
+                               value="credit"
+                               x-model="payment" />
+                <x-input-label for="credit"
+                               class="ml-2"
+                               :value="'Cartão de crédito'"/>
+            </div>
         </div>
 
-        <div x-show="payment == 'credit_card'">
-            <h2 class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+        <div x-show="payment == 'credit'">
+            <h2 class="text-sm text-gray-600">
                 Campos de cartão de crédito
             </h2>
         </div>
 
         <div x-show="payment == 'pix'">
-            <h2 class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+            <h2 class="text-sm text-gray-600">
                 Informação de PIX
             </h2>
         </div>

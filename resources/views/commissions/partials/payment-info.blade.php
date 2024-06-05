@@ -1,12 +1,13 @@
-<section id="payment-info" class="max-w-xl">
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            Opção de Pagamento
-        </h2>
-        @if($commission->payment == 'credit')
-            <p class="mt-4 text-gray-200">Vou pagar com cartão de crédito.</p>
-        @else
-            <p class="mt-4 text-gray-200">Vou pagar com PIX.</p>
-        @endif
+<section id="payment-info" class="grid gap-4">
+    <header class="flex items-center gap-2">
+        <i class="fa-solid fa-money-check-dollar"></i>
+        <h3 class="text-xl font-bold">
+            Forma de Pagamento
+        </h3>
     </header>
+    @if($commission->payment == 'credit')
+        <p>Vou pagar com cartão de crédito.</p>
+    @else
+        <p>Vou pagar com PIX.</p>
+    @endif
 </section>

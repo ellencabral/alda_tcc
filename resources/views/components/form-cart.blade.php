@@ -1,4 +1,4 @@
-<form method="post" action="{{ $action }}" enctype="multipart/form-data">
+<form class="flex items-end gap-4" method="post" action="{{ $action }}" enctype="multipart/form-data">
     @csrf
     <input type="hidden"
            name="shop_id"
@@ -21,20 +21,24 @@
            value="{{ $product->image }}" />
 
     @isset($quantity)
-        <x-input-label for="quantity"
-                       :value="'Quantidade:'" />
-        <x-text-input type="number"
-                      id="quantity"
-                      name="quantity"
-                      value="1"
-                      required />
+        <div>
+            <h3 class="font-bold text-lg">
+                Quantidade
+            </h3>
+            <input type="number"
+                   id="quantity"
+                   name="quantity"
+                   value="1"
+                   class="w-full mt-1 h-10 rounded-lg focus:ring-0 focus:border-gray-400 border-gray-400 focus:text-primary-700"
+                   required />
+        </div>
     @else
         <x-text-input type="hidden"
                       name="quantity"
                       value="1" />
     @endisset
 
-    <x-primary-button>
+    <x-primary-button class="w-full items-center h-10">
         Comprar
     </x-primary-button>
 </form>

@@ -1,4 +1,4 @@
-@props(['align' => 'right'])
+@props(['align' => 'right', 'background' => 'primary'])
 
 @php
 
@@ -12,6 +12,15 @@ switch ($align) {
     case 'right':
     default:
         $alignmentClasses = 'ltr:origin-top-right rtl:origin-top-left end-0';
+        break;
+}
+
+switch ($background) {
+    case 'primary':
+        $backgroundClass = 'bg-primary-700';
+        break;
+    case 'secondary':
+        $backgroundClass = 'bg-secondary-300';
         break;
 }
 
@@ -32,7 +41,7 @@ switch ($align) {
             class="absolute w-full sm:w-fit right-0"
             style="display: none;"
             @click="open = false">
-        <div class="mt-2 py-2 shadow-lg bg-primary-700 rounded-b-xl">
+        <div class="mt-4 py-2 shadow-lg {{ $backgroundClass }} rounded-b-xl">
             {{ $content }}
         </div>
     </div>

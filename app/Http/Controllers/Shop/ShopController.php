@@ -10,17 +10,11 @@ use Illuminate\View\View;
 
 class ShopController extends Controller
 {
-    public function index(): View
+    public function dashboard(Request $request): View
     {
-        $shops = Shop::select('name', 'url')->paginate(10);
-
-        return view('shops.index', [
-            'shops' => $shops
+        return view('shops.dashboard', [
+            'shop' => $request->user()->shop,
         ]);
-    }
-    public function dashboard(): View
-    {
-        return view('shops.dashboard');
     }
 
     public function show($url): View

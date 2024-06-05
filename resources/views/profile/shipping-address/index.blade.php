@@ -1,77 +1,67 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ Breadcrumbs::render('shipping-address.index') }}
-        </h2>
+    <x-slot name="breadcrumbs">
+        {{ Breadcrumbs::render('shipping-address.index') }}
+    </x-slot>
+    <x-slot name="heading">
+        Endereços de Entrega
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <section id="shipping-address">
-                    <header>
-                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            Atualizar endereços
-                        </h2>
+    <section class="grid sm:grid-cols-2 gap-6">
+        <header class="w-full flex justify-between items-center">
+            <x-link href="{{ route('profile.shipping-address.create') }}">
+                Adicionar um novo endereço
+            </x-link>
+            <span>
+                <i class="fa-solid fa-plus text-gray-600"></i>
+            </span>
+        </header>
 
-                        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                            Atualize seus endereços de entrega.
-                        </p>
-                    </header>
-                    @if($addresses)
-                        <div class="grid grid-cols-2 gap-6">
-                            @foreach($addresses as $address)
-                                <ul class="mt-4 border border-gray-500 p-4 rounded text-gray-200">
-                                    <li>
-                                        Rua: {{ $address->street }}
-                                    </li>
-                                    <li>
-                                        Número: {{ $address->number }}
-                                    </li>
-                                    @if($address->complement)
-                                        <li>
-                                            Complemento: {{ $address->complement }}
-                                        </li>
-                                    @endif
-                                    <li>
-                                        Bairro: {{ $address->locality }}
-                                    </li>
-                                    <li>
-                                        Cidade: {{ $address->city }}
-                                    </li>
-                                    <li>
-                                        Estado: {{ $address->region_code }}
-                                    </li>
-                                    <li>
-                                        CEP: {{ $address->postal_code }}
-                                    </li>
-                                    @if($address->is_default)
-                                        <li>
-                                            <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                                                Este o é seu endereço de entrega padrão.
-                                            </p>
-                                        </li>
-                                    @endif
-                                    <li class="flex justify-end">
-                                        <x-nav-link href="{{ route('profile.shipping-address.edit', $address->id) }}">
-                                            Editar endereço
-                                        </x-nav-link>
-                                    </li>
-                                </ul>
-                            @endforeach
-                        </div>
+        @if($addresses->isEmpty())
+            <hr/>
+            <p class="text-gray-600 text-sm">
+                Nenhum endereço de entrega cadastrado.
+            </p>
+        @else
+            @foreach($addresses as $address)
+                <ul class="flex flex-col justify-between gap-2 border p-4 rounded @if($address->is_default) border-primary-700 @else border-gray-400 @endif ">
+                    @if($address->is_default)
+                        <li>
+                            <p class="text-sm text-primary-700">
+                                Este o é seu endereço de entrega padrão.
+                            </p>
+                        </li>
                     @endif
-
-                    <div class="mt-4">
-                        <x-secondary-button>
-                            <a href="{{ route('profile.shipping-address.create') }}">
-                                Armazenar um novo endereço
-                            </a>
-                        </x-secondary-button>
-                    </div>
-                </section>
-
-            </div>
-        </div>
-    </div>
+                    <li>
+                        Rua: {{ $address->street }}
+                    </li>
+                    <li>
+                        Número: {{ $address->number }}
+                    </li>
+                    @if($address->complement)
+                        <li>
+                            Complemento: {{ $address->complement }}
+                        </li>
+                    @endif
+                    <li>
+                        Bairro: {{ $address->locality }}
+                    </li>
+                    <li>
+                        Cidade: {{ $address->city }}
+                    </li>
+                    <li>
+                        Estado: {{ $address->region_code }}
+                    </li>
+                    <li>
+                        CEP: {{ $address->postal_code }}
+                    </li>
+                    <li class="flex justify-end">
+                        <x-link-button class="h-8" href="{{ route('profile.shipping-address.edit', $address->id) }}">
+                            Editar endereço
+                            <i class="ml-2 fa-solid fa-pen-to-square"></i>
+                        </x-link-button>
+                    </li>
+                </ul>
+            @endforeach
+        @endif
+    </section>
 </x-app-layout>

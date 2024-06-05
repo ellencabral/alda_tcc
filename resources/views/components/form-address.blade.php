@@ -1,4 +1,4 @@
-<form class="max-w-xl"  method="post" action="{{ $action }}">
+<form class="grid gap-8"  method="post" action="{{ $action }}">
     @csrf
 
     @isset($update)
@@ -20,7 +20,7 @@
         </div>
     @endisset
 
-    <x-primary-button class="mt-4">
+    <x-primary-button class="w-full">
         Salvar
     </x-primary-button>
 </form>

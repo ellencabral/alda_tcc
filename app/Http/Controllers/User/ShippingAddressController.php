@@ -103,15 +103,11 @@ class ShippingAddressController extends Controller
 
         $shippingAddress->save();
 
-        return redirect(route('profile.shipping-address.index', $request->id));
+        return redirect(route('profile.shipping-address.index'));
     }
 
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('shippingAddressDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
         $shippingAddress = ShippingAddress::find($request->id);
 
         $shippingAddress->delete();
@@ -124,6 +120,6 @@ class ShippingAddressController extends Controller
             }
         }
 
-        return redirect(route('profile.edit'));
+        return redirect(route('profile.shipping-address.index'));
     }
 }

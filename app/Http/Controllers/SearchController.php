@@ -10,25 +10,33 @@ use Illuminate\View\View;
 
 class SearchController extends Controller
 {
-    public function search(Request $request): View
+    public function search(Request $request)
     {
-        $searchText = $request->input('search_text');
+        try {
+            $searchType = $request->input('search_type');
 
-        $searchType = $request->input('search_type');
+            $searchText = $request->input('search_text');
 
-        if($searchType == 'Produtos') {
-            $model = new Product();
+            if($searchType != null) {
+                if($searchType == 'Produtos') {
+                    $model = new Product();
+                }
+                elseif($searchType == 'Lojas') {
+                    $model = new Shop();
+                }
+            }
+
+            if($model) {
+                $results = $model::where('name', 'like', '%' . $searchText . '%')->paginate(10);
+            }
+
+            return view('search-results', [
+                'results' => $results,
+                'searchText' => $searchText,
+                'searchType' => $searchType
+            ]);
+        } catch(\Exception $e) {
+            return back();
         }
-        if($searchType == 'Lojas') {
-            $model = new Shop();
-        }
-
-        $results = $model::where('name', 'like', '%' . $searchText . '%')->paginate(10);
-
-        return view('search-results', [
-            'results' => $results,
-            'searchText' => $searchText,
-            'searchType' => $searchType
-        ]);
     }
 }

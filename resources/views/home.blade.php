@@ -1,13 +1,9 @@
 <x-app-layout>
-    <x-slot name="navigation">
-        @include('layouts.navigation.app')
-    </x-slot>
-
-    <x-form-search/>
-
     <section class="grid gap-4">
         <div>
-            <h1 class="font-extrabold text-3xl">Oi, {{ Auth::user()->name }}</h1>
+            <h1 class="font-extrabold text-3xl mt-8">
+                Oi, {{ Auth::user()->name }}
+            </h1>
             <p class="mt-2">
                 Bem-vindo(a) à ALDA
             </p>
@@ -31,7 +27,7 @@
                 Últimos Produtos
             </h2>
             <a class="underline text-secondary-300 hover:text-secondary-500 transition ease-in-out duration-150"
-               href="{{ route('search-results') }}">
+               href="{{ route('search-results', ['search_type' => 'Produtos', 'search_text' => ' ']) }}">
                 Ver mais
             </a>
         </div>

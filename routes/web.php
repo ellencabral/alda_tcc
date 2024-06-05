@@ -46,7 +46,7 @@ Route::middleware(['auth', 'permission:activate shop'])->group(function () {
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::delete('/cart/remove/{id}', [CartController::class, 'delete'])->name('cart.remove');
-Route::patch('/cart/edit/{id}', [CartController::class, 'update'])->name('cart.edit');
+Route::patch('/cart/update/{id}', [CartController::class, 'update'])->name('cart.update');
 Route::get('/cart/destroy', [CartController::class, 'destroy'])->name('cart.destroy');
 
 Route::get('/shop/{url}', [ShopController::class, 'show'])->name('shops.show');

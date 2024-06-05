@@ -1,54 +1,51 @@
-<section>
-    @if($results->isNotEmpty())
-        <div class="mt-4">
-            {{ $results->links() }}
-        </div>
+@if($results->isEmpty())
+    <span class="h-40 w-full bg-gray-200"></span>
+    <p class="text-gray-600 text-sm">
+        Nenhum resultado encontrado.
+    </p>
+@else
+    <section class="grid gap-4">
+        {{ $results->links() }}
 
-        @foreach($results as $result)
-            <ul class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="flex justify-between items-center p-6 text-gray-900 dark:text-gray-100">
-                    <div class="flex items-center">
-                        @if($searchType == 'Produtos')
-                            <li>
-                                <img style="width:60px;" src="/img/products/{{ $result->image }}" alt="Imagem de {{ $result->name }}"/>
-                            </li>
-                        @endif
+        <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8">
+            @foreach($results as $result)
+                <ul id="product-card" class="grid gap-2">
+                    @if($searchType == 'Produtos')
                         <li>
-                            <h1 class="mb-4 font-semibold text-xl">
-                                {{ $result->name }}
-                            </h1>
+                            <img class="w-full rounded-lg"
+                                 src="/img/products/{{ $result->image }}"
+                                 alt="Imagem de {{ $result->name }}"/>
                         </li>
-                    </div>
-                    <div class="flex items-center">
-                        @if($searchType == 'Produtos')
-                            <li>
-                                <p>{{ $result->priceFormat() }}</p>
-                            </li>
-                            <li>
-                                <x-nav-link href="{{ route('products.show', $result) }}">
-                                    Ver Detalhes
-                                </x-nav-link>
-                            </li>
-                        @elseif($searchType == 'Lojas')
-                            <li>
-                                <x-nav-link href="{{ route('shops.show', $result->url) }}">
-                                    Ver Detalhes
-                                </x-nav-link>
-                            </li>
-                        @endif
-                    </div>
-                </div>
-            </ul>
-        @endforeach
+                    @endif
 
-        <div class="mt-4">
-            {{ $results->links() }}
+                    <li>
+                        <h2 class="truncate underline text-gray-900 hover:text-gray-600 transition duration-150">
+                            <a href="{{ route('products.show', $result) }}">
+                                {{ $result->name }}
+                            </a>
+                        </h2>
+                    </li>
+
+                    @if($searchType == 'Produtos')
+                        <li class="flex justify-between items-center">
+                            <p class="font-bold text-secondary-300">
+                                {{ $result->priceFormat($result->sale_price) }}
+                            </p>
+                            <x-link-button class="h-8 w-fit" href="{{ route('products.show', $result) }}">
+                                Ver Detalhes
+                            </x-link-button>
+                        </li>
+                    @elseif($searchType == 'Lojas')
+                        <li class="flex justify-end">
+                            <x-link-button class="w-full" href="{{ route('shops.show', $result->url) }}">
+                                Ver Detalhes
+                            </x-link-button>
+                        </li>
+                    @endif
+                </ul>
+            @endforeach
         </div>
-    @else
-        <div class="mt-4 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 text-gray-900 dark:text-gray-100">
-                Nenhum resultado encontrado
-            </div>
-        </div>
-    @endif
-</section>
+
+        {{ $results->links() }}
+    </section>
+@endif
