@@ -1,5 +1,5 @@
 <x-app-layout>
-    <header class="mt-8 grid gap-4">
+    <header class="my-8 grid gap-4">
         <div class="flex flex-col justify-center items-center">
             <div class="h-32 w-32 rounded-full bg-gray-200">
                 <!-- Shop Image -->

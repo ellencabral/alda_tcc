@@ -39,19 +39,23 @@
             </div>
         </header>
 
+        <!-- Session Status -->
+        @if(session('status') !== null)
+            <div class="mx-4 relative">
+                @if (session('status') === 'profile-updated')
+                    <x-status-message :type="'success'">
+                        Salvou.
+                    </x-status-message>
+                @endif
+            </div>
+        @endif
+
         <!-- Breadcrumbs -->
         @isset($breadcrumbs)
             <nav class="mx-4">
                 {{ $breadcrumbs }}
             </nav>
         @endisset
-
-        <!-- Session Status -->
-        @if(session('status') !== null)
-            <div class="mx-4 mt-8 ">
-
-            </div>
-        @endif
 
         <!-- Page Content -->
         <main class="flex-grow mx-4">

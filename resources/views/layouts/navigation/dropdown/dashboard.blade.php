@@ -22,18 +22,23 @@
                     Início
                 </x-dropdown-link>
 
-                <x-dropdown-link :href="route('profile.edit')">
+                <x-dropdown-link :href="route('shops.show', Auth::user()->shop->url)">
                     <i class="fa-solid fa-store mr-2"></i>
                     Minha Loja
                 </x-dropdown-link>
 
-                <x-dropdown-link class="flex items-center" :href="route('cart')">
+                <x-dropdown-link :href="route('artisan.shops.edit')">
+                    <i class="fa-solid fa-gear mr-2"></i>
+                    Configurações
+                </x-dropdown-link>
+
+                <x-dropdown-link class="flex items-center" :href="route('artisan.products.index')">
                     <i class="fa-solid fa-bag-shopping mr-3"></i>
                     Produtos
                 </x-dropdown-link>
 
-                <x-dropdown-link :href="route('commissions.index')">
-                    <i class="fa-solid fa-box-archive mr-2"></i>
+                <x-dropdown-link :href="route('artisan.commissions.index')">
+                    <i class="fa-solid fa-box-open mr-1"></i>
                     Encomendas
                 </x-dropdown-link>
             @else <!-- Admin Links -->

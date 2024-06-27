@@ -58,61 +58,60 @@
             </div>
         </header>
 
-        <!-- Search Bar -->
-        @auth
-            <search class="mx-4">
-                <x-form-search/>
-            </search>
-        @endauth
-
-        <!-- Breadcrumbs -->
-        @isset($breadcrumbs)
-            <nav class="mx-4">
-                {{ $breadcrumbs }}
-            </nav>
-        @endisset
-
         <!-- Session Status -->
         @if(session('status') !== null)
-            <div class="mx-4 mt-8 ">
+            <div class="mx-4 relative">
                 @if(session('status') == 'verification-link-sent')
-                    <p class="p-4 rounded font-medium text-sm bg-green-400">
+                    <x-status-message :type="'success'">
                         Um novo e-mail de verificação foi enviado para o e-mail que você inseriu.
-                    </p>
+                    </x-status-message>
                 @elseif(session('status') === 'product-added')
-                    <p class="p-4 rounded font-medium text-sm bg-green-400">
+                    <x-status-message :type="'success'">
                         Produto adicionado na sua sacola de compras.
-                    </p>
+                    </x-status-message>
                 @elseif(session('status') === 'product-not-added')
-                    <p class="p-4 rounded font-medium text-sm bg-yellow-400">
+                    <x-status-message :type="'warning'">
                         Esvazie sua sacola de compras ou finalize a encomenda antes de comprar um produto desta loja.
-                    </p>
+                    </x-status-message>
                 @elseif(session('status') === 'commission-stored')
-                    <div class="p-4 rounded bg-yellow-400">
-                        <h2 class="mb-2 font-bold">
-                            Encomenda solicitada!
-                        </h2>
-                        <p class="text-sm font-medium">
-                            Finalize o pagamento para que o artesão possa começar a produção.
-                        </p>
-                    </div>
+                    <x-status-message :type="'warning'" :static="true">
+                        Encomenda solicitada!
+                        Finalize o pagamento para que o artesão possa começar a produção.
+                    </x-status-message>
                 @elseif(session('status') === 'commission-destroyed')
-                    <div class="p-4 rounded bg-green-400">
-                        <p class="text-sm font-medium">
-                            Encomenda cancelada com sucesso.
-                        </p>
-                    </div>
+                    <x-status-message :type="'success'">
+                        Encomenda cancelada com sucesso.
+                    </x-status-message>
                 @else
                     <x-auth-session-status :status="session('status')"/>
                 @endif
             </div>
         @endif
+
+        <!-- Search Bar -->
+        @auth
+            @if(!request()->routeIs('categories.products.index'))
+                @if(!request()->routeIs('search-results'))
+                    <search class="mx-4 mb-8">
+                        <x-form-search/>
+                    </search>
+                @endif
+            @endif
+        @endauth
+
+        <!-- Breadcrumbs -->
+        @isset($breadcrumbs)
+            <nav class="mx-4 mb-8">
+                {{ $breadcrumbs }}
+            </nav>
+        @endisset
+
         <!-- Page Content -->
         <main class="flex-grow mx-4">
 
             <!-- Page Heading -->
             @isset($heading)
-                <h1 class="font-extrabold text-4xl text-gray-800 my-8">
+                <h1 class="font-extrabold text-4xl text-gray-800 mb-8">
                     {{ $heading }}
                 </h1>
             @endisset

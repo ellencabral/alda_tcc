@@ -34,7 +34,7 @@
                 </x-dropdown-link>
 
                 <x-dropdown-link :href="route('commissions.index')">
-                    <i class="fa-solid fa-box-archive mr-2"></i> Minhas Encomendas
+                    <i class="fa-solid fa-box-open mr-1"></i> Minhas Encomendas
                 </x-dropdown-link>
 
                 <!-- Authentication -->

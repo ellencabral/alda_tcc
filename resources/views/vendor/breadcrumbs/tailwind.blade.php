@@ -1,5 +1,5 @@
 @unless ($breadcrumbs->isEmpty())
-    <ol class="flex flex-wrap text-sm mt-4">
+    <ol class="flex flex-wrap text-sm">
         @foreach ($breadcrumbs as $breadcrumb)
 
             @if ($breadcrumb->url && !$loop->last)

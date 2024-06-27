@@ -123,7 +123,7 @@ Breadcrumbs::for('permissions.create', function($trail) {
 // Artesão
 
 Breadcrumbs::for('shops.dashboard', function($trail) {
-    $trail->push('Painel de Controle do Artesão', route('artisan.shops.dashboard'));
+    $trail->push('Painel de Controle', route('artisan.shops.dashboard'));
 });
 
 Breadcrumbs::for('shops.commissions.index', function ($trail) {
@@ -153,7 +153,7 @@ Breadcrumbs::for('products.edit', function($trail, $product) {
 
 Breadcrumbs::for('shops.edit', function($trail) {
     $trail->parent('shops.dashboard');
-    $trail->push("Configurações da Loja", route('artisan.shops.edit'));
+    $trail->push("Configurações", route('artisan.shops.edit'));
 });
 
 Breadcrumbs::for('shops.information.edit', function($trail) {

@@ -1,6 +1,6 @@
 <form class="w-full" action="{{ route('search-results') }}" method="GET">
     <div class="flex items-center justify-center py-2 px-4 border border-gray-400 rounded-lg">
-        <select class="p-0 w-48 sm:w-32 text-sm cursor-pointer border-none text-gray-600 focus:ring-transparent" name="search_type">
+        <select class="p-0 w-32 sm:w-32 text-sm cursor-pointer border-none text-gray-600 focus:ring-transparent" name="search_type">
             <option class="p-2" value="Produtos">Produtos</option>
             <option value="Lojas">Lojas</option>
         </select>
