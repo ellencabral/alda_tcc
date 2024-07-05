@@ -122,12 +122,37 @@ Breadcrumbs::for('permissions.create', function($trail) {
 
 // Artesão
 
-Breadcrumbs::for('shops.dashboard', function($trail) {
-    $trail->push('Painel de Controle', route('artisan.shops.dashboard'));
+Breadcrumbs::for('artisan.dashboard', function($trail) {
+    $trail->push('Painel de Controle', route('artisan.dashboard'));
+});
+
+Breadcrumbs::for('shops.edit', function($trail) {
+    $trail->parent('artisan.dashboard');
+    $trail->push("Configurações", route('artisan.shops.edit'));
+});
+
+Breadcrumbs::for('shops.information.edit', function($trail) {
+    $trail->parent('shops.edit');
+    $trail->push("Informações", route('artisan.shops.information.edit'));
+});
+
+Breadcrumbs::for('shops.customization.edit', function($trail) {
+    $trail->parent('shops.edit');
+    $trail->push("Personalização", route('artisan.shops.customization.edit'));
+});
+
+Breadcrumbs::for('shops.address.create', function($trail) {
+    $trail->parent('shops.edit');
+    $trail->push("Endereço", route('artisan.shops.address.edit'));
+});
+
+Breadcrumbs::for('shops.address.edit', function($trail) {
+    $trail->parent('shops.edit');
+    $trail->push("Endereço", route('artisan.shops.address.edit'));
 });
 
 Breadcrumbs::for('shops.commissions.index', function ($trail) {
-    $trail->parent('shops.dashboard');
+    $trail->parent('artisan.dashboard');
     $trail->push('Encomendas da Loja', route('artisan.commissions.index'));
 });
 
@@ -137,7 +162,7 @@ Breadcrumbs::for('shops.commissions.show', function ($trail, $commission) {
 });
 
 Breadcrumbs::for('products', function($trail) {
-    $trail->parent('shops.dashboard');
+    $trail->parent('artisan.dashboard');
     $trail->push('Produtos da Loja', route('artisan.products.index'));
 });
 
@@ -149,30 +174,4 @@ Breadcrumbs::for('products.create', function($trail) {
 Breadcrumbs::for('products.edit', function($trail, $product) {
     $trail->parent('products');
     $trail->push("Editar Produto '" . $product . "'", route('artisan.products.edit', $product));
-});
-
-Breadcrumbs::for('shops.edit', function($trail) {
-    $trail->parent('shops.dashboard');
-    $trail->push("Configurações", route('artisan.shops.edit'));
-});
-
-Breadcrumbs::for('shops.information.edit', function($trail) {
-    $trail->parent('shops.edit');
-    $trail->push("Dados da Loja", route('artisan.shops.information.edit'));
-});
-
-Breadcrumbs::for('shops.customization.edit', function($trail) {
-    $trail->parent('shops.edit');
-    $trail->push("Customização", route('artisan.shops.customization.edit'));
-});
-
-
-Breadcrumbs::for('shops.address.create', function($trail) {
-    $trail->parent('shops.edit');
-    $trail->push("Adicionar Endereço", route('artisan.shops.address.edit'));
-});
-
-Breadcrumbs::for('shops.address.edit', function($trail) {
-    $trail->parent('shops.edit');
-    $trail->push("Editar Endereço", route('artisan.shops.address.edit'));
 });

@@ -42,9 +42,9 @@
         <!-- Session Status -->
         @if(session('status') !== null)
             <div class="mx-4 relative">
-                @if (session('status') === 'profile-updated')
+                @if(session('status') === 'profile-updated')
                     <x-status-message :type="'success'">
-                        Salvou.
+                        Informações da loja alteradas com sucesso.
                     </x-status-message>
                 @endif
             </div>
@@ -52,7 +52,7 @@
 
         <!-- Breadcrumbs -->
         @isset($breadcrumbs)
-            <nav class="mx-4">
+            <nav class="mx-4 mb-8">
                 {{ $breadcrumbs }}
             </nav>
         @endisset
@@ -62,7 +62,7 @@
 
             <!-- Page Heading -->
             @isset($heading)
-                <h1 class="font-extrabold text-4xl text-gray-800 my-8">
+                <h1 class="font-extrabold text-4xl text-gray-800 mb-8">
                     {{ $heading }}
                 </h1>
             @endisset

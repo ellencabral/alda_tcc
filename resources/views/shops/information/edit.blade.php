@@ -6,9 +6,9 @@
         {{ Breadcrumbs::render('shops.information.edit') }}
     </x-slot>
 
-    <form method="POST"
-          action="{{ route('artisan.shops.information.update', $shop->id) }}"
-          class="grid gap-8">
+    <form class="grid gap-8"
+          method="POST"
+          action="{{ route('artisan.shops.information.update', $shop->id) }}">
         @csrf
         @method('patch')
 
@@ -17,6 +17,7 @@
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $shop->name)" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
+
         <div>
 
             <x-input-label for="url" :value="'Url da loja'" />
@@ -31,7 +32,6 @@
             <x-primary-button class="w-full">
                 {{ __('Save') }}
             </x-primary-button>
-
         </div>
     </form>
 

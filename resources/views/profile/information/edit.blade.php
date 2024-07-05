@@ -7,13 +7,13 @@
         Dados Pessoais
     </x-slot>
 
-
-
 {{--    <form id="send-verification" method="post" action="{{ route('verification.send') }}">--}}
 {{--        @csrf--}}
 {{--    </form>--}}
 
-    <form class="grid gap-8" method="post" action="{{ route('profile.update') }}">
+    <form class="grid gap-8"
+          method="post"
+          action="{{ route('profile.update') }}">
         @csrf
         @method('patch')
 
@@ -54,7 +54,7 @@
                         </button>
                     </p>
 
-                    @if (session('status') === 'verification-link-sent')
+                    @if(session('status') === 'verification-link-sent')
                         <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
@@ -67,16 +67,6 @@
             <x-primary-button class="w-full">
                 {{ __('Save') }}
             </x-primary-button>
-
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Saved.') }}</p>
-            @endif
         </div>
     </form>
 

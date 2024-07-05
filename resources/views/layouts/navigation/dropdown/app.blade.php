@@ -27,9 +27,9 @@
                 <x-dropdown-link class="flex items-center" :href="route('cart')">
                     <i class="fa-solid fa-bag-shopping mr-3"></i> Sacola de Compras
                     @if(\Cart::content()->isNotEmpty())
-                        <span class="font-bold bg-red-700 h-4 w-4 flex items-center justify-center rounded-full text-white">
-                                {{ \Cart::content()->count() }}
-                            </span>
+                        <span class="text-xs ml-2 font-extrabold shadow-md bg-secondary-300 h-4 w-4 flex items-center justify-center rounded-full">
+                            {{ \Cart::content()->count() }}
+                        </span>
                     @endif
                 </x-dropdown-link>
 

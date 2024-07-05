@@ -3,7 +3,7 @@
 
     <x-nav-link
         :href="route('home')"
-        :active="request()->routeIs('home')">
+        :active="request()->routeIs('artisan.dashboard')">
         Início
     </x-nav-link>
 

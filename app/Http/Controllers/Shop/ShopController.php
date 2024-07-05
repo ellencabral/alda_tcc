@@ -12,7 +12,7 @@ class ShopController extends Controller
 {
     public function dashboard(Request $request): View
     {
-        return view('shops.dashboard', [
+        return view('artisan.dashboard', [
             'shop' => $request->user()->shop,
         ]);
     }

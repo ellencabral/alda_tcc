@@ -38,7 +38,7 @@
                     @endrole
 
                     @role('artisan')
-                    <x-link-button class="h-8" :href="route('artisan.shops.dashboard')">
+                    <x-link-button class="h-8" :href="route('artisan.dashboard')">
                         Painel do Artesão
                     </x-link-button>
                     @endrole
@@ -61,7 +61,11 @@
         <!-- Session Status -->
         @if(session('status') !== null)
             <div class="mx-4 relative">
-                @if(session('status') == 'verification-link-sent')
+                @if(session('status') == 'profile-updated')
+                    <x-status-message :type="'success'">
+                        Perfil alterado com sucesso.
+                    </x-status-message>
+                @elseif(session('status') == 'verification-link-sent')
                     <x-status-message :type="'success'">
                         Um novo e-mail de verificação foi enviado para o e-mail que você inseriu.
                     </x-status-message>

@@ -1,54 +1,55 @@
 <x-dashboard-layout>
+    <x-slot name="breadcrumbs">
+        {{ Breadcrumbs::render('shops.edit') }}
+    </x-slot>
+
     <x-slot name="heading">
         Configurações da Loja
     </x-slot>
 
-    <x-nav-link href="{{ route('artisan.shops.information.edit') }}">
-        Editar Dados da Loja
-    </x-nav-link>
+    <section class="grid gap-4">
+        <span class="w-full h-40 bg-gray-200">
+            <!-- Imagem -->
+        </span>
 
-    <x-nav-link href="{{ route('artisan.shops.customization.edit') }}">
-        Customizar
-    </x-nav-link>
-
-    <x-nav-link href="{{ route('artisan.shops.address.edit') }}">
-        @if($shop->street) Editar @else Adicionar @endif Endereço
-    </x-nav-link>
-
-    @include('shops.partials.delete-shop-form')
-
-    <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-        <div class="max-w-xl">
-
-            {{--                        <ul>--}}
-            {{--                            <li>--}}
-            {{--                                Rua: {{ $shop->street }}--}}
-            {{--                            </li>--}}
-            {{--                            <li>--}}
-            {{--                                Número: {{ $shop->number }}--}}
-            {{--                            </li>--}}
-            {{--                            @if($shop->complement)--}}
-            {{--                                <li>--}}
-            {{--                                    Complemento: {{ $shop->complement }}--}}
-            {{--                                </li>--}}
-            {{--                            @endif--}}
-            {{--                            <li>--}}
-            {{--                                Bairro: {{ $shop->locality }}--}}
-            {{--                            </li>--}}
-            {{--                            <li>--}}
-            {{--                                Cidade: {{ $shop->city }}--}}
-            {{--                            </li>--}}
-            {{--                            <li>--}}
-            {{--                                Estado: {{ $shop->region_code }}--}}
-            {{--                            </li>--}}
-            {{--                            <li>--}}
-            {{--                                CEP: {{ $shop->postal_code }}--}}
-            {{--                            </li>--}}
-            {{--                        </ul>--}}
-
-
+        <div class="flex items-center gap-2">
+            <span class="w-16 h-16 bg-gray-200 rounded-full">
+                <!-- Imagem -->
+            </span>
+            <div class="flex flex-col">
+                <h2 class="font-extrabold">
+                    {{ Auth::user()->shop->name }}
+                </h2>
+                <p class="uppercase text-xs text-gray-400">
+                    site.com.br/<span class="font-bold text-secondary-300">{{ Auth::user()->shop->url }}</span>
+                </p>
+            </div>
         </div>
-    </div>
+        <div class="flex justify-between items-center">
+            <x-link :color="'primary'" class="py-4" href="{{ route('artisan.shops.information.edit') }}">
+                Informações
+            </x-link>
+            <i class="fa-solid fa-pen text-gray-400"></i>
+        </div>
 
+        <hr/>
+        <div class="flex justify-between items-center">
+            <x-link :color="'primary'" class="py-4" href="{{ route('artisan.shops.customization.edit') }}">
+                Personalização
+            </x-link>
+            <i class="fa-solid fa-pen text-gray-400"></i>
+        </div>
+
+        <hr/>
+        <div class="flex justify-between items-center">
+            <x-link :color="'primary'" class="py-4" href="{{ route('artisan.shops.address.edit') }}">
+                Endereço
+            </x-link>
+            <i class="fa-solid fa-pen text-gray-400"></i>
+        </div>
+
+        @include('shops.partials.delete-shop-form')
+
+    </section>
 
 </x-dashboard-layout>
