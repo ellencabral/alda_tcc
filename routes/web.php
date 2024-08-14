@@ -125,7 +125,7 @@ Route::middleware(['auth', 'role:artisan'])
     ->prefix('artisan')
     ->group(function () {
 
-    Route::get('/dashboard', [ShopController::class, 'dashboard'])->name('dashboard');
+    Route::get('/home', [\App\Http\Controllers\Artisan\IndexController::class, 'index'])->name('index');
 
     // CONFIGURAR LOJA
     Route::get('/shop', [ShopController::class, 'edit'])->name('shops.edit');

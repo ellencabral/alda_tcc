@@ -122,12 +122,12 @@ Breadcrumbs::for('permissions.create', function($trail) {
 
 // Artesão
 
-Breadcrumbs::for('artisan.dashboard', function($trail) {
-    $trail->push('Painel de Controle', route('artisan.dashboard'));
+Breadcrumbs::for('artisan.index', function($trail) {
+    $trail->push('Painel de Controle', route('artisan.index'));
 });
 
 Breadcrumbs::for('shops.edit', function($trail) {
-    $trail->parent('artisan.dashboard');
+    $trail->parent('artisan.index');
     $trail->push("Configurações", route('artisan.shops.edit'));
 });
 
@@ -152,7 +152,7 @@ Breadcrumbs::for('shops.address.edit', function($trail) {
 });
 
 Breadcrumbs::for('shops.commissions.index', function ($trail) {
-    $trail->parent('artisan.dashboard');
+    $trail->parent('artisan.index');
     $trail->push('Encomendas da Loja', route('artisan.commissions.index'));
 });
 
@@ -162,7 +162,7 @@ Breadcrumbs::for('shops.commissions.show', function ($trail, $commission) {
 });
 
 Breadcrumbs::for('products', function($trail) {
-    $trail->parent('artisan.dashboard');
+    $trail->parent('artisan.index');
     $trail->push('Produtos da Loja', route('artisan.products.index'));
 });
 

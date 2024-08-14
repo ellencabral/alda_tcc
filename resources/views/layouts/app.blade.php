@@ -38,7 +38,7 @@
                     @endrole
 
                     @role('artisan')
-                    <x-link-button class="h-8" :href="route('artisan.dashboard')">
+                    <x-link-button class="h-8" :href="route('artisan.index')">
                         Painel do Artesão
                     </x-link-button>
                     @endrole

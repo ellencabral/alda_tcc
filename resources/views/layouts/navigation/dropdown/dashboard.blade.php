@@ -17,7 +17,7 @@
             </p>
 
             @role('artisan')
-                <x-dropdown-link :href="route('artisan.dashboard')">
+                <x-dropdown-link :href="route('artisan.index')">
                     <i class="fa-solid fa-house mr-2"></i>
                     Início
                 </x-dropdown-link>
